@@ -36,6 +36,7 @@ $this->load->view('utilities/page_head',$data);
             </form>
         </div>
         <div class="col s9">
+            <div class="row">
             <div class="card col s3">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src="assets/img/p1.jpg">
