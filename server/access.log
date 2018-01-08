@@ -8,3 +8,5 @@
 127.0.0.1 - - [08/Jan/2018:13:57:05 +0100] "GET /test HTTP/1.1" 200 717 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.97 Safari/537.36 Vivaldi/1.94.1008.40"
 127.0.0.1 - - [08/Jan/2018:13:57:19 +0100] "GET /test HTTP/1.1" 200 718 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.97 Safari/537.36 Vivaldi/1.94.1008.40"
 127.0.0.1 - - [08/Jan/2018:13:57:58 +0100] "GET /test HTTP/1.1" 200 727 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.97 Safari/537.36 Vivaldi/1.94.1008.40"
+127.0.0.1 - - [08/Jan/2018:14:33:56 +0100] "GET / HTTP/1.1" 200 1144 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0"
+127.0.0.1 - - [08/Jan/2018:14:33:56 +0100] "GET /favicon.ico HTTP/1.1" 404 1342 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0"
