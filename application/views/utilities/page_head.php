@@ -9,8 +9,11 @@
 
     <!-- Media -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url().'assets/css/master.css'?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url().'assets/css/materialize.min.css'?>">
+
     <?php
         // For specific environment
         //if(isset($env) && $env === 'child'){
