@@ -12,11 +12,7 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Stylesheet -->
-<<<<<<< HEAD
-    <link rel="stylesheet" type="text/css" href="<?= base_url().'Projets4/assets/css/materialize.min.css'?>">
-=======
-    <link rel="stylesheet" type="text/css" href="<?= base_url().'projets4/assets/css/materialize.min.css'?>">
->>>>>>> 70147bb024653c0d4e174b316a4ef683b5873724
+    <link rel="stylesheet" type="text/css" href="<?= base_url().'assets/css/materialize.min.css'?>">
 
     <?php
         // For specific environment

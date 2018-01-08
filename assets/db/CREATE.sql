@@ -58,6 +58,13 @@ CREATE TABLE Disponible(
   FOREIGN KEY (id_livre) REFERENCES Livre(id)
 );
 
+CREATE TABLE Rallye(
+  id SERIAL PRIMARY KEY,
+  libelle VARCHAR(50),
+  date DATE,
+  nbLivre INT(5)
+);
+
 CREATE TABLE ThemeRallye(
   id_theme BIGINT UNSIGNED,
   id_rallye BIGINT UNSIGNED,
@@ -65,12 +72,7 @@ CREATE TABLE ThemeRallye(
   FOREIGN KEY (id_rallye) REFERENCES Rallye(id)
 );
 
-CREATE TABLE Rallye(
-  id SERIAL PRIMARY KEY,
-  libelle VARCHAR(50),
-  date DATE,
-  nbLivre INT(5)
-);
+
 
 CREATE TABLE LivreRallye(
   id_livre BIGINT UNSIGNED,
