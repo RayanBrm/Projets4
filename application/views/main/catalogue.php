@@ -1,22 +1,25 @@
 <?php
-$data["title"]="catalogue";
-$this->load->view('utilities/page_head',$data);
+$data["title"] = "catalogue";
+$this->load->view('utilities/page_head', $data);
 ?>
 
+<div class="navbar-fixed">
+    <nav>
 
-<nav>
-    <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Logo</a>
-        <ul class="right hide-on-med-and-down">
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Logo</a>
+            <ul class="right hide-on-med-and-down">
                 <li><a href="sass.html"><i class="material-icons left">people</i>Connexion</a></li>
-        </ul>
-    </div>
-</nav>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <div class="container">
+    <br>
     <div class="row">
 
-        <div class="col s3">
+        <div class="col s3" >
             <br>
             <form class="col s12">
                 <div class="row">
@@ -37,23 +40,26 @@ $this->load->view('utilities/page_head',$data);
         </div>
         <div class="col s9">
             <br>
-            <div>
-                <p>Liste des livres</p>
-            </div>
+
             <div class="row">
-            <div class="card col s3">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="assets/img/p1.jpg">
+                <h1 class="center">Catalogue</h1>
+                <br>
+                <div class="card col s3">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="assets/img/p1.jpg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Harry Potter</span>
+                        <p><a href="#">Détails</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>
+                        <p><ul class="pink-text">
+                            <li>Auteur : blabla</li>
+                            <li>Genre : blablablabla</li>
+                        </ul></p>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Harry Potter</span>
-                    <p><a href="#">Détails</a></p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                </div>
-            </div>
                 <div class="card col s3">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="assets/img/b1.jpg">
@@ -64,7 +70,10 @@ $this->load->view('utilities/page_head',$data);
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">Babar<i class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <p><ul class="pink-text">
+                            <li>Auteur : blabla</li>
+                            <li>Genre : blablablabla</li>
+                        </ul></p>
                     </div>
                 </div>
                 <div class="card col s3">
@@ -76,8 +85,12 @@ $this->load->view('utilities/page_head',$data);
                         <p><a href="#">Détails</a></p>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Oui-Oui<i class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <span class="card-title grey-text text-darken-4">Oui-Oui<i
+                                    class="material-icons right">close</i></span>
+                        <p><ul class="pink-text">
+                            <li>Auteur : blabla</li>
+                            <li>Genre : blablablabla</li>
+                        </ul></p>
                     </div>
                 </div>
                 <div class="card col s3">
@@ -90,7 +103,10 @@ $this->load->view('utilities/page_head',$data);
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">Titeuf<i class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is oinly revealed once clicked on.</p>
+                        <p><ul class="pink-text">
+                            <li>Auteur : blabla</li>
+                            <li>Genre : blablablabla</li>
+                        </ul></p>
                     </div>
                 </div>
                 <div class="row">
@@ -103,8 +119,12 @@ $this->load->view('utilities/page_head',$data);
                             <p><a href="#">Détails</a></p>
                         </div>
                         <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            <span class="card-title grey-text text-darken-4">Harry Potter<i
+                                        class="material-icons right">close</i></span>
+                            <p><ul class="pink-text">
+                                <li>Auteur : blabla</li>
+                                <li>Genre : blablablabla</li>
+                            </ul></p>
                         </div>
                     </div>
                     <div class="card col s3">
@@ -116,8 +136,12 @@ $this->load->view('utilities/page_head',$data);
                             <p><a href="#">Détails</a></p>
                         </div>
                         <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Babar<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            <span class="card-title grey-text text-darken-4">Babar<i
+                                        class="material-icons right">close</i></span>
+                            <p><ul class="pink-text">
+                                <li>Auteur : blabla</li>
+                                <li>Genre : blablablabla</li>
+                            </ul></p>
                         </div>
                     </div>
                     <div class="card col s3">
@@ -130,7 +154,10 @@ $this->load->view('utilities/page_head',$data);
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">Oui-Oui<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            <p><ul class="pink-text">
+                                <li>Auteur : blabla</li>
+                                <li>Genre : blablablabla</li>
+                            </ul></p>
                         </div>
                     </div>
                     <div class="card col s3">
@@ -142,8 +169,12 @@ $this->load->view('utilities/page_head',$data);
                             <p><a href="#">Détails</a></p>
                         </div>
                         <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Titeuf<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is oinly revealed once clicked on.</p>
+                            <span class="card-title grey-text text-darken-4">Titeuf<i
+                                        class="material-icons right">close</i></span>
+                            <p><ul class="pink-text">
+                                <li>Auteur : blabla</li>
+                                <li>Genre : blablablabla</li>
+                            </ul></p>
                         </div>
                     </div>
                     <div class="row">
@@ -156,8 +187,12 @@ $this->load->view('utilities/page_head',$data);
                                 <p><a href="#">Détails</a></p>
                             </div>
                             <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                <span class="card-title grey-text text-darken-4">Harry Potter<i
+                                            class="material-icons right">close</i></span>
+                                <p><ul class="pink-text">
+                                    <li>Auteur : blabla</li>
+                                    <li>Genre : blablablabla</li>
+                                </ul></p>
                             </div>
                         </div>
                         <div class="card col s3">
@@ -170,7 +205,10 @@ $this->load->view('utilities/page_head',$data);
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">Babar<i class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                <p><ul class="pink-text">
+                                    <li>Auteur : blabla</li>
+                                    <li>Genre : blablablabla</li>
+                                </ul></p>
                             </div>
                         </div>
                         <div class="card col s3">
@@ -183,7 +221,10 @@ $this->load->view('utilities/page_head',$data);
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">Oui-Oui<i class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                <p><ul class="pink-text">
+                                    <li>Auteur : blabla</li>
+                                    <li>Genre : blablablabla</li>
+                                </ul></p>
                             </div>
                         </div>
                         <div class="card col s3">
@@ -196,16 +237,18 @@ $this->load->view('utilities/page_head',$data);
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">Titeuf<i class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is oinly revealed once clicked on.</p>
+                                <p><ul class="pink-text">
+                                    <li>Auteur : blabla</li>
+                                    <li>Genre : blablablabla</li>
+                                </ul></p>
                             </div>
                         </div>
 
-    </div>
-</div>
+                    </div>
+                </div>
 
 
+                <?php
 
-<?php
-
-$this->load->view('utilities/page_footer');
-?>
+                $this->load->view('utilities/page_footer');
+                ?>
