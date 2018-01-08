@@ -16,6 +16,16 @@ class Main extends CI_Controller
 
     public function index()
     {
+        $this->catalogue();
+    }
+
+    public function catalogue()
+    {
+        $this->load->view('main/catalogue');
+    }
+
+    public function historique()
+    {
         $this->load->view('main/catalogue');
     }
 
