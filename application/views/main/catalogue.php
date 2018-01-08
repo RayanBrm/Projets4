@@ -82,7 +82,7 @@ $this->load->view('utilities/page_head',$data);
                 </div>
                 <div class="card col s3">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="assets/img/p1.jpg">
+                        <img class="activator" src="assets/img/t1.jpg">
                     </div>
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">Titeuf</span>
@@ -93,6 +93,112 @@ $this->load->view('utilities/page_head',$data);
                         <p>Here is some more information about this product that is oinly revealed once clicked on.</p>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="card col s3">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="assets/img/p1.jpg">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Harry Potter</span>
+                            <p><a href="#">Détails</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                    <div class="card col s3">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="assets/img/b1.jpg">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Babar</span>
+                            <p><a href="#">Détails</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Babar<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                    <div class="card col s3">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="assets/img/o1.jpg">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Oui-Oui</span>
+                            <p><a href="#">Détails</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Oui-Oui<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                    <div class="card col s3">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="assets/img/t1.jpg">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Titeuf</span>
+                            <p><a href="#">Détails</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Titeuf<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is oinly revealed once clicked on.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card col s3">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="assets/img/p1.jpg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Harry Potter</span>
+                                <p><a href="#">Détails</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>
+                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            </div>
+                        </div>
+                        <div class="card col s3">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="assets/img/b1.jpg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Babar</span>
+                                <p><a href="#">Détails</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Babar<i class="material-icons right">close</i></span>
+                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            </div>
+                        </div>
+                        <div class="card col s3">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="assets/img/o1.jpg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Oui-Oui</span>
+                                <p><a href="#">Détails</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Oui-Oui<i class="material-icons right">close</i></span>
+                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                            </div>
+                        </div>
+                        <div class="card col s3">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="assets/img/t1.jpg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Titeuf</span>
+                                <p><a href="#">Détails</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Titeuf<i class="material-icons right">close</i></span>
+                                <p>Here is some more information about this product that is oinly revealed once clicked on.</p>
+                            </div>
+                        </div>
 
     </div>
 </div>
