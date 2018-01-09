@@ -9,10 +9,15 @@ echo $script;
 
 <div class="row">
     <div class="col s3">
+        <br>
+        <br>
+        <br>
+        <br>
+        
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">search</i>
+                    <i class="material-icons prefix light-blue-text">search</i>
                     <input name="title" id="icon_prefix" type="text" class="validate pink-text" onchange="rechercher()">
                     <label for="icon_prefix">Titre</label>
                 </div>
