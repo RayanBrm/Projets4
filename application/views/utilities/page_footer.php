@@ -9,8 +9,8 @@
             $('.chips').material_chip();
 
             $('.chips-placeholder').material_chip({
-                placeholder: 'mot-clé',
-                secondaryPlaceholder: '+un autre ?',
+                placeholder: 'Mot-clé',
+                secondaryPlaceholder: '+Un autre ?',
             });
         </script>
     </body>
