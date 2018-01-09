@@ -48,6 +48,7 @@ CREATE TABLE Auteur(
 
 CREATE TABLE Livre(
   id SERIAL PRIMARY KEY,
+  isbn INT(13),
   titre VARCHAR(150),
   auteur VARCHAR(150),
   edition VARCHAR(100),

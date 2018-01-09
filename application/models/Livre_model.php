@@ -3,6 +3,7 @@
 class Livre_model extends CI_Model
 {
     private $table = 'Livre';
+    private $fields = array('titre','auteur','edition','parution','couverture','theme');
 
         public function __construct()
     {
@@ -38,12 +39,35 @@ class Livre_model extends CI_Model
                         ->delete($this->table);
     }
 
-    public function searchName(string $booktTitle): ?array
+    public function searchName(string $bookTitle): ?array
     {
         return $this->db->select()
                         ->from($this->table)
-                        ->like('titre',$booktTitle)
-                    ->get()
-                    ->result_array();
+                        ->like('titre',$bookTitle)
+                        ->get()
+                        ->result_array();
+    }
+
+    public function searchAuthor(string $bookAuthor): ?array
+    {
+        return $this->db->select()
+                        ->from($this->table)
+                        ->like('auteur',$bookAuthor)
+                        ->get()
+                        ->result_array();
+    }
+
+    public function search(string $keyWord): ?array
+    {
+
+         $this->db->select()
+                  ->from($this->table);
+         foreach($this->fields as $field)
+         {
+            $this->db->or_like($field,$keyWord);
+         }
+         return
+            $this->db->get()
+                     ->result_array();
     }
 }
