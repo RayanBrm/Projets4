@@ -74,11 +74,10 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost;dbname=projets4;charset=utf8',
+	'dsn'	=> 'mysql:host=localhost;dbname=ProjetS4;charset=utf8',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '242htl8J3003',
-	'database' => 'projets4',
+	'database' => 'ProjetS4',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

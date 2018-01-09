@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: guillaume
- * Date: 08/01/18
- * Time: 13:44
- */
 
 class Test extends CI_Controller
 {
@@ -25,7 +19,7 @@ class Test extends CI_Controller
     {
         $data = array();
 
-        $data['report']['test'] = $this->test();
+        $data['report']['livre'] = $this->livreTest();
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
@@ -33,21 +27,60 @@ class Test extends CI_Controller
         $this->load->view('test/display',$data);
     }
 
-    private function test()
+    private function livreTest()
     {
-        $result = array();          // List of report from this test unit
-        $expected_foo = "0";  // expected result for method named firstTest
-        $expected_bar = "1";
+        $result = array();
 
-        // Method to test return : $this->model_name_to_test->method_to_test();
-        $obtained = "0";
-        // Run the test and assign resulted report into data array
-        $result['first']['foo'] = $this->unit->run($obtained,$expected_foo,'test->foo');
+        $livre_id = '1';
 
-        $obtained = "0";
-        $result['first']['bar'] = $this->unit->run($obtained,$expected_bar,'test->bar');
+        $expected_get[0] = array(
+            'id'=>'1',
+            'titre'=>'Harry Potter et la chambre des secrets',
+            'auteur'=>'J.K. Rowling',
+            'edition'=>'Folio Junior',
+            'parution'=>'2017-10-12',
+            'couverture'=>'/home/guillaume/Projets4/assets/images/livres/1.jpg',
+            'theme'=>'1'
+        );
 
-        foreach ($result['first'] as $test){
+        $expected_add = array(
+            'titre'=>'Harry Potter',
+            'auteur'=>'J.K. Rowling',
+            'edition'=>'Folio Junior',
+            'parution'=>'2017-10-12',
+            'couverture'=>'/home/guillaume/Projets4/assets/images/livres/2.jpg',
+            'theme'=>'1'
+        );
+
+        $expected_set = array(
+            'titre'=>'Harry Petteur',
+            'auteur'=>'J.K. Rowling',
+            'edition'=>'Folio Junior',
+            'parution'=>'2017-10-12',
+            'couverture'=>'/home/guillaume/Projets4/assets/images/livres/2.jpg',
+            'theme'=>'1'
+        );
+
+        $expected_del = null;
+
+        $obtained = $this->livre->get(array('id'=>$livre_id));
+        $result['livre']['get'] = $this->unit->run($obtained,$expected_get,'livre->get');
+
+        $this->livre->add($expected_add);
+        $obtained = $this->livre->get(array('titre'=>$expected_add['titre']))[0];
+        $expected_add['id'] = $obtained['id'];
+        $result['livre']['add'] = $this->unit->run($obtained,$expected_add, 'livre->add');
+
+        $expected_set['id'] = $obtained['id'];
+        $this->livre->set($expected_set);
+        $obtained = $this->livre->get(array('id'=>$expected_set['id']))[0];
+        $result['livre']['set'] = $this->unit->run($obtained,$expected_set,'livre->set');
+
+        $this->livre->del(array('id'=>$expected_set['id']));
+        $obtained = $this->livre->get(array('id'=>$expected_set['id']));
+        $result['livre']['del'] = $this->unit->run($obtained,$expected_del,'livre->del');
+
+        foreach ($result['livre'] as $test){
             if (strpos($test,"Passed")){
                 $this->testPassed++;
             }
@@ -56,5 +89,4 @@ class Test extends CI_Controller
 
         return $result;
     }
-
 }

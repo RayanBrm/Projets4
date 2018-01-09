@@ -3,6 +3,7 @@ $data["title"] = "catalogue";
 $this->load->view('utilities/page_head', $data);
 $this->load->view('utilities/page_nav');
 
+echo $ajax;
 echo $script;
 ?>
 
@@ -13,15 +14,8 @@ echo $script;
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">search</i>
-                    <input name="title" id="icon_prefix" type="text" class="validate pink-text" onchange="rechercher()">
-                    <label for="icon_prefix">Titre</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix light-blue-text">people</i>
-                    <input name="author" id="icon_prefix" type="text" class="validate pink-text" >
-                    <label for="icon_prefix">Auteur</label>
+                    <input name="search" id="search" type="text" class="validate pink-text" onchange="rechercher()">
+                    <label for="search">Rechercher</label>
                 </div>
             </div>
         </form>
