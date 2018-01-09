@@ -37,4 +37,7 @@ INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, des
   ('Le petit Nicolas s amuse', 'Sempé / Goscinny', 'Gallimard', '2017-10-12', 'assets/img/livres/8.jpg','""');
 
 INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, description) VALUES
-  ('Titeuf : Au secours !', 'ZEP / Shirley Anguerrand', '""', '2017-10-12', 'assets/img/livres/8.jpg','""');
+  ('Titeuf : Au secours !', 'ZEP / Shirley Anguerrand', '""', '2017-10-12', 'assets/img/livres/9.jpg','""');
+
+INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, description) VALUES
+  ('Mille milliards de pirates', 'Gérard Moncomble / Sébastien Telleschi', 'Milan poche', '2017-10-12', 'assets/img/livres/10.jpg','""');
