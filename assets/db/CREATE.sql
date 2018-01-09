@@ -36,14 +36,14 @@ CREATE TABLE Personnel(
 
 CREATE TABLE Theme(
   id SERIAL PRIMARY KEY,
-  nom VARCHAR(50),
+  nom VARCHAR(50) UNIQUE,
   libelle VARCHAR(50),
   nbLivre INT(5)
 );
 
 CREATE TABLE Auteur(
   id SERIAL PRIMARY KEY,
-  nom VARCHAR(150)
+  nom VARCHAR(150) UNIQUE
 );
 
 CREATE TABLE Livre(
