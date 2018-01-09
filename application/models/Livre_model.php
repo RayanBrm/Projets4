@@ -3,7 +3,7 @@
 class Livre_model extends CI_Model
 {
     private $table = 'Livre';
-    private $fields = array('titre','auteur','edition','parution','couverture','theme');
+    private $fields = array('titre','auteur','edition','parution');
 
     /**
      * @var int The number of book displayed by page
