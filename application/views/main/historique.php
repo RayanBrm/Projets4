@@ -6,16 +6,14 @@ $this->load->view('utilities/page_nav');
 ?>
 
 <div class="row">
+
     <div class="col s3">
         <br>
-        <bt>
-            <br>
-            <br>
-            <bt>
-                <br>
-                <br>
-                <bt>
-                    <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
             <div class="input-field col s12">
                 <i class="material-icons prefix light-blue-text">grade</i>
                 <select>
@@ -42,20 +40,22 @@ $this->load->view('utilities/page_nav');
             <div class="row">
                 <h1 class="center">Historique</h1>
                 <br>
-                <ul class="collection with-header">
-                    <li class="collection-header"><h4>Emprunts Bernard Trudon</h4></li>
-                    <li class="collection-item">
-                        <div>Bidule Tome 1<a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
-                        </div>
+                <ul class="collapsible" data-collapsible="accordion">
+                   <li class="collection-header center"><h4>Emprunt de Bernard Tupion</h4></li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">book</i>Bidule Tome 1</div>
+                        <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
                     </li>
-                    <li class="collection-item">
-                        <div>Truc Tome 2<a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
-                        </div>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">book</i>Truc Tome 2</div>
+                        <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
                     </li>
-                    <li class="collection-item">
-                        <div>NinjaGo<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">book</i>Putput Tome 3 </div>
+                        <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
                     </li>
                 </ul>
             </div>
 
             <?php $this->load->view('utilities/page_footer'); ?>
+

@@ -4,7 +4,15 @@
         <script>
             $(document).ready(function() {
                 $('select').material_select();
-            });</script>
+            });
+
+            $('.chips').material_chip();
+
+            $('.chips-placeholder').material_chip({
+                placeholder: 'mot-clé',
+                secondaryPlaceholder: '+un autre ?',
+            });
+        </script>
     </body>
 </html>
 
