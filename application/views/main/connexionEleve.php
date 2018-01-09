@@ -1,11 +1,7 @@
 <?php
-$data["title"] = "connexion";
+$data["title"] = "connexionEleve";
 $this->load->view('utilities/page_head', $data);
-$this->load->view('utilities/page_nav');
-
-echo $script;
 ?>
-
 
 
 <?php
