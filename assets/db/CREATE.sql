@@ -54,9 +54,15 @@ CREATE TABLE Livre(
   edition VARCHAR(100),
   parution DATE,
   couverture VARCHAR(150),
-  theme VARCHAR(50),
-  FOREIGN KEY (theme) REFERENCES Theme(nom),
+  description VARCHAR(500),
   FOREIGN KEY (auteur) REFERENCES Auteur(nom)
+);
+
+CREATE TABLE LivreTheme(
+  id_livre BIGINT UNSIGNED,
+  id_theme BIGINT UNSIGNED,
+  FOREIGN KEY (id_livre) REFERENCES Livre(id),
+  FOREIGN KEY (id_theme) REFERENCES Theme(id)
 );
 
 CREATE TABLE Emprunt(

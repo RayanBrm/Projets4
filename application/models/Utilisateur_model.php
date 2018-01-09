@@ -37,4 +37,9 @@ class Utilisateur_model extends CI_Model
         return $this->db->where($data)
             ->delete($this->table);
     }
+
+    private function hash(string $password): string
+    {
+        return password_hash($password,PASSWORD_BCRYPT);
+    }
 }
