@@ -1,19 +1,11 @@
 <?php
 $data["title"] = "catalogue";
 $this->load->view('utilities/page_head', $data);
+$this->load->view('utilities/page_nav');
+
+echo $script;
 ?>
 
-<div class="navbar-fixed">
-    <nav>
-
-        <div class="nav-wrapper">
-            <a href="#!" class="brand-logo">Logo</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html"><i class="material-icons left">people</i>Connexion</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
 
 <div class="row">
     <div class="col s3">
@@ -21,21 +13,21 @@ $this->load->view('utilities/page_head', $data);
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">search</i>
-                    <input id="icon_prefix" type="text" class="validate pink-text">
+                    <input name="title" id="icon_prefix" type="text" class="validate pink-text" onchange="rechercher()">
                     <label for="icon_prefix">Titre</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix light-blue-text">people</i>
-                    <input id="icon_prefix" type="text" class="validate pink-text">
+                    <input name="author" id="icon_prefix" type="text" class="validate pink-text" >
                     <label for="icon_prefix">Auteur</label>
                 </div>
             </div>
         </form>
     </div>
     <div class="col s9">
-        <div class="container">
+        <div id="container" class="container">
             <div class="row">
                 <h1 class="center">Catalogue</h1>
                 <br>
