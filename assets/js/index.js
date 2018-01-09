@@ -12,5 +12,18 @@ var xhr = getXHR();
 
 function rechercher()
 {
-    alert("rechercher!");
+    var xhr = getXHR();
+    var book = document.getElementsByName('title')[0].innerText;
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+            // callback
+            console.log("Recherché : "+book);
+            document.getElementById('container').innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.open("POST", "/ajax/getBookByName", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("book="+book);
 }

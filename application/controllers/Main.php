@@ -16,7 +16,8 @@ class Main extends CI_Controller
 
     public function catalogue()
     {
-        $this->load->view('main/catalogue');
+        $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
+        $this->load->view('main/catalogue',$data);
     }
 
     public function historique()

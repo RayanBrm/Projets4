@@ -1,12 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Axelle
- * Date: 09/01/2018
- * Time: 13:10
- */
 
-class Ajax
+class Ajax extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
 
+        $this->load->library('Formatter',null,'format');
+    }
+
+    public function getBookByName()
+    {
+        $bookName = $this->input->post('book');
+
+        $books = $this->livre->get(array('titre'=>$bookName));
+
+        foreach ($books as $book){
+            echo $this->format->bookToCatalog($book);
+        }
+    }
 }
