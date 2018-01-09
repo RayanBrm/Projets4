@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: guillaume
- * Date: 08/01/18
- * Time: 13:44
- */
 
 class Test extends CI_Controller
 {
