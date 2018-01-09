@@ -9,11 +9,6 @@
 class Main extends CI_Controller
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
         $this->catalogue();
@@ -26,7 +21,7 @@ class Main extends CI_Controller
 
     public function historique()
     {
-        $this->load->view('main/catalogue');
+        $this->load->view('main/historique');
     }
 
 }
