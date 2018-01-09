@@ -35,30 +35,33 @@ class Test extends CI_Controller
 
         $expected_get[0] = array(
             'id'=>'1',
+            'isbn'=>null,
             'titre'=>'Harry Potter et la chambre des secrets',
             'auteur'=>'J.K. Rowling',
             'edition'=>'Folio Junior',
             'parution'=>'2017-10-12',
-            'couverture'=>'/home/guillaume/Projets4/assets/images/livres/1.jpg',
-            'theme'=>'1'
+            'couverture'=>'assets/img/livres/1.jpg',
+            'description'=>''
         );
 
         $expected_add = array(
+            'isbn'=>null,
             'titre'=>'Harry Potter',
             'auteur'=>'J.K. Rowling',
             'edition'=>'Folio Junior',
             'parution'=>'2017-10-12',
-            'couverture'=>'/home/guillaume/Projets4/assets/images/livres/2.jpg',
-            'theme'=>'1'
+            'couverture'=>'assets/img/livres/2.jpg',
+            'description'=>''
         );
 
         $expected_set = array(
+            'isbn'=>null,
             'titre'=>'Harry Petteur',
             'auteur'=>'J.K. Rowling',
             'edition'=>'Folio Junior',
             'parution'=>'2017-10-12',
-            'couverture'=>'/home/guillaume/Projets4/assets/images/livres/2.jpg',
-            'theme'=>'1'
+            'couverture'=>'assets/img/livres/2.jpg',
+            'description'=>''
         );
 
         $expected_del = null;

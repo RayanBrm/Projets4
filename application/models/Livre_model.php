@@ -3,9 +3,14 @@
 class Livre_model extends CI_Model
 {
     private $table = 'Livre';
-    private $fields = array('titre','auteur','edition','parution','couverture','theme');
+    private $fields = array('titre','auteur','edition','parution');
 
-        public function __construct()
+    /**
+     * @var int The number of book displayed by page
+     */
+    public static $pageDisplay = 40;
+
+    public function __construct()
     {
         parent::__construct();
     }
@@ -59,15 +64,22 @@ class Livre_model extends CI_Model
 
     public function search(string $keyWord): ?array
     {
-
          $this->db->select()
                   ->from($this->table);
          foreach($this->fields as $field)
          {
             $this->db->or_like($field,$keyWord);
          }
-         return
-            $this->db->get()
-                     ->result_array();
+         return $this->db->get()
+                        ->result_array();
+    }
+
+    public function getPage(string $page): ?array
+    {
+        return  $this->db->select()
+                        ->from($this->table)
+                        ->limit(self::$pageDisplay,self::$pageDisplay*($page-1))
+                        ->get()
+                        ->result_array();
     }
 }

@@ -36,20 +36,42 @@ CREATE TABLE Personnel(
 
 CREATE TABLE Theme(
   id SERIAL PRIMARY KEY,
-  nom VARCHAR(50),
+  nom VARCHAR(50) UNIQUE,
   libelle VARCHAR(50),
   nbLivre INT(5)
 );
 
+CREATE TABLE Auteur(
+  id SERIAL PRIMARY KEY,
+  nom VARCHAR(150) UNIQUE
+);
+
 CREATE TABLE Livre(
   id SERIAL PRIMARY KEY,
+  isbn INT(13),
   titre VARCHAR(150),
   auteur VARCHAR(150),
   edition VARCHAR(100),
   parution DATE,
   couverture VARCHAR(150),
-  theme BIGINT UNSIGNED,
-  FOREIGN KEY (theme) REFERENCES Theme(id)
+  description VARCHAR(500),
+  FOREIGN KEY (auteur) REFERENCES Auteur(nom)
+);
+
+CREATE TABLE LivreTheme(
+  id_livre BIGINT UNSIGNED,
+  id_theme BIGINT UNSIGNED,
+  FOREIGN KEY (id_livre) REFERENCES Livre(id),
+  FOREIGN KEY (id_theme) REFERENCES Theme(id)
+);
+
+CREATE TABLE Emprunt(
+  id_livre BIGINT UNSIGNED,
+  id_eleve BIGINT UNSIGNED,
+  dateEmprunt DATE,
+  dateRendu DATE,
+  FOREIGN KEY (id_livre) REFERENCES Livre(id),
+  FOREIGN KEY (id_eleve) REFERENCES Utilisateur(id)
 );
 
 CREATE TABLE Disponible(
