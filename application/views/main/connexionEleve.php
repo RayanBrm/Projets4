@@ -4,9 +4,9 @@ $this->load->view('utilities/page_head');
 $this->load->view('utilities/page_nav');
 ?>
 
-<div class="">
-    <img alt="lsqd" src="assets/img/turtle.png" />
-</div>
+<?php
+    echo "<img alt='turtle' src='".base_url()."/assets/img/turtle.png' />"
+?>
 
 <?php
 
