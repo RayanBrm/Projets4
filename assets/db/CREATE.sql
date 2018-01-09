@@ -41,6 +41,11 @@ CREATE TABLE Theme(
   nbLivre INT(5)
 );
 
+CREATE TABLE Auteur(
+  id SERIAL PRIMARY KEY,
+  nom VARCHAR(150)
+);
+
 CREATE TABLE Livre(
   id SERIAL PRIMARY KEY,
   titre VARCHAR(150),
@@ -48,8 +53,18 @@ CREATE TABLE Livre(
   edition VARCHAR(100),
   parution DATE,
   couverture VARCHAR(150),
-  theme BIGINT UNSIGNED,
-  FOREIGN KEY (theme) REFERENCES Theme(id)
+  theme VARCHAR(50),
+  FOREIGN KEY (theme) REFERENCES Theme(nom),
+  FOREIGN KEY (auteur) REFERENCES Auteur(nom)
+);
+
+CREATE TABLE Emprunt(
+  id_livre BIGINT UNSIGNED,
+  id_eleve BIGINT UNSIGNED,
+  dateEmprunt DATE,
+  dateRendu DATE,
+  FOREIGN KEY (id_livre) REFERENCES Livre(id),
+  FOREIGN KEY (id_eleve) REFERENCES Utilisateur(id)
 );
 
 CREATE TABLE Disponible(
