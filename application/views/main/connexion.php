@@ -1,7 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Claude
- * Date: 09/01/2018
- * Time: 15:40
- */
+$data["title"] = "connexion";
+$this->load->view('utilities/page_head', $data);
+$this->load->view('utilities/page_nav');
+
+echo $script;
+?>
+
+
+
+<?php
+
+$this->load->view('utilities/page_footer');
+?>
+
