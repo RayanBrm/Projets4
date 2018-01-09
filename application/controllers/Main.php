@@ -25,4 +25,9 @@ class Main extends CI_Controller
         $this->load->view('main/historique');
     }
 
+    public function connexionEleve()
+    {
+        $this->load->view('main/connexionEleve');
+    }
+
 }
