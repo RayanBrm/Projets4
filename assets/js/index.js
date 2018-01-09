@@ -35,3 +35,22 @@ function rechercherParAuteur()
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("auteur="+auteur);
 }
+
+function rechercher()
+{
+    var xhr = getXHR();
+    var search = document.getElementById('search').value;
+    console.log(search);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+            // callback
+            console.log("Recherché : "+search);
+            document.getElementById('container').innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.open("POST", "/ajax/getBook", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("mot clé recherché ="+search);
+}

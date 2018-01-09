@@ -28,4 +28,14 @@ class Ajax extends CI_Controller
             echo $this->format->bookToCatalog($book);
         }
     }
+
+    public function getBook()
+    {
+        $keyWord = $this->input->post('search');
+        $books = $this->livre->search($keyWord);
+
+        foreach ($books as $book){
+            echo $this->format->bookToCatalog($book);
+        }
+    }
 }

@@ -3,6 +3,7 @@
 class Livre_model extends CI_Model
 {
     private $table = 'Livre';
+    private $fields = array('titre','auteur','edition','parution','couverture','theme');
 
         public function __construct()
     {
@@ -54,5 +55,19 @@ class Livre_model extends CI_Model
                         ->like('auteur',$bookAuthor)
                         ->get()
                         ->result_array();
+    }
+
+    public function search(string $keyWord): ?array
+    {
+
+         $this->db->select()
+                  ->from($this->table);
+         foreach($this->fields as $field)
+         {
+            $this->db->or_like($field,$keyWord);
+         }
+         return
+            $this->db->get()
+                     ->result_array();
     }
 }
