@@ -52,5 +52,5 @@ function rechercher()
 
     xhr.open("POST", "/ajax/getBook", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("mot clé recherché ="+search);
+    xhr.send("search="+search);
 }
