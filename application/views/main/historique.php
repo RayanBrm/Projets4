@@ -15,7 +15,7 @@ $this->load->view('utilities/page_nav');
         <br>
         <br>
             <div class="input-field col s12">
-                <i class="material-icons prefix light-blue-text">grade</i>
+                <i class="material-icons prefix red-text">grade</i>
                 <select>
                     <option value="" disabled selected>Classe</option>
                     <option value="1">CM2A</option>
@@ -26,7 +26,7 @@ $this->load->view('utilities/page_nav');
             <br>
             <br>
             <div class="input-field col s12">
-                <i class="material-icons prefix light-blue-text">face</i>
+                <i class="material-icons prefix red-text">face</i>
                 <select>
                     <option value="" disabled selected>Elève</option>
                     <option value="1">Jillome</option>
@@ -38,13 +38,17 @@ $this->load->view('utilities/page_nav');
     <div class="col s9">
         <div id="container" class="container">
             <div class="row">
-                <h1 class="center">Historique</h1>
+                <h1 class="center red-text">Historique</h1>
                 <br>
                 <ul class="collapsible" data-collapsible="accordion">
                    <li class="collection-header center"><h4>Emprunt de Bernard Tupion</h4></li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">book</i>Bidule Tome 1</div>
-                        <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
+                        <div class="collapsible-body">
+                            <span>
+                                Détail de l'emprunt
+                            </span>
+                        </div>
                     </li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">book</i>Truc Tome 2</div>

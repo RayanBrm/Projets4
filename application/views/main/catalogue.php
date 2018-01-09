@@ -18,7 +18,7 @@ echo $script;
         <form class="col s12">
             <div class="row">
                <div class="input-field col s12">
-                   <i class="material-icons prefix">search</i>
+                   <i class="material-icons prefix red-text">search</i>
                     <div class="chips-placeholder"></div>
                 </div>
             </div>
@@ -27,7 +27,7 @@ echo $script;
     <div class="col s9">
         <div id="container" class="container">
             <div class="row">
-                <h1 class="center">Catalogue</h1>
+                <h1 class="center red-text">Catalogue</h1>
                 <br>
                 <div class="card col s3">
                     <div class="card-image waves-effect waves-block waves-light">
