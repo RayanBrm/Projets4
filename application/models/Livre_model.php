@@ -37,4 +37,13 @@ class Livre_model extends CI_Model
         return $this->db->where($data)
                         ->delete($this->table);
     }
+
+    public function searchName(string $booktTitle): ?array
+    {
+        return $this->db->select()
+                        ->from($this->table)
+                        ->like('titre',$booktTitle)
+                    ->get()
+                    ->result_array();
+    }
 }

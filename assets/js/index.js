@@ -13,7 +13,8 @@ var xhr = getXHR();
 function rechercher()
 {
     var xhr = getXHR();
-    var book = document.getElementsByName('title')[0].innerText;
+    var book = document.getElementById('title').value;
+    console.log(book)
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {

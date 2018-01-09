@@ -13,7 +13,7 @@ echo $script;
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">search</i>
-                    <input name="title" id="icon_prefix" type="text" class="validate pink-text" onchange="rechercher()">
+                    <input name="title" id="title" type="text" class="validate pink-text" onchange="rechercher()">
                     <label for="icon_prefix">Titre</label>
                 </div>
             </div>

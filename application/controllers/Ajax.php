@@ -13,7 +13,7 @@ class Ajax extends CI_Controller
     {
         $bookName = $this->input->post('book');
 
-        $books = $this->livre->get(array('titre'=>$bookName));
+        $books = $this->livre->searchName($bookName);
 
         foreach ($books as $book){
             echo $this->format->bookToCatalog($book);
