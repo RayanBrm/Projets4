@@ -9,7 +9,7 @@ $('.chips-placeholder').material_chip({
     secondaryPlaceholder: '+ autre',
 });
 
-$('.chips').on('chip.remove',function () {
+$('.chips').on('chip.delete',function () {
     location.reload();
 });
 

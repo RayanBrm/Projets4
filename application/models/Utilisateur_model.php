@@ -11,11 +11,25 @@ class Utilisateur_model extends CI_Model
 
     public function get(array $data): ?array
     {
-        return $this->db->select()
+        $users = $this->db->select()
             ->from($this->table)
             ->where($data)
             ->get()
             ->result_array();
+
+        foreach ($users as $key => $user){
+            // TODO : better access to role value
+            if ($user['role'] == '2' || $user['role'] == '1'){
+                $users[$key]['motdepasse'] = $this->person->get(array('id'=>$user['id']))['motdepasse'];
+            }
+            elseif ($user['role'] === '3'){
+                $data = $this->eleve->get(array('id'=>$user['id']));
+                $users[$key]['pastille'] = $data['pastille'];
+                $users[$key]['classe'] = $data['classe'];
+            }
+        }
+
+        return $users;
     }
 
     public function set(array $data): bool
@@ -29,7 +43,16 @@ class Utilisateur_model extends CI_Model
 
     public function add(array $data): bool
     {
-        return $this->db->insert($this->table,$data);
+        $result = $this->db->insert($this->table,$data);
+
+        if ($result === true){
+            if (isset($data['motdepasse'])){
+                $this->person->add(array());
+            }
+            elseif (isset($data['pastille'])){
+                $this->eleve->add(array());
+            }
+        }
     }
 
     public function del(array $data): bool
@@ -38,8 +61,12 @@ class Utilisateur_model extends CI_Model
             ->delete($this->table);
     }
 
-    private function hash(string $password): string
+    /** TODO : move ?
+     * Return the level list from Role table
+     * @return array|null
+     */
+    public function getLevels(): ?array
     {
-        return password_hash($password,PASSWORD_BCRYPT);
+        return $this->db->select()->from('Role')->get()->result_array();
     }
 }

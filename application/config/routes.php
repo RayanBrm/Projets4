@@ -54,3 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['historique'] = 'main/historique';
+$route['catalogue'] = 'main/catalogue';
+$route['connexion'] = 'main/connexion';
+$route['connexionEleve'] = 'main/connexionEleve';
+$route['connect'] = 'main/connect';
+$route['accueil'] = 'main/main';
