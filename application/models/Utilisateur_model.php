@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: guillaume
- * Date: 09/01/18
- * Time: 10:56
- */
 
 class Utilisateur_model extends CI_Model
 {
