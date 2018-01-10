@@ -21,23 +21,35 @@ class Ajax extends CI_Controller
 
     public function getClasse(string $classeID, string $displayMode)
     {
+        $result = "";
         if ($classeID == '0'){
             $classe = $this->eleve->getAll();
         }
         else{
             $classe = $this->eleve->getClasse($classeID);
         }
-        $result = "";
 
         foreach ($classe as $eleve){
             if ($displayMode == 'log'){
                 $result.=$this->format->childToLog($eleve);
             }
             elseif ($displayMode == 'option'){
-                $result.=$this->format->childToOption($eleve);
+                $tmpEleve = $this->user->get(array('id'=>$eleve['id']))[0];
+                $result.=$this->format->childToOption($tmpEleve);
             }
         }
 
+        echo $result;
+    }
+
+    public function getEmprunt(string $childID)
+    {
+        $emprunts = $this->emprunt->get(array('id_eleve'=>$childID));
+        $result="";
+
+        foreach ($emprunts as $emprunt){
+            $result.=$this->format->empruntToLi($emprunt);
+        }
         echo $result;
     }
 }

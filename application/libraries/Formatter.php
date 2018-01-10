@@ -53,4 +53,14 @@ class Formatter
     {
         return "<option value='".$eleve['id']."'>".$eleve['prenom']." ".$eleve['nom']."</option>";
     }
+
+    public function empruntToLi(array $emprunt): string
+    {
+        $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
+
+        return "<li>".
+                    "<div class='collapsible-header'><i class='material-icons'>book</i>".$bookTitle."</div>".
+                    "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
+               "</li>";
+    }
 }

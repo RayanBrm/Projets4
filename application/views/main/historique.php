@@ -4,8 +4,6 @@ $data['env'] = 'log';
 $this->load->view('utilities/page_head', $data);
 $this->load->view('utilities/page_nav', $data);
 
-echo includeAJAX();
-echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.js'."\"></script>";
 ?>
 
 <div class="row">
@@ -28,7 +26,7 @@ echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.
             <br>
             <div class="input-field col s12">
                 <i class="material-icons prefix red-text">face</i>
-                <select id="child_select">
+                <select id="child_select" onchange="loadEmprunt()">
                     <option value="" disabled selected>Elève</option>
                 </select>
             </div>
@@ -38,14 +36,11 @@ echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.
             <div class="row">
                 <h1 class="center red-text">Historique</h1>
                 <br>
-                <ul class="collapsible" data-collapsible="accordion">
+                <ul id="emprunt_container" class="collapsible" data-collapsible="accordion">
                    <li class="collection-header center"><h4>Emprunt de Bernard Tupion</h4></li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">book</i>Bidule Tome 1</div>
-                        <div class="collapsible-body">
-                            <span>
-                                Détail de l'emprunt
-                            </span>
+                        <div class="collapsible-body"><span>Détail de l'emprunt</span>
                         </div>
                     </li>
                     <li>
@@ -61,6 +56,8 @@ echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.
 
 
             <?php
-            $data['jquery']=includeJQUERY();
+            echo includeJQUERY();
+            echo includeAJAX();
+            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.js'."\"></script>";
             $this->load->view('utilities/page_footer',$data); ?>
 
