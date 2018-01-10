@@ -70,17 +70,6 @@ INSERT INTO `Classe` (`id`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Disponible`
---
-
-CREATE TABLE `Disponible` (
-  `id_livre` bigint(20) UNSIGNED DEFAULT NULL,
-  `disponible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `Eleve`
 --
 
@@ -126,7 +115,8 @@ CREATE TABLE `Livre` (
   `edition` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parution` date DEFAULT NULL,
   `couverture` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
+  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `disponible` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
