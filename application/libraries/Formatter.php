@@ -1,6 +1,6 @@
 <?php
 
-class Formatter
+abstract class Formatter
 {
     private $CI;
 
