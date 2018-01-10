@@ -59,8 +59,10 @@ class Formatter
         $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
 
         return "<li>".
+
                     "<div class='collapsible-header'><i class='material-icons'>book</i>".$bookTitle."</div>".
                     "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
+                    "<div style=\"text-indent: 20px;\" ><input type='checkbox' id='test1' /> <label for='test1'>Rendu ?</label></div>".
                "</li>";
     }
 }
