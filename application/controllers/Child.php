@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: guillaume
- * Date: 10/01/18
- * Time: 11:58
- */
 
 class Child extends CI_Controller
 {
@@ -15,6 +9,7 @@ class Child extends CI_Controller
         if (!isset($_SESSION)){
             session_start();
         }
+        $this->load->library('Formatter',null,'format');
     }
 
     public function index(){
@@ -29,6 +24,24 @@ class Child extends CI_Controller
         else{
             redirect('connexionEleve');
         }
+    }
+
+    public function connexionEleve()
+    {
+        $data['childs'] = "";
+        $data['classes'] = "";
+
+        $childs = $this->eleve->getAll();
+        foreach ($childs as $child){
+            $data['childs'].= $this->format->childToLog($child);
+        }
+
+        $listeClasses = $this->Classe_model->getAll();
+        foreach ($listeClasses as $uneClasse){
+            $data['classes'].=$this->format->classeToOption($uneClasse);
+        }
+
+        $this->load->view('main/connexionEleve', $data);
     }
 
     public function connect(string $childID)

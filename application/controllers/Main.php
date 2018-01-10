@@ -58,20 +58,21 @@ class Main extends CI_Controller
 
     public function historique()
     {
-        $this->load->view('main/historique');
-    }
-
-    public function connexionEleve()
-    {
-        $data['childs'] = "";
-
-        $childs = $this->eleve->getAll();
-        foreach ($childs as $child){
-            $data['childs'].= $this->format->childToLog($child);
+        $data['classes'] = "";
+        $listeClasses = $this->Classe_model->getAll();
+        foreach ($listeClasses as $uneClasse){
+            $data['classes'].=$this->format->classeToOption($uneClasse);
         }
 
-        $this->load->view('main/connexionEleve', $data);
+        $this->load->view('main/historique', $data);
     }
+
+    public function gestionbu()
+    {
+        $this->load->view('main/gestionbu');
+    }
+
+
 
     /**
      * Controller for the connexion page
@@ -153,3 +154,6 @@ class Main extends CI_Controller
     }
 
 }
+
+
+

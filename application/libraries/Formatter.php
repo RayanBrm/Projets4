@@ -1,8 +1,13 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Axelle
+ * Date: 10/01/2018
+ * Time: 16:32
+ */
 
 class Formatter
 {
-    private $CI;
 
     public function __construct()
     {
@@ -42,5 +47,35 @@ class Formatter
                         "<img src='". base_url($img) ."' alt='".$alt."'>".
                     "</a>".
                 "</div>";
+    }
+
+    public function classeToOption(array $classe): string
+    {
+        return "<option value='".$classe['id']."'>".$classe['libelle']."</option>";
+    }
+
+    public function childToOption(array $eleve): string
+    {
+        return "<option value='".$eleve['id']."'>".$eleve['prenom']." ".$eleve['nom']."</option>";
+    }
+
+    public function empruntToLi(?array $emprunt): string
+    {
+        if (isset($emprunt)) {
+            $bookTitle = $this->CI->livre->get(array('id' => $emprunt['id_livre']))[0]['titre'];
+            $color = (isset($emprunt['dateRendu'])) ? 'green lighten-1' : 'red accent-1';
+
+            return "<li>" .
+                    "<form onchange=''>".
+                        "<div class='collapsible-header " . $color . " '><i class='material-icons'>book</i>" . $bookTitle . "</div>" .
+                        "<div class='collapsible-body'><span>Date d'emprunt : " . $emprunt['dateEmprunt'] . ", Date de rendu : " . $emprunt['dateRendu'] . "</span></div>" .
+                        "<div style=\"text-indent: 20px;\" ><input type='checkbox' id='test1' /> <label for='test1'>Rendu ?</label></div>" .
+                    "</form>".
+                "</li>";
+        }
+        else{
+            return "";
+        }
+
     }
 }

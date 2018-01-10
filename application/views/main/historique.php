@@ -17,46 +17,46 @@ $this->load->view('utilities/page_nav', $data);
         <br>
             <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
-                <select>
+                <select id="classe_select" onchange="multiLoad()">
                     <option value="" disabled selected>Classe</option>
-                    <option value="1">CM2A</option>
-                    <option value="2">CPE(lol)</option>
-                    <option value="3">CM11</option>
+                    <?= $classes ?>
                 </select>
             </div>
             <br>
             <br>
             <div class="input-field col s12">
                 <i class="material-icons prefix red-text">face</i>
-                <select>
+                <select id="child_select" onchange="loadEmprunt()">
                     <option value="" disabled selected>Elève</option>
-                    <option value="1">Jillome</option>
-                    <option value="2">J L'homme</option>
-                    <option value="3">Ji Ohm</option>
                 </select>
             </div>
     </div>
     <div class="col s9">
-        <div <!--id="container"--> class="container">
+        <div class="container">
             <div class="row">
                 <h1 class="center red-text">Historique</h1>
                 <br>
-                <ul class="collapsible" data-collapsible="accordion">
+                <ul id="emprunt_container" class="collapsible" data-collapsible="accordion">
                    <li class="collection-header center"><h4>Emprunt de Bernard Tupion</h4></li>
                     <li>
                         <div class="collapsible-header"><i class="material-icons">book</i>Bidule Tome 1</div>
-                        <div class="collapsible-body">
-                            <span>
-                                Détail de l'emprunt
-                            </span>
+                        <div class="collapsible-body"><span>Détail de l'emprunt</span>
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">book</i>Truc Tome 2</div>
-                        <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
+                        <div class="collapsible-header green lighten-1"><i class="material-icons">book</i>Truc Tome 2</div>
+                        <div class="collapsible-body">
+                            <span>
+                                Détail de l'emprunt
+                                <p>
+                                     <input type="checkbox" id="test5" />
+                                    <label for="test5">Red</label>
+                                </p>
+                            </span>
+                            </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">book</i>Putput Tome 3 </div>
+                        <div class="collapsible-header green lighten-1"><i class="material-icons">book</i>Putput Tome 3 </div>
                         <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
                     </li>
                 </ul>
@@ -64,6 +64,8 @@ $this->load->view('utilities/page_nav', $data);
 
 
             <?php
-            $data['jquery']=includeJQUERY();
-            $this->load->view('utilities/page_footer'); ?>
+            echo includeJQUERY();
+            echo includeAJAX();
+            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.js'."\"></script>";
+            $this->load->view('utilities/page_footer',$data); ?>
 

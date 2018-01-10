@@ -1,4 +1,5 @@
-        <footer> © 2018 Copyright Holder All Rights Reserved. Axelle Delomez, Guillaume Marmorat, Rayan Barama, Emile Canac. Projet de DUT <!-- <a class="ml" href="">Mentions légales</a> --></footer>
+</main>
+<footer class="center red-text lighten-2"> © 2018 Copyright Holder All Rights Reserved. Axelle Delomez, Guillaume Marmorat, Rayan Barama, Emile Canac. Projet de DUT <!-- <a class="ml" href="">Mentions légales</a> --></footer>
 <!--        <footer class="page-footer">-->
 <!--            <div class="container">-->
 <!--                <div class="row">-->
@@ -26,6 +27,9 @@
 
             echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/select.js'."\"></script>";
 
+            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/cc.js'."\"></script>";
+
+            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/datepicker.js'."\"></script>";
         ?>
 
     </body>

@@ -5,16 +5,22 @@
     right: auto;
 }
 
-footer {
-    bottom: 0;
-    width: 80%;
-    margin: auto;
-    padding-left: 20px;
-    color: #5a5a5a;
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
+
+main {
+    flex: 1 0 auto;
+}
+
 
 #container{
     overflow: scroll;
     height: 880px;
 }
 
+#classe_container{
+    padding-top: 20px;
+}

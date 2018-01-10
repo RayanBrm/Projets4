@@ -19,3 +19,7 @@ $('.chips').on('chip.add',function () {
    rechercher(data);
 });
 
+$('.chips').on('chip.add', function(e, chip){
+    console.log($('.chip').material_chip('data'))
+});
+

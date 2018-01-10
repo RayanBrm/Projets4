@@ -136,5 +136,7 @@ $autoload['model'] = array(
     'Livre_model'=>'livre',
     'Utilisateur_model'=>'user',
     'Eleve_model'=>'eleve',
-    'Personnel_model'=>'person'
+    'Personnel_model'=>'person',
+    'Classe_model',
+    'Emprunt_model'=>'emprunt'
 );
