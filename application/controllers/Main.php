@@ -61,7 +61,7 @@ class Main extends CI_Controller
         $data['classes'] = "";
         $listeClasses = $this->Classe_model->getAll();
         foreach ($listeClasses as $uneClasse){
-            $data['classes'].=$this->format->classeToOption($uneClasse);
+            $data['classes'].=$this->format->class->toOption($uneClasse);
         }
 
         $this->load->view('main/historique', $data);
@@ -147,7 +147,7 @@ class Main extends CI_Controller
         $books = $this->livre->getPage($page);
 
         foreach ($books as $book){
-            $data.= $this->format->bookToCatalog($book);
+            $data.= $this->format->book->toCatalog($book);
         }
 
         return $data;

@@ -15,7 +15,7 @@ class Ajax extends CI_Controller
         $books = $this->livre->search($keyWord);
 
         foreach ($books as $book){
-            echo $this->format->bookToCatalog($book);
+            echo $this->format->book->toCatalog($book);
         }
     }
 
@@ -31,11 +31,11 @@ class Ajax extends CI_Controller
 
         foreach ($classe as $eleve){
             if ($displayMode == 'log'){
-                $result.=$this->format->childToLog($eleve);
+                $result.=$this->format->child->toLog($eleve);
             }
             elseif ($displayMode == 'option'){
                 $tmpEleve = $this->user->get(array('id'=>$eleve['id']))[0];
-                $result.=$this->format->childToOption($tmpEleve);
+                $result.=$this->format->child->toOption($tmpEleve);
             }
         }
 
@@ -49,13 +49,13 @@ class Ajax extends CI_Controller
             $emprunts = $this->emprunt->get(array('id_eleve'=>$id));
 
             foreach ($emprunts as $emprunt){
-                $result.=$this->format->empruntToLi($emprunt);
+                $result.=$this->format->book->toLi($emprunt);
             }
         }
         else{
             $childList = $this->eleve->getClasse($id);
             foreach ($childList as $child){
-                $result.= $this->format->empruntToLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
+                $result.= $this->format->book->toLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
             }
         }
 

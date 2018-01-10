@@ -33,12 +33,12 @@ class Child extends CI_Controller
 
         $childs = $this->eleve->getAll();
         foreach ($childs as $child){
-            $data['childs'].= $this->format->childToLog($child);
+            $data['childs'].= $this->format->child->toLog($child);
         }
 
         $listeClasses = $this->Classe_model->getAll();
         foreach ($listeClasses as $uneClasse){
-            $data['classes'].=$this->format->classeToOption($uneClasse);
+            $data['classes'].=$this->format->class->toOption($uneClasse);
         }
 
         $this->load->view('main/connexionEleve', $data);
