@@ -18,7 +18,7 @@ class Eleve_model extends Utilisateur_model
 
     public function get(array $data): ?array
     {
-        return $this->db->select('classe, pastille')
+        return $this->db->select()
             ->from($this->table)
             ->get()
             ->result_array()[0];

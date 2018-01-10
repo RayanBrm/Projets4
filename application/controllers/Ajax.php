@@ -42,14 +42,23 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-    public function getEmprunt(string $childID)
+    public function getEmprunt(string $id, string $isClasse = null)
     {
-        $emprunts = $this->emprunt->get(array('id_eleve'=>$childID));
         $result="";
+        if (!isset($isClasse)){
+            $emprunts = $this->emprunt->get(array('id_eleve'=>$id));
 
-        foreach ($emprunts as $emprunt){
-            $result.=$this->format->empruntToLi($emprunt);
+            foreach ($emprunts as $emprunt){
+                $result.=$this->format->empruntToLi($emprunt);
+            }
         }
+        else{
+            $childList = $this->eleve->getClasse($id);
+            foreach ($childList as $child){
+                $result.= $this->format->empruntToLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
+            }
+        }
+
         echo $result;
     }
 }

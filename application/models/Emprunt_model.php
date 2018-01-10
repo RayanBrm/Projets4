@@ -23,6 +23,21 @@ class Emprunt_model extends CI_Model
             ->result_array();
     }
 
+    public function getRunning(array $data): ?array
+    {
+        $result =  $this->db->select()
+            ->from($this->table)
+            ->where($data)
+            ->where('dateRendu IS NULL')
+            ->get()
+            ->result_array();
+
+        if (isset($result[0]['id_eleve'])){
+            return $result[0];
+        }
+        return null;
+    }
+
     public function add()
     {
         // TODO

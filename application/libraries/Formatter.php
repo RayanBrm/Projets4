@@ -54,14 +54,20 @@ class Formatter
         return "<option value='".$eleve['id']."'>".$eleve['prenom']." ".$eleve['nom']."</option>";
     }
 
-    public function empruntToLi(array $emprunt): string
+    public function empruntToLi(?array $emprunt): string
     {
-        $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
-        $color = (isset($emprunt['dateRendu']))? 'green lighten-1' : 'red accent-1' ;
+        if (isset($emprunt)){
+            $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
+            $color = (isset($emprunt['dateRendu']))? 'green lighten-1' : 'red accent-1' ;
 
-        return "<li>".
-                    "<div class='collapsible-header ".$color." '><i class='material-icons'>book</i>".$bookTitle."</div>".
-                    "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
-               "</li>";
+            return "<li>".
+                "<div class='collapsible-header ".$color." '><i class='material-icons'>book</i>".$bookTitle."</div>".
+                "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
+                "</li>";
+        }
+        else{
+            return "";
+        }
+
     }
 }
