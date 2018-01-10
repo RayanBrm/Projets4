@@ -63,7 +63,14 @@ class Main extends CI_Controller
 
     public function connexionEleve()
     {
-        $this->load->view('main/connexionEleve');
+        $data['childs'] = "";
+
+        $childs = $this->eleve->getAll();
+        foreach ($childs as $child){
+            $data['childs'].= $this->format->childToLog($child);
+        }
+
+        $this->load->view('main/connexionEleve', $data);
     }
 
     /**
@@ -98,6 +105,9 @@ class Main extends CI_Controller
         }
     }
 
+    /**
+     * Disconnect user by destroying $_SESSION data
+     */
     public function disconnect()
     {
         $_SESSION = array();

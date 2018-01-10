@@ -4,6 +4,12 @@ class Utilisateur_model extends CI_Model
 {
     private $table = 'Utilisateur';
 
+    private $childList = null;
+
+    // private $lastChildModified = false;
+
+    // private $lastChildUpdated;
+
     public function __construct()
     {
         parent::__construct();
@@ -33,7 +39,7 @@ class Utilisateur_model extends CI_Model
     }
 
     public function set(array $data): bool
-    {
+    { // TODO : updated child list integration $this->lastModified = date("U");
         $id = $data['id'];
         unset($data['id']);
 
@@ -68,5 +74,17 @@ class Utilisateur_model extends CI_Model
     public function getLevels(): ?array
     {
         return $this->db->select()->from('Role')->get()->result_array();
+    }
+
+    /**
+     * Return the child id, class and picture for each child
+     * @return null
+     */
+    public function getAllChild()
+    { // TODO : Handle updating
+        if (!isset($this->childList)){
+            $this->childList = $this->eleve->getAll();
+        }
+        return $this->childList;
     }
 }
