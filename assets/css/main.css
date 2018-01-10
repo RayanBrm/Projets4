@@ -13,7 +13,7 @@ footer {
     color: #5a5a5a;
 }
 
-.container{
+#container{
     overflow: scroll;
     height: 880px;
 }

@@ -89,13 +89,19 @@ class Main extends CI_Controller
         $user = $this->user->get(array('identifiant'=>$login))[0];
 
         if (isset($user) && ($user['role'] === $this->level['Administrateur'] || $user['role'] === $this->level['Professeur']) && password_verify($pwd,$user['motdepasse'])){
-            $this->log($user);
+            $_SESSION['user'] = $user;
             redirect('accueil');
         }
         else{
             $_SESSION['log_error'] = true;
             redirect('connexion');
         }
+    }
+
+    public function disconnect()
+    {
+        $_SESSION = array();
+        redirect('catalogue');
     }
 
     /**
@@ -108,22 +114,6 @@ class Main extends CI_Controller
         foreach ($levels as $level){
             $this->level[$level['libelle']] = $level['id'];
         }
-    }
-
-    /**
-     * Initialize session variable
-     * @param array $user
-     */
-    private function log(array $user){
-        $_SESSION['user'] = $user;
-    }
-
-    /**
-     * Destroy the session and so unlog the user
-     */
-    private function delog()
-    {
-        $_SESSION = array();
     }
 
     /**

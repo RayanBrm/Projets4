@@ -1,5 +1,7 @@
 <?php
+
 $data["title"] = "connexionEleve";
+$data['env'] = 'log';
 $this->load->view('utilities/page_head');
 $this->load->view('utilities/page_nav');
 ?>

@@ -1,7 +1,8 @@
 <?php
 $data['title'] = 'Historique';
-$this->load->view('utilities/page_head');
-$this->load->view('utilities/page_nav');
+$data['env'] = 'log';
+$this->load->view('utilities/page_head', $data);
+$this->load->view('utilities/page_nav', $data);
 
 ?>
 
