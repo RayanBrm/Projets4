@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mer. 10 jan. 2018 à 11:04
+-- Généré le :  mer. 10 jan. 2018 à 14:33
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.1.13-1+0~20180105151623.14+stretch~1.gbp1086fa
 
@@ -59,6 +59,14 @@ CREATE TABLE `Classe` (
   `libelle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Déchargement des données de la table `Classe`
+--
+
+INSERT INTO `Classe` (`id`, `libelle`) VALUES
+(1, 'CP1'),
+(2, 'CE1');
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +89,15 @@ CREATE TABLE `Eleve` (
   `classe` bigint(20) UNSIGNED DEFAULT NULL,
   `pastille` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `Eleve`
+--
+
+INSERT INTO `Eleve` (`id`, `classe`, `pastille`) VALUES
+(3, 1, 'turtle'),
+(4, 1, 'fish'),
+(5, 2, 'panda');
 
 -- --------------------------------------------------------
 
@@ -258,7 +275,8 @@ INSERT INTO `Utilisateur` (`id`, `identifiant`, `nom`, `prenom`, `role`) VALUES
 (1, 'admin', 'Administrateur', 'Administrateur', 1),
 (2, 'prof', 'Professeur', 'Professeur', 2),
 (3, 'elev1', 'Eleve', 'Test', 3),
-(4, 'elev2', 'Eleve', 'Test', 3);
+(4, 'elev2', 'Eleve', 'Test', 3),
+(5, 'elev3', 'Eleve', 'Test', 3);
 
 --
 -- Index pour les tables déchargées
@@ -372,13 +390,13 @@ ALTER TABLE `Auteur`
 -- AUTO_INCREMENT pour la table `Classe`
 --
 ALTER TABLE `Classe`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `Livre`
 --
 ALTER TABLE `Livre`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT pour la table `Rallye`
@@ -402,7 +420,7 @@ ALTER TABLE `Theme`
 -- AUTO_INCREMENT pour la table `Utilisateur`
 --
 ALTER TABLE `Utilisateur`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Contraintes pour les tables déchargées
