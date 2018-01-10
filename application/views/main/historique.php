@@ -44,11 +44,11 @@ $this->load->view('utilities/page_nav', $data);
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">book</i>Truc Tome 2</div>
+                        <div class="collapsible-header green lighten-1"><i class="material-icons">book</i>Truc Tome 2</div>
                         <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">book</i>Putput Tome 3 </div>
+                        <div class="collapsible-header green lighten-1"><i class="material-icons">book</i>Putput Tome 3 </div>
                         <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
                     </li>
                 </ul>

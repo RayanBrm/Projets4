@@ -95,7 +95,7 @@ $this->load->view('utilities/page_nav', $data);
         </span></div>
 </li>
 <li>
-    <div class="collapsible-header"><i class="material-icons">people</i>Ajouter un utilisateur</div>
+    <div class="collapsible-header "><i class="material-icons">people</i>Ajouter un utilisateur</div>
     <div class="collapsible-body"><span>
     <form>
                 <div class="row">
