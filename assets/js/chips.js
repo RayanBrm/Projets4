@@ -17,7 +17,7 @@ $('.chips').on('chip.add',function () {
     // TODO : enhancements
    var data = $('.chips').material_chip('data')[0]['tag'];
    rechercher(data);
-});*/
+});
 
 $('.chips').on('chip.add', function(e, chip){
     console.log($('.chip').material_chip('data'))
