@@ -4,6 +4,8 @@ $data['env'] = 'log';
 $this->load->view('utilities/page_head', $data);
 $this->load->view('utilities/page_nav', $data);
 
+echo includeAJAX();
+echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.js'."\"></script>";
 ?>
 
 <div class="row">
@@ -17,27 +19,22 @@ $this->load->view('utilities/page_nav', $data);
         <br>
             <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
-                <select>
+                <select id="classe_select" onchange="loadClasse()">
                     <option value="" disabled selected>Classe</option>
-                    <option value="1">CM2A</option>
-                    <option value="2">CPE(lol)</option>
-                    <option value="3">CM11</option>
+                    <?= $classes ?>
                 </select>
             </div>
             <br>
             <br>
             <div class="input-field col s12">
                 <i class="material-icons prefix red-text">face</i>
-                <select>
+                <select id="child_select">
                     <option value="" disabled selected>Elève</option>
-                    <option value="1">Jillome</option>
-                    <option value="2">J L'homme</option>
-                    <option value="3">Ji Ohm</option>
                 </select>
             </div>
     </div>
     <div class="col s9">
-        <div  <class="container">
+        <div class="container">
             <div class="row">
                 <h1 class="center red-text">Historique</h1>
                 <br>

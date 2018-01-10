@@ -58,7 +58,13 @@ class Main extends CI_Controller
 
     public function historique()
     {
-        $this->load->view('main/historique');
+        $data['classes'] = "";
+        $listeClasses = $this->Classe_model->getAll();
+        foreach ($listeClasses as $uneClasse){
+            $data['classes'].=$this->format->classeToOption($uneClasse);
+        }
+
+        $this->load->view('main/historique', $data);
     }
 
     public function gestionbu()

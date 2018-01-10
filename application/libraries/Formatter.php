@@ -48,4 +48,9 @@ class Formatter
     {
         return "<option value='".$classe['id']."'>".$classe['libelle']."</option>";
     }
+
+    public function childToOption(array $eleve): string
+    {
+        return "<option value='".$eleve['id']."'>".$eleve['prenom']." ".$eleve['nom']."</option>";
+    }
 }

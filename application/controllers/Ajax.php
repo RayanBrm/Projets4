@@ -19,7 +19,7 @@ class Ajax extends CI_Controller
         }
     }
 
-    public function getClasse(string $classeID)
+    public function getClasse(string $classeID, string $displayMode)
     {
         if ($classeID == '0'){
             $classe = $this->eleve->getAll();
@@ -30,7 +30,12 @@ class Ajax extends CI_Controller
         $result = "";
 
         foreach ($classe as $eleve){
-            $result.=$this->format->childToLog($eleve);
+            if ($displayMode == 'log'){
+                $result.=$this->format->childToLog($eleve);
+            }
+            elseif ($displayMode == 'option'){
+                $result.=$this->format->childToOption($eleve);
+            }
         }
 
         echo $result;

@@ -11,6 +11,6 @@ function updateChild() {
         }
     };
 
-    xhr.open("GET", "/ajax/getClasse/"+classe, true);
+    xhr.open("GET", "/ajax/getClasse/"+classe+"/log", true);
     xhr.send();
 }
