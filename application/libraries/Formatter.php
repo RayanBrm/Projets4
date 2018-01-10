@@ -11,12 +11,12 @@ class Formatter
 
     public function bookToCatalog(array $data)
     {
-        $result = "<div class='card col s3'>".
+        $result = "<div class='card col s3 '>".
                 "<div class='card-image waves-effect waves-block waves-light'>".
                     "<img class='activator' src='".base_url().$data['couverture']."'>".
                 "</div>".
                 "<div class='card-content'>".
-                    "<span class='card-title activator grey-text text-darken-4'>".$data['titre']."</span>".
+                    "<span class='card-title activator grey-text text-darken-4 truncate'>".$data['titre']."</span>".
                     "<p><a href='#' >Description</a></p>".
                     "</div>".
                     "<div class='card-reveal'>".
