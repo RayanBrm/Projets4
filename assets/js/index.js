@@ -8,7 +8,7 @@ function rechercher(search)
         if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
             // callback
             console.log("Recherché : "+search);
-            document.getElementById('container').innerHTML = xhr.responseText;
+            document.getElementById('containerX').innerHTML = xhr.responseText;
         }
     };
 
