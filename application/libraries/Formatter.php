@@ -57,10 +57,10 @@ class Formatter
     public function empruntToLi(array $emprunt): string
     {
         $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
+        $color = (isset($emprunt['dateRendu']))? 'green lighten-1' : 'red accent-1' ;
 
         return "<li>".
-
-                    "<div class='collapsible-header'><i class='material-icons'>book</i>".$bookTitle."</div>".
+                    "<div class='collapsible-header ".$color." '><i class='material-icons'>book</i>".$bookTitle."</div>".
                     "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
                     "<div style=\"text-indent: 20px;\" ><input type='checkbox' id='test1' /> <label for='test1'>Rendu ?</label></div>".
                "</li>";
