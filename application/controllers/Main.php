@@ -61,6 +61,11 @@ class Main extends CI_Controller
         $this->load->view('main/historique');
     }
 
+    public function gestionbu()
+    {
+        $this->load->view('main/gestionbu');
+    }
+
     public function connexionEleve()
     {
         $data['childs'] = "";
@@ -159,3 +164,6 @@ class Main extends CI_Controller
     }
 
 }
+
+
+
