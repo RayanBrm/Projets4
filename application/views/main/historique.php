@@ -37,7 +37,7 @@ $this->load->view('utilities/page_nav', $data);
             </div>
     </div>
     <div class="col s9">
-        <div id="container" class="container">
+        <div <!--id="container"--> class="container">
             <div class="row">
                 <h1 class="center red-text">Historique</h1>
                 <br>
@@ -62,5 +62,8 @@ $this->load->view('utilities/page_nav', $data);
                 </ul>
             </div>
 
-            <?php $this->load->view('utilities/page_footer'); ?>
+
+            <?php
+            $data['jquery']=includeJQUERY();
+            $this->load->view('utilities/page_footer'); ?>
 

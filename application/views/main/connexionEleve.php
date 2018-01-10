@@ -6,6 +6,8 @@ $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav', $data);
 
 ?>
+</div>
+</div>
 
 
 <div class="container">
@@ -159,7 +161,7 @@ $this->load->view('utilities/page_nav', $data);
 
 
 <?php
+            $data['jquery']=includeJQUERY();
+            $this->load->view('utilities/page_footer',$data); ?>
 
-$this->load->view('utilities/page_footer');
-?>
 

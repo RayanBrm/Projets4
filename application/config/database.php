@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'	=> 'mysql:host=localhost;dbname=ProjetS4;charset=utf8',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password'=>'242htl8J3003',
+	'password'=>'',
 	'database' => 'ProjetS4',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
