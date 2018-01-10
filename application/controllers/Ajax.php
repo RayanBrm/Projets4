@@ -18,4 +18,21 @@ class Ajax extends CI_Controller
             echo $this->format->bookToCatalog($book);
         }
     }
+
+    public function getClasse(string $classeID)
+    {
+        if ($classeID == '0'){
+            $classe = $this->eleve->getAll();
+        }
+        else{
+            $classe = $this->eleve->getClasse($classeID);
+        }
+        $result = "";
+
+        foreach ($classe as $eleve){
+            $result.=$this->format->childToLog($eleve);
+        }
+
+        echo $result;
+    }
 }

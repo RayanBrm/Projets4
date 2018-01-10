@@ -5,6 +5,8 @@ $data['env'] = 'child';
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav', $data);
 
+echo includeAJAX();
+echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/connexionEleve.js'."\"></script>";
 ?>
 
 
@@ -20,21 +22,15 @@ $this->load->view('utilities/page_nav', $data);
 
             <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
-                <select>
-                    <option value="" disabled selected>Classe</option>
-                    <option value="1">CM2A</option>
-                    <option value="2">CPE(lol)</option>
-                    <option value="3">CM11</option>
+                <select id="classe_select" onchange="updateChild()">
+                    <option value="0" selected>Tous les élèves</option>
+                    <?= $classes ?>
                 </select>
             </div>
 
         </div>
 
-        <div class="col s9">
-            <br>
-            <br>
-            <br>
-            <br>
+        <div id="classe_container" class="col s9">
         <?= $childs ?>
     </div>
 </div>
