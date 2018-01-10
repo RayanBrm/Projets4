@@ -64,10 +64,16 @@ class Main extends CI_Controller
     public function connexionEleve()
     {
         $data['childs'] = "";
+        $data['classes'] = "";
 
         $childs = $this->eleve->getAll();
         foreach ($childs as $child){
             $data['childs'].= $this->format->childToLog($child);
+        }
+
+        $listeClasses = $this->Classe_model->getAll();
+        foreach ($listeClasses as $uneClasse){
+            $data['classes'].=$this->format->classeToOption($uneClasse);
         }
 
         $this->load->view('main/connexionEleve', $data);

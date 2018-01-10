@@ -43,4 +43,9 @@ class Formatter
                     "</a>".
                 "</div>";
     }
+
+    public function classeToOption(array $classe): string
+    {
+        return "<option value='".$classe['id']."'>".$classe['libelle']."</option>";
+    }
 }
