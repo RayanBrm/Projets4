@@ -72,7 +72,7 @@ class Ajax extends CI_Controller
                 $result.= $this->format->book->toLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
             }
             if ($baselen == strlen($result)){
-                $result.="<li class='collection-header center'><h4>Aucun emprunt en cours dans la classe</h4></li>";
+                $result.="<li class='collection-header center'><h5><blockquote>Aucun emprunt en cours dans la classe</blockquote></h5></li>";
             }
         }
 

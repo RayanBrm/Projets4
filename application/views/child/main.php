@@ -2,7 +2,7 @@
     $data['title'] = $_SESSION['child']['prenom'].' '.$_SESSION['child']['nom'];
     $data['env'] = 'childlog';
     $this->load->view('utilities/page_head',$data);
-    $this->load->view('utilities/page_nav');
+    $this->load->view('utilities/page_nav',$data);
 
     $data['books'] = $books;
     $this->load->view('utilities/catalog_module',$data);

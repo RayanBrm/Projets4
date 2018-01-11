@@ -18,7 +18,7 @@ class Test extends CI_Controller
     public function index()
     {
         $data = array();
-        
+
         $data['report']['livre'] = $this->livreTest();
 
         $data['PassedTest'] = $this->testPassed;

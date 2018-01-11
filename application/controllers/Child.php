@@ -30,20 +30,25 @@ class Child extends CI_Controller
 
     public function connexionEleve()
     {
-        $data['childs'] = "";
-        $data['classes'] = "";
+        if (!$this->isLogged()){
+            $data['childs'] = "";
+            $data['classes'] = "";
 
-        $childs = $this->eleve->getAll();
-        foreach ($childs as $child){
-            $data['childs'].= $this->format->child->toLog($child);
+            $childs = $this->eleve->getAll();
+            foreach ($childs as $child){
+                $data['childs'].= $this->format->child->toLog($child);
+            }
+
+            $listeClasses = $this->classe->getAll();
+            foreach ($listeClasses as $uneClasse){
+                $data['classes'].=$this->format->class->toOption($uneClasse);
+            }
+
+            $this->load->view('main/connexionEleve', $data);
         }
-
-        $listeClasses = $this->classe->getAll();
-        foreach ($listeClasses as $uneClasse){
-            $data['classes'].=$this->format->class->toOption($uneClasse);
+        else{
+            redirect('child/main');
         }
-
-        $this->load->view('main/connexionEleve', $data);
     }
 
     public function connect(string $childID)
@@ -60,6 +65,7 @@ class Child extends CI_Controller
     public function disconnect()
     {
         unset($_SESSION['child']);
+        redirect('connexionEleve');
     }
 
     private function isLogged(){

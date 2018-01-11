@@ -16,10 +16,10 @@ class ChildFormatter implements FormatterInterface
         $link = "child/connect/".$child['id'];
 
         return "<div class='col i'>".
-            "<a href='". base_url($link) ."'>".
-            "<img src='". base_url($img) ."' alt='".$alt."'>".
-            "</a>".
-            "</div>";
+                    "<a href='". base_url($link) ."'>".
+                    "<img src='". base_url($img) ."' alt='".$alt."'>".
+                    "</a>".
+               "</div>";
     }
 
     public function toOption(array $child): string
