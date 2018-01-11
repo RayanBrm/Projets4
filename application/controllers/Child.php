@@ -36,7 +36,7 @@ class Child extends CI_Controller
             $data['childs'].= $this->format->child->toLog($child);
         }
 
-        $listeClasses = $this->Classe_model->getAll();
+        $listeClasses = $this->classe->getAll();
         foreach ($listeClasses as $uneClasse){
             $data['classes'].=$this->format->class->toOption($uneClasse);
         }

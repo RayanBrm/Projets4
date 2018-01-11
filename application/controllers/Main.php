@@ -28,10 +28,8 @@ class Main extends CI_Controller
     public function catalogue(int $page = 1)
     {
         if (!$this->isLogged()){
-            $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
-            $data['ajax'] = includeAJAX();
-            $data['books'] = $this->loadBooks($page);
 
+            $data['books'] = $this->loadBooks($page);
             $this->load->view('main/catalogue',$data);
         }
         else{
@@ -47,8 +45,6 @@ class Main extends CI_Controller
     {
         if ($this->isLogged()){
             $data['books'] = $this->loadBooks($page);
-            $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
-            $data['ajax'] = includeAJAX();
             $this->load->view('main/main',$data);
         }
         else{
@@ -59,9 +55,21 @@ class Main extends CI_Controller
     public function historique()
     {
         $data['classes'] = "";
-        $listeClasses = $this->Classe_model->getAll();
+        $listeClasses = $this->classe->getAll();
         foreach ($listeClasses as $uneClasse){
             $data['classes'].=$this->format->class->toOption($uneClasse);
+        }
+
+        $data['emprunts'] = "<li class=\"collection-header center\"><h4>Emprunt de ".$_SESSION['user']['prenom']." ".$_SESSION['user']['nom']."</h4></li>";
+
+        $baselen = strlen($data['emprunts']);
+        $emprunts = $this->emprunt->get(array('id_eleve'=>$_SESSION['user']['id']));
+        foreach ($emprunts as $emprunt){
+            $data['emprunts'].=$this->format->book->toLi($emprunt);
+        }
+
+        if ($baselen == strlen($data['emprunts'])){
+            $data['emprunts'].= "<li class=\"collection-header center\"><h4>Vous n'avez encore jamais emprunter de livre!</h4></li>";
         }
 
         $this->load->view('main/historique', $data);

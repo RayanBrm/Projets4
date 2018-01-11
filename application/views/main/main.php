@@ -5,9 +5,6 @@ $data['title'] = 'Accueuil';
 
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
-
-echo $ajax;
-echo $script;
 ?>
 
 <h1>Bienvenue <?= $_SESSION['user']['identifiant'] ?></h1>
@@ -15,7 +12,7 @@ echo $script;
 <?php
     $this->load->view('utilities/catalog_module',array('books',$books));
 
-    $data['load'] = array('jquery.min','materialize.min','chips','catalogue');
+    $data['load'] = array('ajax','jquery.min','materialize.min','chips','catalogue');
     $this->load->view('utilities/page_footer',$data);
 ?>
 
