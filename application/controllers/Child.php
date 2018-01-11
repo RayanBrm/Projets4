@@ -64,4 +64,32 @@ class Child extends CI_Controller
         return isset($_SESSION['child']);
     }
 
+    /****** Chargement du catalogue pour les élèves ******/
+
+    private function loadBooks(int $page = 1): string
+    {
+        $data = "";
+        $books = $this->livre->getPage($page);
+
+        foreach ($books as $book){
+            $data.= $this->format->book->toChildCatalog($book);
+        }
+
+        return $data;
+    }
+
+    public function catalogue(int $page = 1)
+    {
+        if (!$this->isLogged()){
+            $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
+            $data['ajax'] = includeAJAX();
+            $data['books'] = $this->loadBooks($page);
+
+            $this->load->view('main/catalogue',$data);
+        }
+        else{
+            redirect('accueil');
+        }
+    }
+
 }
