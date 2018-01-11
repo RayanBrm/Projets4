@@ -157,4 +157,6 @@ echo includeJQUERY();
 //$data['chips'] = '<script src="' . base_url() . 'assets/js/chips.js" type="text/javascript"></script>';
 $data['gestionbu'] = '<script src="' . base_url() . 'assets/js/gestionbu.js" type="text/javascript"></script>';
 $data['datepicker'] = '<script src="' . base_url() . 'assets/js/datepicker.js" type="text/javascript"></script>';
+
+$data['load'] = array('jquery.min','materialize.min','ajax','chips','datepicker','gestionbu');
 $this->load->view('utilities/page_footer', $data); ?>

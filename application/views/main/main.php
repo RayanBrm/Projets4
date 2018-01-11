@@ -15,8 +15,7 @@ echo $script;
 <?php
     $this->load->view('utilities/catalog_module',array('books',$books));
 
-    $data['jquery'] = includeJQUERY();
-    $data['chips'] = '<script src="'.base_url().'assets/js/chips.js" type="text/javascript"></script>';
+    $data['load'] = array('jquery.min','materialize.min','chips','catalogue');
     $this->load->view('utilities/page_footer',$data);
 ?>
 

@@ -3,13 +3,6 @@ $(document).ready(function() {
     $('input#input_text, textarea#textarea1').characterCounter();
 });
 
-//$('.chips').material_chip();
-
-$('.chips-placeholder').material_chip({
-    placeholder: 'mot-clé',
-    secondaryPlaceholder: '+ autre',
-});
-
 $('.chips').on('chip.add',function () {
     // TODO : enhancements
     var data = $('.chips').material_chip('data')[0]['tag'];
@@ -26,7 +19,7 @@ function rechercher(search)
             console.log("Recherché : "+search);
             document.getElementById('book_container').innerHTML = xhr.responseText;
 
-            
+
         }
     };
 

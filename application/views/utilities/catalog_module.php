@@ -15,7 +15,7 @@
         </form>
     </div>
     <div class="col s9">
-        <div id="containerX" class="container">
+        <div id="book_container" class="container">
             <?= $books ?>
 
             <!--            <div class="card col s3">-->

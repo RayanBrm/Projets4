@@ -63,9 +63,8 @@ $this->load->view('utilities/page_nav', $data);
             </div>
 
 
-            <?php
-            echo includeJQUERY();
-            echo includeAJAX();
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.js'."\"></script>";
-            $this->load->view('utilities/page_footer',$data); ?>
+<?php
+    $data['load'] = array('jquery.min','materialize.min','ajax','historique','select');
+    $this->load->view('utilities/page_footer',$data);
+?>
 
