@@ -59,4 +59,4 @@ $route['connexion'] = 'main/connexion';
 $route['connexionEleve'] = 'child/connexionEleve';
 $route['connect'] = 'main/connect';
 $route['accueil'] = 'main/main';
-$route['gestionbu'] = 'main/gestionbu';
+$route['bibliotheque'] = 'main/gestionbu';
