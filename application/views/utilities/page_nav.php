@@ -16,7 +16,13 @@
                     echo '<li><a href="historique"><i class="material-icons left">person</i>Historique</a></li>';
                 }
                 else if(isset($env) && $env == 'child'){
-                    echo 'Child environnement';
+
+                    echo 'child env';
+                }
+                else if(isset($env) && $env == 'childlog'){
+
+                    echo "<span class='icon'>".'Bébé connecté : '.$_SESSION['child']['prenom']."</span>";
+                    echo '<img class="icon" src="'.base_url()."assets/img/".$_SESSION['child']['pastille'].'.png">';
                 }
                 else{
                     echo 'Error : unset environnement';
