@@ -6,16 +6,9 @@ $data['env'] = 'childlog';
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav');
 
-//dump($_SESSION);
-echo $ajax;
-echo $script;
-
 $data['books'] = $books;
 $this->load->view('utilities/catalog_module',$data);
 
 
-$data['jquery'] = includeJQUERY();
-$data['chips'] = '<script src="'.base_url().'assets/js/chips.js" type="text/javascript"></script>';
-
-
+$data['load'] = array('ajax','jquery.min','materialize.min','chips','catalogue');
 $this->load->view('utilities/page_footer');

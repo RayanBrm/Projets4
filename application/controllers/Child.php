@@ -19,7 +19,9 @@ class Child extends CI_Controller
     public function main()
     {
         if ($this->isLogged()){
-            $this->load->view('child/main');
+            $data['books'] = $this->loadBooks();
+
+            $this->load->view('child/main',$data);
         }
         else{
             redirect('connexionEleve');
