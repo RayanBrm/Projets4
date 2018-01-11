@@ -39,17 +39,36 @@ class BookFormatter implements FormatterInterface
             $color = (isset($emprunt['dateRendu']))? 'green ligthen-1' : 'red accent-1' ;
 
             return "<li>".
-                "<div class='collapsible-header ".$color."'><i class='material-icons'>book</i>".$bookTitle."</div>".
-                "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
-                "<div style=\"text-indent: 20px;\" ><input type='checkbox' id='test1' /> <label for='test1'>Rendu ?</label></div>".
-                "</li>";
+                        "<div class='collapsible-header ".$color."'><i class='material-icons'>book</i>".$bookTitle."</div>".
+                        "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
+                        "<div style=\"text-indent: 20px;\" ><input type='checkbox' id='test1' /> <label for='test1'>Rendu ?</label></div>".
+                   "</li>";
         }
         return "";
-
     }
 
     public function toOption(array $book)
     {
         return "<option value='".$book['id']."'>".$book['titre']." ".$book['auteur']."</option>";
+    }
+
+    public function toModify(?array $book): string
+    {
+        if (isset($book)){
+            $bookid = $book['id'];
+
+            return "<li class=\"collection-item\">".
+                        "<div>".
+                            $book['titre'].
+                            "<a href='".base_url('/main/editBook/'.$bookid)."' class=\"secondary-content\">".
+                                "<i class=\"material-icons red-text lighten-2\"\">edit</i>".
+                            "</a>".
+                            "<a class=\"secondary-content red-text lighten-2\" href='#' onclick='deleteBook(".$bookid.")' >".
+                                "<i class=\"material-icons\">clear</i>".
+                            "</a>".
+                        "</div>".
+                    "</li>";
+        }
+        return "";
     }
 }

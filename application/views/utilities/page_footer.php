@@ -27,7 +27,7 @@
 
             echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/select.js'."\"></script>";
 
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/cc.js'."\"></script>";
+            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/gestionbu.js'."\"></script>";
 
             echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/datepicker.js'."\"></script>";
         ?>

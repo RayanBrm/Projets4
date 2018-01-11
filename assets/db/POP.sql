@@ -11,31 +11,19 @@ INSERT INTO `Theme` (`nom`, `libelle`) VALUES
 INSERT INTO `Theme` (`nom`, `libelle`) VALUES
   ('Animaux', 'Livres sur les animaux ');
 
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
-('Fantastique', 'Livres sur le theme fantastique');
-
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
-('Forêt', 'Livres sur la forêt ou se déroulant à l intérieur ');
-
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
-('Mer', 'Livres sur la mer ou se déroulant à l intérieur ');
-
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
-('Animaux', 'Livres sur les animaux ');
-
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
+INSERT INTO `Theme` (`nom`, `libelle`) VALUES
 ('Prince et Princesse', 'Histoires de prince ou de princesse');
 
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
+INSERT INTO `Theme` (`nom`, `libelle`) VALUES
 ('Humour', "Histoires rigolotes ou centrées sur l'humour");
 
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
+INSERT INTO `Theme` (`nom`, `libelle`) VALUES
 ('Amitié', "Histoires centrées sur l'amitié des personnages");
 
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
+INSERT INTO `Theme` (`nom`, `libelle`) VALUES
 ('Emotions', "Histoire sérieuse sur l'apprentissage des émotions");
 
-INSERT INTO `theme` (`nom`, `libelle`) VALUES
+INSERT INTO `Theme` (`nom`, `libelle`) VALUES
 ('Pirates', "Histoires de pirates");
 
 #Auteur

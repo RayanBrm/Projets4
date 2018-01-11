@@ -14,8 +14,15 @@ class Ajax extends CI_Controller
         $keyWord = $this->input->post('search');
         $books = $this->livre->search($keyWord);
 
-        foreach ($books as $book){
-            echo $this->format->book->toCatalog($book);
+        if (!isset($_POST['display'])){
+            foreach ($books as $book){
+                echo $this->format->book->toCatalog($book);
+            }
+        }
+        elseif ($_POST['display'] == 'toModify'){
+            foreach ($books as $book){
+                echo $this->format->book->toModify($book);
+            }
         }
     }
 
