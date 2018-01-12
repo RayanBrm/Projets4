@@ -40,8 +40,7 @@ class BookFormatter implements FormatterInterface
             "<img class='activator' src='".base_url().$data['couverture']."'>".
             "</div>".
             "<div class='card-content'>".
-            "<span class='card-title activator grey-text text-darken-4 truncate'>".$data['titre']."</span>".
-            "<p><a href='#' >Description</a></p>".
+            "<span class=' activator grey-text text-darken-4 truncate'>".$data['titre']."</span>".
             "</div>".
             "<div class='card-reveal'>".
             "<span class='card-title grey-text text-darken-4'>".$data['titre']."<i class='material-icons right'>close</i></span>".

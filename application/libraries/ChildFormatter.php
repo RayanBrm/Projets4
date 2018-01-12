@@ -11,7 +11,7 @@ class ChildFormatter implements FormatterInterface
 
     public function toLog(array $child): string
     {
-        $img = "assets/img/".$child['pastille'].".png";
+        $img = "assets/img/pastilles_eleve/".$child['pastille'].".png";
         $alt = $child['pastille'];
         $link = "child/connect/".$child['id'];
 
