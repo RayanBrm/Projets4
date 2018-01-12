@@ -38,6 +38,23 @@ class Main extends CI_Controller
     }
 
     /**
+     * Load the given page of the catalog
+     * @param int $page
+     * @return string
+     */
+    private function loadBooks(int $page = 1): string
+    {
+        $data = "";
+        $books = $this->livre->getPage($page);
+
+        foreach ($books as $book){
+            $data.= $this->format->book->toCatalog($book);
+        }
+
+        return $data;
+    }
+
+    /**
      * Main page, routed with accueil
      * @param int $page if given load the page number
      */
@@ -146,22 +163,7 @@ class Main extends CI_Controller
         return isset($_SESSION['user']['id']);
     }
 
-    /**
-     * Load the given page of the catalog
-     * @param int $page
-     * @return string
-     */
-    private function loadBooks(int $page = 1): string
-    {
-        $data = "";
-        $books = $this->livre->getPage($page);
 
-        foreach ($books as $book){
-            $data.= $this->format->book->toCatalog($book);
-        }
-
-        return $data;
-    }
 
 }
 
