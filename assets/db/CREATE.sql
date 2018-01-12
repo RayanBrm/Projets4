@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `Role` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Structure de la table `classe`
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Classe` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Structure de la table `Utilisateur`
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `Utilisateur` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `identifiant` (`identifiant`),
   KEY `role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Structure de la table `Eleve`
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `Theme` (
   `nbLivre` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nom` (`nom`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Structure de la table `Auteur`
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `Auteur` (
   `nom` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nom` (`nom`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 --
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `Livre` (
   `disponible` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `auteur` (`auteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Structure de la table `LivreTheme`
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `Rallye` (
   `nbLivre` int(5) DEFAULT NULL,
   `theme` bigint(20) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 --
