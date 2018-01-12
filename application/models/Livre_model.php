@@ -87,7 +87,7 @@ class Livre_model extends CI_Model
     {
         return $this->bd->select()
                         ->from('livretheme')
-                        ->like('id_theme',$id_theme);
+                        ->like('id_theme',$id_theme)
                         ->get()
                         ->result_array();
     }
