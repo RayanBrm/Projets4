@@ -1,4 +1,14 @@
 
+$('.chips').on('chip.delete',function () {
+    location.reload();
+});
+
+$('.chips').on('chip.add',function () {
+    // TODO : enhancements
+    var data = $('.chips').material_chip('data')[0]['tag'];
+    rechercher(data);
+});
+
 function rechercher(search)
 {
     var xhr = getXHR();
@@ -8,7 +18,7 @@ function rechercher(search)
         if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
             // callback
             console.log("Recherché : "+search);
-            document.getElementById('containerX').innerHTML = xhr.responseText;
+            document.getElementById('book_container').innerHTML = xhr.responseText;
         }
     };
 

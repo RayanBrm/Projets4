@@ -1,5 +1,5 @@
 .row .col.i{
-    width: 12.5%;
+    width: 20.5%;
     margin-left: auto;
     left: auto;
     right: auto;
@@ -23,4 +23,14 @@ main {
 
 #classe_container{
     padding-top: 20px;
+}
+
+img.icon{
+    height: 50px;
+    margin: 7px;
+}
+
+span.icon{
+    vertical-align: top;
+    margin-right: 5px;
 }

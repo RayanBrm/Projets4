@@ -14,22 +14,11 @@
 <!--        </footer>-->
 
         <?php
-
-            if (isset($jquery)){
-                echo $jquery;
+            if (isset($load)){
+                foreach ($load as $module){
+                    echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/'.$module.'.js'."\"></script>";
+                }
             }
-
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/materialize.min.js'."\"></script>";
-
-            if (isset($chips)){
-                echo $chips;
-            }
-
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/select.js'."\"></script>";
-
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/cc.js'."\"></script>";
-
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/datepicker.js'."\"></script>";
         ?>
 
     </body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mer. 10 jan. 2018 à 14:33
+-- Généré le :  jeu. 11 jan. 2018 à 08:39
 -- Version du serveur :  10.1.26-MariaDB-0+deb9u1
 -- Version de PHP :  7.1.13-1+0~20180105151623.14+stretch~1.gbp1086fa
 
@@ -70,6 +70,17 @@ INSERT INTO `Classe` (`id`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `Disponible`
+--
+
+CREATE TABLE `Disponible` (
+  `id_livre` bigint(20) UNSIGNED DEFAULT NULL,
+  `disponible` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `Eleve`
 --
 
@@ -101,6 +112,17 @@ CREATE TABLE `Emprunt` (
   `dateRendu` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Déchargement des données de la table `Emprunt`
+--
+
+INSERT INTO `Emprunt` (`id_livre`, `id_eleve`, `dateEmprunt`, `dateRendu`) VALUES
+(1, 3, '2018-05-05', '2018-05-25'),
+(2, 3, '2018-02-10', '2018-02-21'),
+(4, 4, '2018-02-18', '2018-02-28'),
+(3, 4, '2018-03-15', '2018-03-19'),
+(2, 5, '2018-01-22', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -115,8 +137,7 @@ CREATE TABLE `Livre` (
   `edition` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parution` date DEFAULT NULL,
   `couverture` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `disponible` tinyint(1) DEFAULT NULL
+  `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -386,7 +407,7 @@ ALTER TABLE `Classe`
 -- AUTO_INCREMENT pour la table `Livre`
 --
 ALTER TABLE `Livre`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `Rallye`

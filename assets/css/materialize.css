@@ -4729,7 +4729,7 @@ small {
   font-weight: 300;
 }
 
-.card .card-title.activator {
+.card .card-title .activator {
   cursor: pointer;
 }
 

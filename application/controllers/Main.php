@@ -28,15 +28,30 @@ class Main extends CI_Controller
     public function catalogue(int $page = 1)
     {
         if (!$this->isLogged()){
-            $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
-            $data['ajax'] = includeAJAX();
-            $data['books'] = $this->loadBooks($page);
 
+            $data['books'] = $this->loadBooks($page);
             $this->load->view('main/catalogue',$data);
         }
         else{
             redirect('accueil');
         }
+    }
+
+    /**
+     * Load the given page of the catalog
+     * @param int $page
+     * @return string
+     */
+    private function loadBooks(int $page = 1): string
+    {
+        $data = "";
+        $books = $this->livre->getPage($page);
+
+        foreach ($books as $book){
+            $data.= $this->format->book->toCatalog($book);
+        }
+
+        return $data;
     }
 
     /**
@@ -47,8 +62,6 @@ class Main extends CI_Controller
     {
         if ($this->isLogged()){
             $data['books'] = $this->loadBooks($page);
-            $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
-            $data['ajax'] = includeAJAX();
             $this->load->view('main/main',$data);
         }
         else{
@@ -59,9 +72,21 @@ class Main extends CI_Controller
     public function historique()
     {
         $data['classes'] = "";
-        $listeClasses = $this->Classe_model->getAll();
+        $listeClasses = $this->classe->getAll();
         foreach ($listeClasses as $uneClasse){
-            $data['classes'].=$this->format->classeToOption($uneClasse);
+            $data['classes'].=$this->format->class->toOption($uneClasse);
+        }
+
+        $data['emprunts'] = "<li class=\"collection-header center\"><h4>Emprunt de ".$_SESSION['user']['prenom']." ".$_SESSION['user']['nom']."</h4></li>";
+
+        $baselen = strlen($data['emprunts']);
+        $emprunts = $this->emprunt->get(array('id_eleve'=>$_SESSION['user']['id']));
+        foreach ($emprunts as $emprunt){
+            $data['emprunts'].=$this->format->book->toLi($emprunt);
+        }
+
+        if ($baselen == strlen($data['emprunts'])){
+            $data['emprunts'].= "<li class=\"collection-header center\"><h5><blockquote>Vous n'avez encore jamais emprunter de livre!</blockquote></h5></li>";
         }
 
         $this->load->view('main/historique', $data);
@@ -72,7 +97,9 @@ class Main extends CI_Controller
         $this->load->view('main/gestionbu');
     }
 
-
+    public function gestionutil(){
+        $this->load->view('main/gestionutil');
+    }
 
     /**
      * Controller for the connexion page
@@ -136,22 +163,7 @@ class Main extends CI_Controller
         return isset($_SESSION['user']['id']);
     }
 
-    /**
-     * Load the given page of the catalog
-     * @param int $page
-     * @return string
-     */
-    private function loadBooks(int $page = 1): string
-    {
-        $data = "";
-        $books = $this->livre->getPage($page);
 
-        foreach ($books as $book){
-            $data.= $this->format->bookToCatalog($book);
-        }
-
-        return $data;
-    }
 
 }
 

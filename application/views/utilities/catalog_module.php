@@ -1,22 +1,50 @@
-<div class="row">
-    <div class="col s3">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <form class="col s12">
-            <div class="row">
-                <div id="catalogue_container" class="input-field col s12">
-                    <i id="search" class="material-icons prefix">search</i>
-                    <div class="chips-placeholder" onchange="rechercher()"></div>
+<?php
+
+if (isset($env) && $env == 'childlog') { //affichage pour les enfants
+        echo '<div class="row">
+        <div class="col s3">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <form class="col s12">
+                <div class="row">
+                    <div id="catalogue_container" class="input-field col s12">
+                        <i id="search" class="material-icons prefix">search</i>
+                        <div class="chips-placeholder" onchange="rechercher()"></div>
+                    </div>
+                    <div id="catalogue_container" class="input-field col s12">
+                        <i id="search" class="material-icons prefix">search</i>
+                        <div class="chips-placeholder" onchange="rechercher()"></div>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-    <div class="col s9">
-        <div id="containerX" class="container">
-            <?= $books ?>
+            </form>
+        </div>
+        <div class="col s9">
+            <div id="book_container" class="container">';
+} else { //affichage pour tous les autres utilisateurs
+    echo '<div class="row">
+        <div class="col s3">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <form class="col s12">
+                <div class="row">
+                    <div id="catalogue_container" class="input-field col s12">
+                        <i id="search" class="material-icons prefix">search</i>
+                        <div class="chips-placeholder" onchange="rechercher()"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col s9">
+            <div id="book_container" class="container">';
+}
+    ?>            <?= $books ?>
+
 
             <!--            <div class="card col s3">-->
             <!--                <div class="card-image waves-effect waves-block waves-light">-->

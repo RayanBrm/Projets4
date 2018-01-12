@@ -1,25 +1,5 @@
-$(document).ready(function () {
-    $('select').material_select();
-});
-
-//$('.chips').material_chip();
 
 $('.chips-placeholder').material_chip({
     placeholder: 'mot-clé',
     secondaryPlaceholder: '+ autre',
 });
-
-$('.chips').on('chip.delete',function () {
-    location.reload();
-});
-
-$('.chips').on('chip.add',function () {
-    // TODO : enhancements
-   var data = $('.chips').material_chip('data')[0]['tag'];
-   rechercher(data);
-});
-
-$('.chips').on('chip.add', function(e, chip){
-    console.log($('.chip').material_chip('data'))
-});
-

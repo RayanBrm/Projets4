@@ -37,35 +37,12 @@ $this->load->view('utilities/page_nav', $data);
                 <h1 class="center red-text">Historique</h1>
                 <br>
                 <ul id="emprunt_container" class="collapsible" data-collapsible="accordion">
-                   <li class="collection-header center"><h4>Emprunt de Bernard Tupion</h4></li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">book</i>Bidule Tome 1</div>
-                        <div class="collapsible-body"><span>Détail de l'emprunt</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header green lighten-1"><i class="material-icons">book</i>Truc Tome 2</div>
-                        <div class="collapsible-body">
-                            <span>
-                                Détail de l'emprunt
-                                <p>
-                                     <input type="checkbox" id="test5" />
-                                    <label for="test5">Red</label>
-                                </p>
-                            </span>
-                            </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header green lighten-1"><i class="material-icons">book</i>Putput Tome 3 </div>
-                        <div class="collapsible-body"><span>Détail de l'emprunt</span></div>
-                    </li>
+                   <?= $emprunts ?>
                 </ul>
             </div>
 
-
-            <?php
-            echo includeJQUERY();
-            echo includeAJAX();
-            echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/historique.js'."\"></script>";
-            $this->load->view('utilities/page_footer',$data); ?>
+<?php
+    $data['load'] = array('jquery.min','materialize.min','ajax','historique','select');
+    $this->load->view('utilities/page_footer',$data);
+?>
 

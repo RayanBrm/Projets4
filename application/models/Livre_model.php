@@ -82,4 +82,13 @@ class Livre_model extends CI_Model
                         ->get()
                         ->result_array();
     }
+
+    public function getTheme($id_theme) : ?array
+    {
+        return $this->bd->select()
+                        ->from('livretheme')
+                        ->like('id_theme',$id_theme)
+                        ->get()
+                        ->result_array();
+    }
 }

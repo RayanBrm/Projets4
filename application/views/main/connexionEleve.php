@@ -1,7 +1,7 @@
 <?php
 
 $data['title'] = 'connexionEleve';
-$data['env'] = 'child';
+$data['env'] = 'log';
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav', $data);
 
@@ -36,7 +36,8 @@ echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/connexionEl
 </div>
 
 <?php
-            $data['jquery']=includeJQUERY();
-            $this->load->view('utilities/page_footer',$data); ?>
+    $data['load'] = array('jquery.min','materialize.min','select','connexionEleve');
+    $this->load->view('utilities/page_footer',$data);
+?>
 
 

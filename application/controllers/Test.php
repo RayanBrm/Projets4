@@ -18,8 +18,8 @@ class Test extends CI_Controller
     public function index()
     {
         $data = array();
-        dump($this->emprunt->getRunning(array('id_eleve'=>'5')));
-        //$data['report']['livre'] = $this->livreTest();
+
+        $data['report']['livre'] = $this->livreTest();
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;

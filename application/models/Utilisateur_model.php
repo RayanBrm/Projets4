@@ -2,89 +2,178 @@
 
 class Utilisateur_model extends CI_Model
 {
-    private $table = 'Utilisateur';
+    private $table;
 
+    /**
+     * Singleton for the list of child
+     * @var null
+     */
     private $childList = null;
 
-    // private $lastChildModified = false;
+    private $lastChildModified = false;
 
-    // private $lastChildUpdated;
+    private $lastChildUpdated;
+
+    private $fiedList;
 
     public function __construct()
     {
         parent::__construct();
-    }
 
-    public function get(array $data): ?array
-    {
-        $users = $this->db->select()
-            ->from($this->table)
-            ->where($data)
-            ->get()
-            ->result_array();
-
-        foreach ($users as $key => $user){
-            // TODO : better access to role value
-            if ($user['role'] == '2' || $user['role'] == '1'){
-                $users[$key]['motdepasse'] = $this->person->get(array('id'=>$user['id']))['motdepasse'];
-            }
-            elseif ($user['role'] === '3'){
-                $data = $this->eleve->get(array('id'=>$user['id']));
-                $users[$key]['pastille'] = $data['pastille'];
-                $users[$key]['classe'] = $data['classe'];
-            }
-        }
-
-        return $users;
-    }
-
-    public function set(array $data): bool
-    { // TODO : updated child list integration $this->lastModified = date("U");
-        $id = $data['id'];
-        unset($data['id']);
-
-        return $this->db->where('id',$id)
-            ->update($this->table,$data);
-    }
-
-    public function add(array $data): bool
-    {
-        $result = $this->db->insert($this->table,$data);
-
-        if ($result === true){
-            if (isset($data['motdepasse'])){
-                $this->person->add(array());
-            }
-            elseif (isset($data['pastille'])){
-                $this->eleve->add(array());
-            }
-        }
-    }
-
-    public function del(array $data): bool
-    {
-        return $this->db->where($data)
-            ->delete($this->table);
-    }
-
-    /** TODO : move ?
-     * Return the level list from Role table
-     * @return array|null
-     */
-    public function getLevels(): ?array
-    {
-        return $this->db->select()->from('Role')->get()->result_array();
+        $this->table = 'Utilisateur';
+        $this->fiedList = $this->db->list_fields($this->table);
     }
 
     /**
-     * Return the child id, class and picture for each child
-     * @return null
+     * Getter for user data
+     * @param array $data Contains data to identify user(s) to returns as array('id'=>?) for getting by id
+     * @return array|null In case of user in Personnel table the returned user(s) are filled up with motdepasse
+     *                    else if user is a child, he's filled up with pastille and his class,
+     *                    return null in case of invalid user filter
      */
-    public function getAllChild()
-    { // TODO : Handle updating
-        if (!isset($this->childList)){
-            $this->childList = $this->eleve->getAll();
+    public function get(array $data): ?array
+    {
+        if (isset($data['id']) || isset($data['identifiant']) || isset($data['nom']) || isset($data['prenom']) || isset($data['role'])){
+            $users = $this->db->select()
+                ->from($this->table)
+                ->where($data)
+                ->get()
+                ->result_array();
+
+            foreach ($users as $key => $user){
+                // TODO : better access to role value
+                if ($user['role'] == '2' || $user['role'] == '1'){
+                    $users[$key]['motdepasse'] = $this->person->get(array('id'=>$user['id']))['motdepasse'];
+                }
+                elseif ($user['role'] === '3'){
+                    $tmp = $this->eleve->get(array('id'=>$user['id']))[0];
+                    $users[$key]['pastille'] = $tmp['pastille'];
+                    $users[$key]['classe'] = $tmp['classe'];
+                }
+            }
+            return $users;
         }
-        return $this->childList;
+        else{
+            return null;
+        }
+    }
+
+    /**
+     * Setter for user data
+     * @param array $data Contains data about user, every fields have to be present,
+     *                    id must be valid : array('id'=>?,'identifiant'=>?,..),
+     *                    if Eleve fields or Personnel fileds are present the concerned table will be updated too
+     * @return bool True in case of success false else
+     */
+    public function set(array $data): bool
+    { // TODO : updated child list integration
+
+        foreach ($this->fiedList as $field){ // Dynamically checking if every field is present
+            if (!array_key_exists($field,$data)){
+                return false;
+            }
+        }
+        $id = $data['id'];
+        unset($data['id']);
+
+        if (isset($data['pastille']) && isset($data['classe'])){ // updating Eleve table if needed
+            $result = $this->eleve->set(array('id'=>$id,'pastille'=>$data['pastille'],'classe'=>$data['classe']));
+            unset($data['pastille'],$data['classe']);
+        }
+        elseif (isset($data['motdepasse'])){ // updating Personnel table if needed
+            $result = $this->person->set(array('id'=>$id,'motdepasse'=>$data['motdepasse']));
+            unset($data['motdepasse']);
+        }
+
+        // Testing result & updating modified time if needed
+        if ($result && $this->db->where('id',$id)->update($this->table,$data)){
+            $this->lastChildModified = date("U");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Adder for Utilisateur table
+     * @param array $data Contains value about user,
+     *                  if motdepasse is specified, user will be added into the Personnel table,
+     *                  if pastille and classe is given he will be added into th Eleve table,
+     *                  user cannot be added in both table, if the 3 argument are given user will be added in Personnel table
+     * @return bool True if the user have been added false else
+     */
+    public function add(array $data): bool
+    {
+        // Trying to insert
+        if (isset($data['motdepasse'])){
+            $pwd = $data['motdepasse'];
+            unset($data['motdepasse']);
+        }
+        if (isset($data['pastille']) || isset($data['classe'])){
+            $pastill = $data['pastille'];
+            $classe = $data['classe'];
+
+            unset($data['pastille'], $data['classe']);
+        }
+
+        $result = $this->db->insert($this->table,$data);
+
+        if ($result === true){ // If inserted
+            if (isset($data['motdepasse'])){ // if user is personnel
+                return $result && $this->person->add(array('id'=>$data['id'],'motdepasse'=>$pwd));
+            }
+            elseif (isset($data['pastille']) && isset($data['classe'])){
+                return $result && $this->eleve->add(array('id'=>$data['id'],'classe'=>$classe,'pastille'=>$pastill));
+            }
+        }
+        else{
+            return $result;
+        }
+    }
+
+    /**
+     * Deleter for Utilisateur table, delete Utilisateur from Eleve or Personnel if they belong to one of those table
+     * @param array $data Only user id is allowed to delete a user, as an associative array
+     * @return bool True if the user was deleted false else
+     */
+    public function del(array $data): bool
+    {
+        if (isset($data['id'])){
+            $result = $this->db->where($data)
+                ->delete($this->table);
+
+            if (array_key_exists($data['id'],$this->childList)){
+                return $result && $this->eleve->del($data);
+            }
+            else if ($this->person->exist($data)){
+                return $result && $this->person->del($data);
+            }
+            else{
+                return $result;
+            }
+        }
+        return false;
+    }
+
+    /** TODO : move ?
+     * Getter for the role table
+     * @return array|null The list of role defined in table role
+     */
+    public function getLevels(): ?array
+    {
+        return $this->db->select()
+            ->from('Role')
+            ->get()
+            ->result_array();
+    }
+
+    /**
+     * Getter for the whole list of child
+     * @return array|null Return the child id, class and picture for each child
+     */
+    public function getAllChild(): ?array
+    {
+        return (isset($this->childList) && $this->lastChildModified<=$this->lastChildUpdated)
+            ? $this->childList
+            : $this->childList = $this->eleve->getAll();
     }
 }

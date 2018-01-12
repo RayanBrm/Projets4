@@ -14,8 +14,15 @@ class Ajax extends CI_Controller
         $keyWord = $this->input->post('search');
         $books = $this->livre->search($keyWord);
 
-        foreach ($books as $book){
-            echo $this->format->bookToCatalog($book);
+        if (!isset($_POST['display'])){
+            foreach ($books as $book){
+                echo $this->format->book->toCatalog($book);
+            }
+        }
+        elseif ($_POST['display'] == 'toModify'){
+            foreach ($books as $book){
+                echo $this->format->book->toModify($book);
+            }
         }
     }
 
@@ -31,11 +38,11 @@ class Ajax extends CI_Controller
 
         foreach ($classe as $eleve){
             if ($displayMode == 'log'){
-                $result.=$this->format->childToLog($eleve);
+                $result.=$this->format->child->toLog($eleve);
             }
             elseif ($displayMode == 'option'){
                 $tmpEleve = $this->user->get(array('id'=>$eleve['id']))[0];
-                $result.=$this->format->childToOption($tmpEleve);
+                $result.=$this->format->child->toOption($tmpEleve);
             }
         }
 
@@ -47,15 +54,25 @@ class Ajax extends CI_Controller
         $result="";
         if (!isset($isClasse)){
             $emprunts = $this->emprunt->get(array('id_eleve'=>$id));
+            $eleve = $this->user->get(array('id'=>$id))[0];
+
+            $result.="<li class='collection-header center'><h4>Historique des emprunts pour ".$eleve['prenom']." ".$eleve['nom']."</h4></li>";
 
             foreach ($emprunts as $emprunt){
-                $result.=$this->format->empruntToLi($emprunt);
+                $result.=$this->format->book->toLi($emprunt);
             }
         }
         else{
             $childList = $this->eleve->getClasse($id);
+            $classe = $this->classe->get(array('id'=>$id))[0];
+            $result.="<li class='collection-header center'><h4>Emprunt en cours dans la classe : ".$classe['libelle']."</h4></li>";
+
+            $baselen = strlen($result);
             foreach ($childList as $child){
-                $result.= $this->format->empruntToLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
+                $result.= $this->format->book->toLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
+            }
+            if ($baselen == strlen($result)){
+                $result.="<li class='collection-header center'><h5><blockquote>Aucun emprunt en cours dans la classe</blockquote></h5></li>";
             }
         }
 
