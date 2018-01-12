@@ -123,7 +123,7 @@ class Main extends CI_Controller
 
         $user = $this->user->get(array('identifiant'=>$login))[0];
 
-        if (isset($user) && ($user['role'] === $this->level['Administrateur'] || $user['role'] === $this->level['Professeur']) && password_verify($pwd,$user['motdepasse'])){
+        if (isset($user) && ($user['role'] === $this->level['Administrateur'] || $user['role'] === $this->level['Professeur']) && password_verify($pwd,$user['motdepasse'])){//$pwd == $user['motdepasse']){
             $_SESSION['user'] = $user;
             redirect('accueil');
         }
@@ -162,8 +162,6 @@ class Main extends CI_Controller
     {
         return isset($_SESSION['user']['id']);
     }
-
-
 
 }
 

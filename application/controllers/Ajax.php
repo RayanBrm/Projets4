@@ -78,4 +78,27 @@ class Ajax extends CI_Controller
 
         echo $result;
     }
+
+    public function adduser()
+    {
+        if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role'])){
+            $user = array(
+                'identifiant'=>$_POST['identifiant'],
+                'motdepasse'=>$_POST['motdepasse'],
+                'nom'=>$_POST['nom'],
+                'prenom'=>$_POST['prenom'],
+                'role'=>$_POST['role']
+                );
+
+            if ($this->user->add($user)){
+                echo 'success';
+            }
+            else{
+                echo 'failure';
+            }
+        }
+        else{
+            echo 'incomplete';
+        }
+    }
 }

@@ -19,7 +19,17 @@ class Test extends CI_Controller
     {
         $data = array();
 
-        $data['report']['livre'] = $this->livreTest();
+        $pwd = password_hash('admin',PASSWORD_BCRYPT);
+        echo 'Generated :';
+        dump(password_verify('admin',$pwd));
+
+        $upwd = $this->user->get(array('id'=>'52'))[0]['motdepasse'];
+        echo 'Get :';
+        dump(password_verify('admin',$upwd));
+        echo 'Manual :';
+        dump(password_verify('admin','$2y$10$yz4DX9ZFBOO.MyCLYdiHp.ctKB8W94vXvz1U7mjVHP4RNSxUNrvoq'));
+
+        //$data['report']['livre'] = $this->livreTest();
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;

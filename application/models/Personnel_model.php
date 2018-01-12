@@ -21,9 +21,9 @@ class Personnel_model extends Utilisateur_model
                 ->from($this->table)
                 ->where($data)
                 ->get()
-                ->result_array()[0];
+                ->result_array();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -35,7 +35,7 @@ class Personnel_model extends Utilisateur_model
     {
         if (isset($data['motdepasse']) && isset($data['id'])){
             $pwd = $this->hash($data['motdepasse']);
-            return $this->db->insert($this->table,$data);
+            return $this->db->insert($this->table,array('id'=>$data['id'],'motdepasse'=>$pwd));
         }
         return false;
     }

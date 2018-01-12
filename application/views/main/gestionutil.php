@@ -7,6 +7,16 @@ $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 ?>
 
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Ajout d'un utilisateur</h4>
+            <p id="popup_container"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" id="popup_button" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
+        </div>
+    </div>
+
 <div class="container">
     <br>
     <br>
@@ -22,25 +32,31 @@ $this->load->view('utilities/page_nav',$data);
                     <form>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="ISBN" type="text" data-length="13">
+                                <input id="identifiant" name="identifiant" type="text" required>
                                 <label class="red-text ligthen-2 for=" input_text">Identifiant</label>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="input-field col s6">
+                                <input id="motdepasse" name="motdepasse" type="text" required>
+                                <label class="red-text ligthen-2 for=" input_text">Mot de passe</label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s8">
-                                <input id="Titre" type="text" class="validate">
+                                <input id="nom" name="nom" type="text" class="validate" required>
                                 <label class="red-text ligthen-2 for=" input_text">Nom</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <input id="Auteur" type="text" class="validate">
+                                <input id="prenom" name="prenom" type="text" class="validate" required>
                                 <label class="red-text ligthen-2 for=" input_text">Prenom</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <select class="red-text lighten-3">
+                                <select id="role" name="role" class="red-text lighten-3" required>
                                     <option value="" disabled selected>Role</option>
                                     <option value="1">Administrateur</option>
                                     <option value="2">Professeur</option>
@@ -48,7 +64,7 @@ $this->load->view('utilities/page_nav',$data);
                             </div>
                         </div>
                         <div class="row">
-                            <button class="btn waves-effect waves-light red lighten-3 " type="submit" name="action">Submit
+                            <button class="btn waves-effect waves-light red lighten-3" onclick="adduser()" type="button" name="action">Enregistrer
                                 <i class="material-icons rigth ">send</i>
                             </button>
                         </div>
@@ -102,5 +118,5 @@ $this->load->view('utilities/page_nav',$data);
 </div>
 
 <?php
-    $data['load'] = array('jquery.min','materialize.min','select');
+    $data['load'] = array('ajax','jquery.min','materialize.min','select','gestionutil');
     $this->load->view('utilities/page_footer',$data);
