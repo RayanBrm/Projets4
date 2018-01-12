@@ -154,13 +154,13 @@ INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, `de
   ('Harry Potter et la chambre des secrets', 'J.K. Rowling', 'Folio Junior', '2017-10-12', 'assets/img/livres/1.jpg','');
 
 INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, `description`) VALUES
-  ('Le petit Prince', 'Antoine de Saint-Exupéry', 'Gallimard', '2017-10-12', 'assets/img/livres/2.jpg','');
+  ('Le petit Prince', 'Antoine de Saint-Exupéry', 'Gallimard', '2017-10-12', 'assets/img/livres/2.jpeg','');
 
 INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, `description`) VALUES
   ('Les Royaumes du Nord 1 : A la croisée des mondes', 'Philip Pullman', 'Gallimard', '2017-10-12', 'assets/img/livres/3.jpg','');
 
 INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, `description`) VALUES
-  ('Les bêtises du petit Nicolas', 'Sempé / Goscinny', 'Gallimard', '2017-10-12', 'assets/img/livres/4.jpg','');
+  ('Les bêtises du petit Nicolas', 'Sempé / Goscinny', 'Gallimard', '2017-10-12', 'assets/img/livres/4.jpeg','');
 
 INSERT INTO `Livre` (`titre`, `auteur`, `edition`, `parution`, `couverture`, description) VALUES
   ('Mes amis de la rue', 'Nathalie Choux', 'Mango', '2017-10-12', 'assets/img/livres/5.jpg','');
