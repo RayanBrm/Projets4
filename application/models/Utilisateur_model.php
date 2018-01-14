@@ -40,15 +40,15 @@ class Utilisateur_model extends CI_Model
                 ->get()
                 ->result_array();
 
-            foreach ($users as $key => $user){
+            foreach ($users as $key => $user){ // Adding data
                 // TODO : better access to role value
-                if ($user['role'] == '2' || $user['role'] == '1'){
-                    $users[$key]['motdepasse'] = $this->person->get(array('id'=>$user['id']))['motdepasse'];
+                if ($user['role'] == '2' || $user['role'] == '1' && $this->person->exist(array('id'=>$user['id']))){
+                    $users[$key]['motdepasse'] = $this->person->get(array('id'=>$user['id']))[0]['motdepasse'];
                 }
-                elseif ($user['role'] === '3'){
-                    $tmp = $this->eleve->get(array('id'=>$user['id']))[0];
-                    $users[$key]['pastille'] = $tmp['pastille'];
-                    $users[$key]['classe'] = $tmp['classe'];
+                elseif ($user['role'] === '3' && $this->eleve->exist(array('id'=>$user['id']))){
+                    $tmp = $this->eleve->get(array('id'=>$user['id']));
+                    $users[$key]['pastille'] = $tmp[0]['pastille'];
+                    $users[$key]['classe'] = $tmp[0]['classe'];
                 }
             }
             return $users;
@@ -109,7 +109,7 @@ class Utilisateur_model extends CI_Model
             unset($data['motdepasse']);
         }
         if (isset($data['pastille']) || isset($data['classe'])){
-            $pastill = $data['pastille'];
+            $pastille = $data['pastille'];
             $classe = $data['classe'];
 
             unset($data['pastille'], $data['classe']);
@@ -117,17 +117,17 @@ class Utilisateur_model extends CI_Model
 
         $result = $this->db->insert($this->table,$data);
 
-        if ($result === true){ // If inserted
-            if (isset($data['motdepasse'])){ // if user is personnel
-                return $result && $this->person->add(array('id'=>$data['id'],'motdepasse'=>$pwd));
-            }
-            elseif (isset($data['pastille']) && isset($data['classe'])){
-                return $result && $this->eleve->add(array('id'=>$data['id'],'classe'=>$classe,'pastille'=>$pastill));
-            }
+
+        if ($result === true && isset($pwd)) { // if user is personnel
+            return $result && $this->person->add(array('id' => $data['id'], 'motdepasse' => $pwd));
+        }
+        elseif ($result === true && isset($classe) && isset($pastille)) {
+            return $result && $this->eleve->add(array('id' => $data['id'], 'classe' => $classe, 'pastille' => $pastille));
         }
         else{
             return $result;
         }
+
     }
 
     /**

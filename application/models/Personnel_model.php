@@ -21,9 +21,9 @@ class Personnel_model extends Utilisateur_model
                 ->from($this->table)
                 ->where($data)
                 ->get()
-                ->result_array()[0];
+                ->result_array();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -87,7 +87,7 @@ class Personnel_model extends Utilisateur_model
      */
     public function exist(array $data): bool
     {
-        return (count($this->db->select()->from($this->table)->where($data)) > 0);
+        return (count($this->db->select()->from($this->table)->where($data)->get()->result_array()) > 0);
     }
 
 }
