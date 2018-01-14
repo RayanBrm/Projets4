@@ -19,9 +19,8 @@ class Test extends CI_Controller
     {
         $data = array();
 
-        $pwd = password_hash('admin',PASSWORD_BCRYPT);
-        echo 'Generated :';
-        dump(password_verify('admin',$pwd));
+        //$data['report']['livre'] = $this->livreTest();
+        $data['report']['user'] = $this->userTest();
 
         $upwd = $this->user->get(array('id'=>'52'))[0]['motdepasse'];
         echo 'Get :';
@@ -51,7 +50,8 @@ class Test extends CI_Controller
             'edition'=>'Folio Junior',
             'parution'=>'2017-10-12',
             'couverture'=>'assets/img/livres/1.jpg',
-            'description'=>''
+            'description'=>'',
+            'disponible'=>null
         );
 
         $expected_add = array(
@@ -61,7 +61,8 @@ class Test extends CI_Controller
             'edition'=>'Folio Junior',
             'parution'=>'2017-10-12',
             'couverture'=>'assets/img/livres/2.jpg',
-            'description'=>''
+            'description'=>'',
+            'disponible'=>null
         );
 
         $expected_set = array(
@@ -71,10 +72,36 @@ class Test extends CI_Controller
             'edition'=>'Folio Junior',
             'parution'=>'2017-10-12',
             'couverture'=>'assets/img/livres/2.jpg',
-            'description'=>''
+            'description'=>'',
+            'disponible'=>null
         );
 
         $expected_del = null;
+
+        $expected_search = array(
+            array(
+                'id'=>'2',
+                'isbn'=>null,
+                'titre'=>'Le petit prince',
+                'auteur'=>'Antoine de Saint-Exupéry',
+                'edition'=>'Gallimard',
+                'parution'=>'2017-10-12',
+                'couverture'=>'assets/img/livres/2.jpeg',
+                'description'=>'',
+                'disponible'=>null
+            ),
+            array(
+                'id'=>'8',
+                'isbn'=>null,
+                'titre'=>'Le petit Nicolas s amuse',
+                'auteur'=>'Sempé / Goscinny',
+                'edition'=>'Gallimard',
+                'parution'=>'2017-10-12',
+                'couverture'=>'assets/img/livres/8.jpg',
+                'description'=>'',
+                'disponible'=>null
+            )
+        );
 
         $obtained = $this->livre->get(array('id'=>$livre_id));
         $result['livre']['get'] = $this->unit->run($obtained,$expected_get,'livre->get');
@@ -93,7 +120,121 @@ class Test extends CI_Controller
         $obtained = $this->livre->get(array('id'=>$expected_set['id']));
         $result['livre']['del'] = $this->unit->run($obtained,$expected_del,'livre->del');
 
+        $obtained = $this->livre->search('le petit');
+        $result['livre']['search'] = $this->unit->run($obtained,$expected_search,'livre->search');
+
+
         foreach ($result['livre'] as $test){
+            if (strpos($test,"Passed")){
+                $this->testPassed++;
+            }
+            $this->testNB++;
+        }
+
+        return $result;
+    }
+
+    private function userTest()
+    {
+        $result = array();
+
+        $userID = '52';
+
+        $expected_get[0] = array(
+            'id'=>'52',
+            'identifiant'=>'admin',
+            'nom'=>'Jean-Gui',
+            'prenom'=>'Ladmin',
+            'role'=>'1',
+            'motdepasse'=>'$2y$10$yz4DX9ZFBOO.MyCLYdiHp.ctKB8W94vXvz1U7mjVHP4RNSxUNrvoq'
+        );
+
+        $expected_stock_user[0] = array(
+            'identifiant'=>'jdstock',
+            'nom'=>'John',
+            'prenom'=>'Doe',
+            'role'=>'4'
+        );
+
+        $expected_prof_user[0] = array(
+            'identifiant'=>'jsprof',
+            'nom'=>'John',
+            'prenom'=>'Doe',
+            'role'=>'2',
+        );
+
+        $expected_child_user[0] = array(
+            'identifiant'=>'jschild',
+            'nom'=>'John',
+            'prenom'=>'Doe',
+            'role'=>'3',
+            'classe'=>'1',
+            'pastille'=>'turtle'
+        );
+
+        $expected_del = array();
+
+        // ************* Get user test
+        $obtained = $this->user->get(array('id'=>$userID));
+        $result['user']['get'] = $this->unit->run($obtained,$expected_get,'user->get');
+
+        // ************** Add user test
+        $this->user->add($expected_stock_user[0]);
+        $obtained = $this->user->get(array('identifiant'=>$expected_stock_user[0]['identifiant']));
+        $expected_stock_user[0]['id'] = $obtained[0]['id'];
+        $result['user']['add_stock'] = $this->unit->run($obtained,$expected_stock_user,'user->add_stock');
+
+        $this->user->add($expected_prof_user[0]);
+        $obtained = $this->user->get(array('identifiant'=>$expected_prof_user[0]['identifiant']));
+        $expected_prof_user[0]['id'] = $obtained[0]['id'];
+        $expected_prof_user[0]['motdepasse'] = $obtained[0]['motdepasse'];
+        $result['user']['add_prof'] = $this->unit->run($obtained,$expected_stock_user,'user->add_prof');
+
+        $this->user->add($expected_child_user[0]);
+        $obtained = $this->user->get(array('identifiant'=>$expected_child_user[0]['identifiant']));
+        $expected_child_user[0]['id'] = $obtained[0]['id'];
+        $expected_child_user[0]['pastille'] = $obtained[0]['pastille'];
+        $expected_child_user[0]['classe'] = $obtained[0]['classe'];
+        $result['user']['add_child'] = $this->unit->run($obtained,$expected_child_user,'user->add_child');
+
+        // *************** Update user test
+        $expected_stock_user_set = $expected_stock_user;
+        $expected_stock_user_set[0]['nom'] = 'foo';
+        $expected_stock_user_set[0]['prenom'] = 'bar';
+        $this->user->set($expected_stock_user_set);
+        $obtained = $this->user->get(array('id'=>$expected_stock_user_set[0]['id']));
+        $result['user']['set_stock'] = $this->unit->run($obtained,$expected_stock_user_set,'user->set_stock');
+
+        $expected_prof_user_set = $expected_prof_user;
+        $expected_prof_user_set[0]['nom'] = 'foo';
+        $expected_prof_user_set[0]['prenom'] = 'bar';
+        $expected_prof_user_set[0]['motdepasse'] = 'johndoe';
+        $this->user->set($expected_prof_user_set);
+        $obtained = $this->user->get(array('id'=>$expected_prof_user_set[0]['id']));
+        $result['user']['set_prof'] = $this->unit->run($obtained,$expected_prof_user_set,'user->set_prof');
+
+        $expected_child_user_set = $expected_child_user;
+        $expected_child_user_set[0]['nom'] = 'foo';
+        $expected_child_user_set[0]['prenom'] = 'bar';
+        $expected_child_user_set[0]['pastille'] = 'panda';
+        $this->user->set($expected_child_user_set);
+        $obtained = $this->user->get(array('id'=>$expected_child_user_set[0]['id']));
+        $result['user']['set_child'] = $this->unit->run($obtained,$expected_child_user_set,'user->set_child');
+
+        // ***************** Delete
+        $this->user->del(array('id'=>$expected_stock_user[0]['id']));
+        $obtained = $this->user->get(array('id'=>$expected_stock_user[0]['id']));
+        $result['user']['del_stock'] = $this->unit->run($obtained,$expected_del,'user->del_stock');
+
+        $this->user->del(array('id'=>$expected_prof_user[0]['id']));
+        $obtained = $this->user->get(array('id'=>$expected_prof_user[0]['id']));
+        $result['user']['del_prof'] = $this->unit->run($obtained,$expected_del,'user->del_prof');
+
+        $this->user->del(array('id'=>$expected_child_user[0]['id']));
+        $obtained = $this->user->get(array('id'=>$expected_child_user[0]['id']));
+        $result['user']['del_child'] = $this->unit->run($obtained,$expected_del,'user->del_child');
+
+        foreach ($result['user'] as $test){
             if (strpos($test,"Passed")){
                 $this->testPassed++;
             }

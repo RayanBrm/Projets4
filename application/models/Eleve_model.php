@@ -96,4 +96,14 @@ class Eleve_model extends Utilisateur_model
         return true;
     }
 
+    /**
+     * Check if specified id exist in table Personnel
+     * @param array $data Contains user id
+     * @return bool True if the id exist false else
+     */
+    public function exist(array $data): bool
+    {
+        return (count($this->db->select()->from($this->table)->where($data)->get()->result_array()) > 0);
+    }
+
 }

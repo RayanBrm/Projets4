@@ -44,24 +44,6 @@ class Livre_model extends CI_Model
                         ->delete($this->table);
     }
 
-    public function searchName(string $bookTitle): ?array
-    {
-        return $this->db->select()
-                        ->from($this->table)
-                        ->like('titre',$bookTitle)
-                        ->get()
-                        ->result_array();
-    }
-
-    public function searchAuthor(string $bookAuthor): ?array
-    {
-        return $this->db->select()
-                        ->from($this->table)
-                        ->like('auteur',$bookAuthor)
-                        ->get()
-                        ->result_array();
-    }
-
     public function search(string $keyWord): ?array
     {
          $this->db->select()
