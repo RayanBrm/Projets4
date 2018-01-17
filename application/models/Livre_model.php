@@ -5,11 +5,6 @@ class Livre_model extends CI_Model
     private $table = 'Livre';
     private $fields = array('titre','auteur','edition','parution');
 
-    /**
-     * @var int The number of book displayed by page
-     */
-    public static $pageDisplay = 40;
-
     public function __construct()
     {
         parent::__construct();
@@ -60,7 +55,7 @@ class Livre_model extends CI_Model
     {
         return  $this->db->select()
                         ->from($this->table)
-                        ->limit(self::$pageDisplay,self::$pageDisplay*($page-1))
+                        ->limit(BOOK_PER_PAGE,BOOK_PER_PAGE*($page-1))
                         ->get()
                         ->result_array();
     }

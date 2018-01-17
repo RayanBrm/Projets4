@@ -7,6 +7,17 @@ $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 ?>
 
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Attention!</h4>
+            <blockquote id="modal_container"></blockquote>
+        </div>
+        <div class="modal-footer">
+            <a href="#" onclick="agree()" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
+        </div>
+    </div>
+
 <div class="container">
     <br>
     <br>

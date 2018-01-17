@@ -9,7 +9,7 @@ $this->load->view('utilities/page_nav', $data);
 <div id="modal1" class="modal">
     <div class="modal-content">
         <h4>Attention!</h4>
-        <p>La suppression d'un livre est définitive. Etes vous sur de vouloir continuer ?</p>
+        <blockquote>La suppression d'un livre est définitive. Etes vous sur de vouloir continuer ?</blockquote>
     </div>
     <div class="modal-footer">
         <a href="agree()" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
@@ -28,7 +28,7 @@ $this->load->view('utilities/page_nav', $data);
             <div class="collapsible-body"><span><form>
                 <div class="row">
                 <div class="input-field col s6">
-                    <input id="ISBN" type="text" data-length="13">
+                    <input id="ISBN" type="text" data-length="13" maxlength="13">
                     <label class="red-text ligthen-2 for=" input_text">ISBN</label>
                 </div>
                 </div>
@@ -87,28 +87,26 @@ $this->load->view('utilities/page_nav', $data);
             </form></span>
 </div>
 </li>
-<li>
-    <div class="collapsible-header"><i class="material-icons">library_books</i>Modifier/Supprimer un livre</div>
-    <div class="collapsible-body"><span>
-             <div class="row">
-                <div id="catalogue_container" class="input-field col s12">
-                    <i id="search" class="material-icons prefix">search</i>
-                    <div class="chips-placeholder"></div>
-                </div>
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">library_books</i>
+                Modifier/Supprimer un livre
             </div>
-             <ul id="book_container" class="collection with-header">
-<!--                <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
-<!--                <li class="collection-item"><div>Tintin<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
-<!--                <li class="collection-item"><div>Garflied<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
-<!--                <li class="collection-item"><div>Max et Leo<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2"><i class="material-icons">clear</i></a></div></li>-->
-             </ul>
+            <div class="collapsible-body">
+                <span>
+                    <div class="row">
+                        <div id="catalogue_container" class="input-field col s12">
+                            <i id="search" class="material-icons prefix">search</i>
+                            <div class="chips-placeholder"></div>
+                        </div>
+                    </div>
+                    <ul id="book_container" class="collection with-header">
+                    </ul>
+                </span>
+            </div>
+        </li>
 
-        </span></div>
-</li>
-
-</ul>
-
-
+    </ul>
 </div>
 
 

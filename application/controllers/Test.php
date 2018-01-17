@@ -20,7 +20,7 @@ class Test extends CI_Controller
         $data = array();
 
         //$data['report']['livre'] = $this->livreTest();
-        $data['report']['user'] = $this->userTest();
+        //$data['report']['user'] = $this->userTest();
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
