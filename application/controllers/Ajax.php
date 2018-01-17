@@ -78,4 +78,20 @@ class Ajax extends CI_Controller
 
         echo $result;
     }
+
+    public function getUser()
+    {
+        $keyWord = $_POST['search'];
+        $result = "";
+
+        $users = $this->user->search($keyWord,'util');
+
+        if (count($users) > 0){
+            foreach ($users as $user){
+                $result.= $this->format->user->toLi($user);
+            }
+        }
+
+        echo $result;
+    }
 }

@@ -101,6 +101,17 @@ class Main extends CI_Controller
         $this->load->view('main/gestionutil');
     }
 
+    public function modifier()
+    {
+        $what = $_GET['what'];
+        $who = $_GET['who'];
+
+        if (isset($what) && $what == "user"){
+            $data['user'] = $this->user->get(array('id'=>$who))[0];
+            $this->load->view('main/modifierUtilisateur',$data);
+        }
+    }
+
     /**
      * Controller for the connexion page
      */

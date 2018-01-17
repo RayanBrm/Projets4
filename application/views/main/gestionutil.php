@@ -15,26 +15,26 @@ $this->load->view('utilities/page_nav',$data);
     <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header ">
-                <i class="material-icons">people</i>Ajouter un utilisateur
+                <i class="material-icons">person_add</i>Ajouter un utilisateur
             </div>
             <div class="collapsible-body">
                 <span>
                     <form>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="ISBN" type="text" data-length="13">
+                                <input name="identifiant" type="text" data-length="13">
                                 <label class="red-text ligthen-2 for=" input_text">Identifiant</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <input id="Titre" type="text" class="validate">
+                                <input id="nom" type="text" class="validate">
                                 <label class="red-text ligthen-2 for=" input_text">Nom</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <input id="Auteur" type="text" class="validate">
+                                <input id="prenom" type="text" class="validate">
                                 <label class="red-text ligthen-2 for=" input_text">Prenom</label>
                             </div>
                         </div>
@@ -48,13 +48,27 @@ $this->load->view('utilities/page_nav',$data);
                             </div>
                         </div>
                         <div class="row">
-                            <button class="btn waves-effect waves-light red lighten-3 " type="submit" name="action">Submit
+                            <button class="btn waves-effect waves-light red lighten-3 " type="submit" name="action">Enregistrer
                                 <i class="material-icons rigth ">send</i>
                             </button>
                         </div>
                     </form>
                 </span>
             </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">edit</i>Modifier/Supprimer un utilisateur</div>
+            <div class="collapsible-body"><span>
+             <div class="row">
+                <div id="catalogue_container" class="input-field col s12">
+                    <i id="search" class="material-icons prefix">search</i>
+                    <div class="chips-placeholder"></div>
+                </div>
+            </div>
+             <ul id="book_container" class="collection with-header">
+<!--           <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
+             </ul>
+        </span></div>
         </li>
         <li>
             <div class="collapsible-header ">
@@ -97,10 +111,25 @@ $this->load->view('utilities/page_nav',$data);
                 </span>
             </div>
         </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">edit</i>Modifier/Supprimer un élève</div>
+            <div class="collapsible-body"><span>
+             <div class="row">
+                <div id="catalogue_container" class="input-field col s12">
+                    <i id="search" class="material-icons prefix">search</i>
+                    <div class="chips-placeholder"></div>
+                </div>
+            </div>
+             <ul id="book_container" class="collection with-header">
+<!--           <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
+             </ul>
+
+        </span></div>
+        </li>
 
     </ul>
 </div>
 
 <?php
-    $data['load'] = array('jquery.min','materialize.min','select');
+    $data['load'] = array('ajax','jquery.min','materialize.min','select','chips','gestionutil');
     $this->load->view('utilities/page_footer',$data);

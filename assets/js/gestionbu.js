@@ -1,6 +1,9 @@
+var bookToDelete = -1;
+
 $(document).ready(function() {
     $('select').material_select();
     $('input#input_text, textarea#textarea1').characterCounter();
+    $('.modal').modal();
 });
 
 $('.chips').on('chip.add',function () {
@@ -29,5 +32,6 @@ function rechercher(search)
 }
 
 function deleteBook(bookid) {
+    bookToDelete = bookid;
     $('#modal1').modal('open');
 }

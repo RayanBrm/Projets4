@@ -6,7 +6,7 @@ $this->load->view('utilities/page_nav', $data);
 
 ?>
 
-<div id="modal1" class="modal bottom-sheet">
+<div id="modal1" class="modal">
     <div class="modal-content">
         <h4>Attention!</h4>
         <p>La suppression d'un livre est définitive. Etes vous sur de vouloir continuer ?</p>

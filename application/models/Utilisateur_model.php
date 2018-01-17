@@ -176,4 +176,26 @@ class Utilisateur_model extends CI_Model
             ? $this->childList
             : $this->childList = $this->eleve->getAll();
     }
+
+    public function search(string $keyWord, string $where): array
+    {
+        if ($where == "util" && isset($keyWord)){
+            // Producing : SELECT * FROM Utilisateur WHERE (role = 1 OR role = 2) AND (nom LIKE 'test' OR prenom LIKE 'test' OR identifiant LIKE 'test')
+            return $this->db->select()
+                ->from($this->table)
+                ->group_start()
+                    ->where('role = 1 OR role = 2')
+                ->group_end()
+                ->group_start()
+                    ->or_like('nom',$keyWord)
+                    ->or_like('prenom', $keyWord)
+                    ->or_like('identifiant', $keyWord)
+                ->group_end()
+                ->get()
+                ->result_array();
+        }elseif ($where == "child" && isset($keyWord)){
+            return array();
+        }else
+            return array();
+    }
 }

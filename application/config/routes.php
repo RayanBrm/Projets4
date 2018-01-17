@@ -61,4 +61,4 @@ $route['connect'] = 'main/connect';
 $route['accueil'] = 'main/main';
 $route['bibliotheque'] = 'main/gestionbu';
 $route['utilisateur'] = 'main/gestionutil';
-$route['modifierLivre'] = 'main/editBook';
+$route['modifier'] = 'main/modifier';
