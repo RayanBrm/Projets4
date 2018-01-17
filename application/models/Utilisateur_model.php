@@ -33,40 +33,28 @@ class Utilisateur_model extends CI_Model
      */
     public function get(array $data): ?array
     {
-        if (isset($data['id']) || isset($data['identifiant']) || isset($data['nom']) || isset($data['prenom']) || isset($data['role'])){
+        if (isset($data['id']) || isset($data['identifiant']) || isset($data['nom']) || isset($data['prenom']) || isset($data['role'])) {
             $users = $this->db->select()
                 ->from($this->table)
                 ->where($data)
                 ->get()
                 ->result_array();
 
-            foreach ($users as $key => $user){ // Adding data
+            foreach ($users as $key => $user) { // Adding data
                 // TODO : better access to role value
-                if ($user['role'] == '2' || $user['role'] == '1'){
-                    $tmp = $this->person->get(array('id'=>$user['id']));
-                    if (isset($tmp[0])){
-                        $users[$key]['motdepasse'] = $tmp[0]['motdepasse'];
-                    }
-                if ($user['role'] == '2' || $user['role'] == '1' && $this->person->exist(array('id'=>$user['id']))){
-                    $users[$key]['motdepasse'] = $this->person->get(array('id'=>$user['id']))[0]['motdepasse'];
-                }
-                elseif ($user['role'] === '3'){
-                    $tmp = $this->eleve->get(array('id'=>$user['id']));
-                    if (isset($tmp[0])){
-                        $users[$key]['pastille'] = $tmp[0]['pastille'];
-                        $users[$key]['classe'] = $tmp[0]['classe'];
-                    }
-                elseif ($user['role'] === '3' && $this->eleve->exist(array('id'=>$user['id']))){
-                    $tmp = $this->eleve->get(array('id'=>$user['id']));
+
+                if ($user['role'] == '2' || $user['role'] == '1' && $this->person->exist(array('id' => $user['id']))) {
+                    $users[$key]['motdepasse'] = $this->person->get(array('id' => $user['id']))[0]['motdepasse'];
+
+                } elseif ($user['role'] === '3' && $this->eleve->exist(array('id' => $user['id']))) {
+                    $tmp = $this->eleve->get(array('id' => $user['id']));
                     $users[$key]['pastille'] = $tmp[0]['pastille'];
                     $users[$key]['classe'] = $tmp[0]['classe'];
                 }
             }
             return $users;
-        }
-        else{
+        } else
             return null;
-        }
     }
 
     /**
@@ -134,6 +122,7 @@ class Utilisateur_model extends CI_Model
             'role'=>$data['role']
         );
 
+        $result = $this->db->insert($this->table,$data);
 
         if ($result === true && isset($pwd)) { // if user is personnel
             return $result && $this->person->add(array('id' => $data['id'], 'motdepasse' => $pwd));
