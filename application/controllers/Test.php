@@ -57,6 +57,14 @@ class Test extends CI_Controller
         }
     }
 
+    public function getImage()
+    {
+        if (isset($_GET['url'])){
+            $img=file_get_contents($_GET['url']);
+            file_put_contents(__DIR__.'/../../'.BOOK_PATH.'image',$img);
+        }
+    }
+
     private function livreTest()
     {
         $result = array();
