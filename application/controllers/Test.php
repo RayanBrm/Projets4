@@ -32,6 +32,31 @@ class Test extends CI_Controller
         $this->load->view('test/display',$data);
     }
 
+    public function apitest()
+    {
+        //$this->resize();
+        $this->load->view('test/apitest');
+    }
+
+    public function resize()
+    {
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = '/home/guillaume/Projets4/assets/img/livres/test.jpeg';
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = FALSE;
+        $config['width']     = BOOK_PIC_WIDTH;
+        $config['height']   = BOOK_PIC_HEIGHT;
+        $this->load->library('image_lib',$config);
+
+//        $this->image_lib->clear();
+//        $this->image_lib->initialize($config);
+
+        if(!$this->image_lib->resize()){
+            dump($this->image_lib);
+            $this->image_lib->display_errors('<p>', '</p>');
+        }
+    }
+
     private function livreTest()
     {
         $result = array();
