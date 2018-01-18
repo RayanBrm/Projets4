@@ -34,3 +34,11 @@ span.icon{
     vertical-align: top;
     margin-right: 5px;
 }
+
+.collection-item:hover{
+    background-color: #ddd;
+}
+
+.collection-item:hover .material-icons{
+    color: #5a5a5a;
+}

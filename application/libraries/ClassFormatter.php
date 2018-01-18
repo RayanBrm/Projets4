@@ -9,7 +9,7 @@ class ClassFormatter implements FormatterInterface
         $this->CI = $CI_Instance;
     }
 
-    public function toOption(array $class)
+    public function toOption(array $class): string
     {
         return "<option value='".$class['id']."'>".$class['libelle']."</option>";
     }

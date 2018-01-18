@@ -23,10 +23,12 @@ class Main extends CI_Controller
 
     /**
      * Controller fot catalogue page load the catalog
-     * @param int $page if given load the page number
+     * The default number of book per page is defined in config/constants.php
      */
-    public function catalogue(int $page = 1)
+    public function catalogue()
     {
+        $page = isset($_GET['page'])? $_GET['page'] : 1 ;
+
         if (!$this->isLogged()){
 
             $data['books'] = $this->loadBooks($page);
@@ -56,10 +58,11 @@ class Main extends CI_Controller
 
     /**
      * Main page, routed with accueil
-     * @param int $page if given load the page number
+     * The default number of book per page is defined in config/constants.php
      */
-    public function main(int $page = 1)
+    public function main()
     {
+        $page = isset($_GET['page'])? $_GET['page'] : 1 ;
         if ($this->isLogged()){
             $data['books'] = $this->loadBooks($page);
             $this->load->view('main/main',$data);
@@ -99,6 +102,21 @@ class Main extends CI_Controller
 
     public function gestionutil(){
         $this->load->view('main/gestionutil');
+    }
+
+    public function modifier()
+    { // TODO : UI for both page
+        $what = $_GET['what'];
+        $who = $_GET['who'];
+
+        if (isset($what) && $what == "user"){
+            $data['user'] = $this->user->get(array('id'=>$who))[0];
+            $this->load->view('main/modifierUtilisateur',$data);
+        }
+        elseif (isset($what) && $what == "book"){
+            $data['book'] = $this->livre->get(array('id'=>$who))[0];
+            $this->load->view('main/modifierLivre',$data);
+        }
     }
 
     /**

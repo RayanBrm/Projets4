@@ -70,7 +70,7 @@ class BookFormatter implements FormatterInterface
         return "";
     }
 
-    public function toOption(array $book)
+    public function toOption(array $book): string
     {
         return "<option value='".$book['id']."'>".$book['titre']." ".$book['auteur']."</option>";
     }
@@ -83,8 +83,8 @@ class BookFormatter implements FormatterInterface
             return "<li class=\"collection-item\">".
                         "<div>".
                             $book['titre'].
-                            "<a href='".base_url('/main/editBook/'.$bookid)."' class=\"secondary-content\">".
-                                "<i class=\"material-icons red-text lighten-2\"\">edit</i>".
+                            "<a href='".base_url('modifier?what=book&who='.$bookid)."' class=\"secondary-content red-text lighten-2\">".
+                                "<i class=\"material-icons \">edit</i>".
                             "</a>".
                             "<a class=\"secondary-content red-text lighten-2\" href='#' onclick='deleteBook(".$bookid.")' >".
                                 "<i class=\"material-icons\">clear</i>".

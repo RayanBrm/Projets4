@@ -4,6 +4,7 @@ require_once 'FormatterInterface.php';
 require_once 'ClassFormatter.php';
 require_once 'ChildFormatter.php';
 require_once 'BookFormatter.php';
+require_once 'UserFormatter.php';
 
 class Formatter
 {
@@ -24,6 +25,11 @@ class Formatter
      */
     private $class;
 
+    /**
+     * @var FormatterInterface
+     */
+    private $user;
+
 
     public function __construct()
     {
@@ -32,17 +38,18 @@ class Formatter
         $this->book = new BookFormatter($this->CI);
         $this->class = new ClassFormatter($this->CI);
         $this->child = new ChildFormatter($this->CI);
+        $this->user = new UserFormatter($this->CI);
     }
 
     public function __get($field) {
-        if($field == 'child') {
-            return $this->child;
+        return $this->$field;
+    }
+
+    public function date($date, $from): string
+    {
+        if ($from == "datepicker"){
+
         }
-        if($field == 'book') {
-            return $this->book;
-        }
-        if($field == 'class') {
-            return $this->class;
-        }
+
     }
 }

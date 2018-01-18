@@ -9,11 +9,12 @@ $this->load->view('utilities/page_nav',$data);
 
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>Ajout d'un utilisateur</h4>
-            <p id="popup_container"></p>
+            <h4>Attention!</h4>
+            <blockquote id="modal_container"></blockquote>
         </div>
         <div class="modal-footer">
-            <a href="#!" id="popup_button" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
+            <a href="#" onclick="agree()" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
         </div>
     </div>
 
@@ -25,7 +26,7 @@ $this->load->view('utilities/page_nav',$data);
     <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header ">
-                <i class="material-icons">people</i>Ajouter un utilisateur
+                <i class="material-icons">person_add</i>Ajouter un utilisateur
             </div>
             <div class="collapsible-body">
                 <span>
@@ -73,6 +74,20 @@ $this->load->view('utilities/page_nav',$data);
             </div>
         </li>
         <li>
+            <div class="collapsible-header"><i class="material-icons">edit</i>Modifier/Supprimer un utilisateur</div>
+            <div class="collapsible-body"><span>
+             <div class="row">
+                <div id="catalogue_container" class="input-field col s12">
+                    <i id="search" class="material-icons prefix">search</i>
+                    <div class="chips-placeholder"></div>
+                </div>
+            </div>
+             <ul id="book_container" class="collection with-header">
+<!--           <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
+             </ul>
+        </span></div>
+        </li>
+        <li>
             <div class="collapsible-header ">
                 <i class="material-icons">child_care</i>Ajouter un élève
             </div>
@@ -113,10 +128,26 @@ $this->load->view('utilities/page_nav',$data);
                 </span>
             </div>
         </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">edit</i>Modifier/Supprimer un élève</div>
+            <div class="collapsible-body"><span>
+             <div class="row">
+                <div id="catalogue_container" class="input-field col s12">
+                    <i id="search" class="material-icons prefix">search</i>
+                    <div class="chips-placeholder"></div>
+                </div>
+            </div>
+             <ul id="book_container" class="collection with-header">
+<!--           <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
+             </ul>
+
+        </span></div>
+        </li>
 
     </ul>
 </div>
 
 <?php
-    $data['load'] = array('ajax','jquery.min','materialize.min','select','gestionutil');
+
+    $data['load'] = array('ajax','jquery.min','materialize.min','select','chips','gestionutil');
     $this->load->view('utilities/page_footer',$data);
