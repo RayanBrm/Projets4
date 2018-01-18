@@ -47,9 +47,53 @@ class Formatter
 
     public function date($date, $from): string
     {
+        $result = "";
         if ($from == "datepicker"){
+            $date = explode(" ",$date);
 
+            switch (explode(",",$date[1])[0]){
+                case "January":
+                    $date[1] = "01";
+                    break;
+                case "February":
+                    $date[1]= "02";
+                    break;
+                case "March":
+                    $date[1] = "03";
+                    break;
+                case "April":
+                    $date[1] = "04";
+                    break;
+                case "May":
+                    $date[1] = "05";
+                    break;
+                case "June":
+                    $date[1] = "06";
+                    break;
+                case "July":
+                    $date[1] = "07";
+                    break;
+                case "August":
+                    $date[1] = "08";
+                    break;
+                case "September":
+                    $date[1] = "09";
+                    break;
+                case "October":
+                    $date[1] = "10";
+                    break;
+                case "November":
+                    $date[1] = "11";
+                    break;
+                case "December":
+                    $date[1] = "12";
+                    break;
+                default:
+                    $date[1] = "01";
+            }
+            $result = $date[2]."-".$date[0]."-".$date[1];
         }
 
+        return $result;
     }
 }

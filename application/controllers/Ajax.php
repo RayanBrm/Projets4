@@ -126,7 +126,7 @@ class Ajax extends CI_Controller
                 'titre'=>$_POST['titre'],
                 'auteur'=>$_POST['auteur'],
                 'edition'=>$_POST['edition'],
-                'parution'=>$_POST['parution'],
+                'parution'=>$this->format->date($_POST['parution'],"datepicker"),
                 'description'=>$_POST['description'],
                 'couverture'=>''
             );

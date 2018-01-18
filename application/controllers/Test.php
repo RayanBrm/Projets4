@@ -11,6 +11,8 @@ class Test extends CI_Controller
         parent::__construct();
 
         $this->load->library('Unit_test');
+        $this->load->library('Formatter',null,'format');
+
         $this->testNB = 0;
         $this->testPassed = 0;
     }
@@ -22,6 +24,7 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
+        dump($this->format->date("19 January, 2018","datepicker"));
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
