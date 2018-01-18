@@ -92,3 +92,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 // Number of books per page
 defined('BOOK_PER_PAGE')       OR define('BOOK_PER_PAGE',20);
+defined('BOOK_PATH')       OR define('BOOK_PATH','assets/img/livres/');

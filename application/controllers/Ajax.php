@@ -94,4 +94,33 @@ class Ajax extends CI_Controller
 
         echo $result;
     }
+
+    public function addBook()
+    {
+        $result = "false";
+        if (isset($_POST)){
+            $toInsert = array(
+                'isbn'=>$_POST['isbn'],
+                'titre'=>$_POST['titre'],
+                'auteur'=>$_POST['auteur'],
+                'edition'=>$_POST['edition'],
+                'parution'=>$_POST['parution'],
+                'description'=>$_POST['description'],
+                'couverture'=>''
+            );
+
+            if ($this->livre->add($toInsert)){
+                // TODO : better access => returned by set?
+                $id = $this->db->insert_id();
+                $bookext = '.'.explode('.',$_POST['couverture'])[1]; // Getting the book extension
+                $couverture = BOOK_PATH.$id.$bookext;
+
+                rename($_POST['couverture'],__DIR__.'/../../'.$couverture); // renaming to the book id and moving it to correct path
+                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture))){ // updating book
+                    $result = "true";
+                }
+            }
+        }
+        echo $result;
+    }
 }

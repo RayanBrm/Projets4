@@ -44,4 +44,12 @@ class Formatter
     public function __get($field) {
         return $this->$field;
     }
+
+    public function date($date, $from): string
+    {
+        if ($from == "datepicker"){
+
+        }
+
+    }
 }

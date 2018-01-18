@@ -22,6 +22,10 @@ class Test extends CI_Controller
         //$data['report']['livre'] = $this->livreTest();
         //$data['report']['user'] = $this->userTest();
 
+        // rename(__DIR__."/../../assets/img/livres/sw.jpg",__DIR__."/../../assets/img/livres/22.jpg");
+
+
+
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
 
