@@ -24,7 +24,6 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
-        dump($this->format->date("19 January, 2018","datepicker"));
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
@@ -32,10 +31,19 @@ class Test extends CI_Controller
         $this->load->view('test/display',$data);
     }
 
-    public function apitest()
+    public function gapi()
     {
-        //$this->resize();
-        $this->load->view('test/apitest');
+        $this->load->view('test/gapi');
+    }
+
+    public function aapi()
+    {
+        $this->load->view('test/gapi');
+    }
+
+    public function wapi()
+    {
+        $this->load->view('test/gapi');
     }
 
     public function resize()

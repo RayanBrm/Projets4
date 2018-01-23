@@ -145,4 +145,11 @@ class Ajax extends CI_Controller
         }
         echo $result;
     }
+
+    public function getBookCoverFromUrl()
+    {
+        $url = $_POST['url'];
+        $img = __DIR__.'/../../'.BOOK_PATH.'lastdownload.jpeg';
+        file_put_contents($img, file_get_contents($url));
+    }
 }
