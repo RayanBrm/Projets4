@@ -24,6 +24,8 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
+        $bpath = 'http://books.google.com/books/content?id=q4epDAAAQBAJ';
+        dump(get_headers($bpath, 1));
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
@@ -31,16 +33,25 @@ class Test extends CI_Controller
         $this->load->view('test/display',$data);
     }
 
+    /**
+     * Testing about Google Books API
+     */
     public function gapi()
     {
         $this->load->view('test/gapi');
     }
 
+    /**
+     * Testing about Amazon API
+     */
     public function aapi()
     {
         $this->load->view('test/gapi');
     }
 
+    /**
+     * Testing about WorldCat API
+     */
     public function wapi()
     {
         $this->load->view('test/gapi');

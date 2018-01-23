@@ -12,6 +12,7 @@ $this->load->view('utilities/page_nav',$data);
     <h1>Test de l'api google</h1>
 
     <form id="book_form">
+<!--        ISBN-->
         <div class="row">
             <div class="input-field col s3">
                 <input name="isbn" id="isbn" type="text" data-length="13" maxlength="13">
@@ -21,6 +22,7 @@ $this->load->view('utilities/page_nav',$data);
                 <a class="waves-effect waves-light btn" onclick="test()"><i class="material-icons">loop</i></a>
             </div>
         </div>
+<!--        Image path added-->
         <div class="row">
             <div class="col s3">
                 <input type="checkbox" id="add-path" onchange="toggleFile()">

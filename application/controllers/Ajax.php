@@ -131,14 +131,54 @@ class Ajax extends CI_Controller
                 'couverture'=>''
             );
 
+            $bpath = (isset($_FILES['couverture-local']))? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
+
             if ($this->livre->add($toInsert)){
                 // TODO : better access => returned by set?
                 $id = $this->db->insert_id();
-                $bookext = '.'.explode('.',$_POST['couverture'])[1]; // Getting the book extension
+
+                // TODO : clean
+                if (strpos($bpath,"http:") === false){ // Getting from uplaoded files
+
+                    // Getting the book extension
+                    $bookext = '.'.explode('/',$_FILES['couverture-local']['type'])[1];
+                    // Moving from $_FILES to local image storage
+                    if (!move_uploaded_file($bpath,__DIR__.'/../../'.BOOK_PATH.'lastdownload'.$bookext)){
+                        echo $result." 2";
+                        exit();
+                    }
+                    // Setting the old name of the book
+                    $old = 'lastdownload'.$bookext;
+
+                }else{ // Downloading from url
+
+                    // Getting image extension type from url
+                    $bookext = '.'.explode('/',get_headers($bpath, 1)["Content-Type"])[1];
+                    // Downloading image
+                    if(!$this->getBookCoverFromUrl($bpath,$bookext)){
+                        // In case of failure
+                        echo $result." 1";
+                        exit();
+                    }
+                    // Setting the old name of the book
+                    $old = 'lastdownload'.$bookext;
+
+                }
+                // Updating old with full path
+                $old = __DIR__.'/../../'.BOOK_PATH.$old;
+                // New name for the book
                 $couverture = BOOK_PATH.$id.$bookext;
 
-                rename($_POST['couverture'],__DIR__.'/../../'.$couverture); // renaming to the book id and moving it to correct path
-                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture))){ // updating book
+                // Changing access and resizing
+                chmod($old,"777");
+                $this->resize($bookext);
+                // Renaming to the book id and moving it to correct path
+                if (!rename($old,__DIR__.'/../../'.$couverture)){
+                    echo $result." 3";
+                    exit();
+                }
+                // Updating book
+                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture))){
                     $result = "true";
                 }
             }
@@ -146,10 +186,29 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-    public function getBookCoverFromUrl()
+    private function getBookCoverFromUrl(string $url, $ext): bool
     {
-        $url = $_POST['url'];
-        $img = __DIR__.'/../../'.BOOK_PATH.'lastdownload.jpeg';
-        file_put_contents($img, file_get_contents($url));
+        $img = __DIR__.'/../../'.BOOK_PATH.'lastdownload'.$ext;
+        return file_put_contents($img, file_get_contents($url));
     }
+
+    private function resize(string $ext)
+    {
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = '/home/guillaume/Projets4/assets/img/livres/lastdownload'.$ext;
+        $config['create_thumb'] = FALSE;
+        $config['maintain_ratio'] = FALSE;
+        $config['width']     = BOOK_PIC_WIDTH;
+        $config['height']   = BOOK_PIC_HEIGHT;
+        $this->load->library('image_lib',$config);
+
+//        $this->image_lib->clear();
+//        $this->image_lib->initialize($config);
+
+        if(!$this->image_lib->resize()){
+            dump($this->image_lib);
+            $this->image_lib->display_errors('<p>', '</p>');
+        }
+    }
+
 }

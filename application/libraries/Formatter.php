@@ -48,7 +48,7 @@ class Formatter
     public function date($date, $from): string
     {
         $result = "";
-        if ($from == "datepicker"){
+        if (strpos($date,",")){
             $date = explode(" ",$date);
 
             switch (explode(",",$date[1])[0]){
@@ -92,6 +92,14 @@ class Formatter
                     $date[1] = "01";
             }
             $result = $date[2]."-".$date[0]."-".$date[1];
+        }else{
+            $date = explode("-",$date);
+
+            $y = (isset($date[0]))? $date[0] : '0000';
+            $m = (isset($date[1]))? $date[1] : '01';
+            $d = (isset($date[2]))? $date[2] : '01';
+
+            $result = $y."-".$m."-".$d;
         }
 
         return $result;

@@ -47,34 +47,28 @@ function rechercher(search)
 }
 
 function addBook() {
-    var xhr = getXHR();
+    let form = $('form')[0];
+    let data = new FormData(form);
+    console.log(data);
 
-    var chain = "";
-    chain+="isbn="+document.getElementsByName('isbn')[0].value;
-    chain+="&titre="+document.getElementsByName('titre')[0].value;
-    chain+="&auteur="+document.getElementsByName('auteur')[0].value;
-    chain+="&edition="+document.getElementsByName('edition')[0].value;
-    chain+="&parution="+document.getElementsByName('parution')[0].value;
-    chain+="&description="+document.getElementsByName('description')[0].value;
-    chain+="&couverture="+document.getElementsByName('couverture')[0].value;
-
-    console.log(chain);
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            if (xhr.responseText === "true"){
+    $.ajax({
+        type : 'POST',
+        url  : '/ajax/addBook',
+        data : data,
+        processData: false,
+        contentType: false,
+        success: function (responseText) {
+            if (responseText === "true") {
                 document.getElementById('book_form').reset();
                 Materialize.toast('Le livre a été ajouté', 4000);
             }
             else {
-                Materialize.toast('Une erreur s\'est produite', 4000);
+                Materialize.toast('Une erreur s\'est produite ' + responseText, 4000);
             }
         }
-    };
+    });
 
-    xhr.open("POST", "/ajax/addBook", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(chain);
+    form.reset();
 }
 
 function deleteBook(bookid) {
@@ -93,4 +87,64 @@ function agree() {
         Materialize.toast('Une erreur s\'est produite', 4000);
     }
 
+}
+
+// Google API request testing, launched on click of research button
+function getByIsbn() { // API Google working
+    // Get isbn number from form
+    let isbn = document.getElementById('isbn').value;
+    let xhr = getXHR();
+
+    // ISBN value testing, can be ISBN 10 or 13
+    if (isbn !== "" && isbn !== undefined && isbn !==  null && isbn.length >= 10 && isbn.length <= 13){
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+                // Getting response as JSON
+                let book = JSON.parse(xhr.responseText);
+                console.log(book); // Debug display
+                // Response checking
+                if(book['totalItems'] > 0 && book['items'][0]['volumeInfo'] !== undefined){
+                    // Fill the form
+                    fill(book['items'][0]['volumeInfo'])
+                }
+                else {
+                    // Displaying erro message
+                    Materialize.toast('L\'isbn est invalide ou le livre n\'est pas référencer chez Google.',4000);
+                    Materialize.toast('Vous devriez entrez le livre à la main.',4000);
+                }
+            }
+        };
+
+        xhr.open("GET", "https://www.googleapis.com/books/v1/volumes/?q=isbn:"+isbn, true);
+        // Google api key, not required for simple get
+        xhr.setRequestHeader('Access-Control-Allow-Origin', 'AIzaSyAL_jvVpvMXMvlZYF35egMZ-Jrkoq6lLMY');
+        xhr.send();
+    }
+}
+
+// Fill in the needed fields about the books and set it active for materialize compatibility
+function fill(bookInfo){
+    $('#titre').val(bookInfo['title']);
+    $('#auteur').val(bookInfo['authors'].join(', '));
+    $('#edition').val(bookInfo['publisher']);
+    $('#parution').val(bookInfo['publishedDate']);
+    $('#description').val(bookInfo['description']);
+    // Even fill hidden fields for book cover
+
+    if(bookInfo['imageLinks'] === undefined || bookInfo['imageLinks'] === null){
+        $('#add-path').attr('checked',true);
+        toggleFile();
+        Materialize.toast('Attention, la couverture pour ce livre n\'est pas disponible!',10000);
+    }else{
+        $('#couverture').val(bookInfo['imageLinks']['thumbnail']);
+    }
+
+
+    $('#book_form').find('label').addClass('active');
+}
+
+// Display or not the file input field, clear it at each click
+function toggleFile() {
+    $('#file-input').toggle();
+    $('[id^=local-couverture]').val('');
 }
