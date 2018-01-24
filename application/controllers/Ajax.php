@@ -133,6 +133,10 @@ class Ajax extends CI_Controller
 
             $bpath = (isset($_FILES['couverture-local']))? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
 
+            if (!$this->livre->exist(array('auteur'=>$_POST['auteur']))){
+                $this->livre->addAuteur($_POST['auteur']);
+            }
+
             if ($this->livre->add($toInsert)){
                 // TODO : better access => returned by set?
                 $id = $this->db->insert_id();
