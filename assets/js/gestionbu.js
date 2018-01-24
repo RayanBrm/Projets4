@@ -49,7 +49,7 @@ function rechercher(search)
 function addBook() {
     let form = $('form')[0];
     let data = new FormData(form);
-    console.log(data);
+    data.append('add-path',document.getElementById('add-path').checked);
 
     $.ajax({
         type : 'POST',
@@ -71,12 +71,14 @@ function addBook() {
     form.reset();
 }
 
-function deleteBook(bookid) {
+function deleteBook(bookid)
+{
     bookToDelete = bookid;
     $('#modal1').modal('open');
 }
 
-function agree() {
+function agree()
+{
     console.log('Book : '+bookToDelete+' will be deleted');
     // TODO : ajax method to delet book
     if (true){
@@ -90,7 +92,8 @@ function agree() {
 }
 
 // Google API request testing, launched on click of research button
-function getByIsbn() { // API Google working
+function getByIsbn() // API Google working
+{
     // Get isbn number from form
     let isbn = document.getElementById('isbn').value;
     let xhr = getXHR();
@@ -123,7 +126,8 @@ function getByIsbn() { // API Google working
 }
 
 // Fill in the needed fields about the books and set it active for materialize compatibility
-function fill(bookInfo){
+function fill(bookInfo)
+{
     $('#titre').val(bookInfo['title']);
     $('#auteur').val(bookInfo['authors'].join(', '));
     $('#edition').val(bookInfo['publisher']);

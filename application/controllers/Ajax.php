@@ -79,7 +79,6 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-
     public function adduser()
     {
         if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role'])) {
@@ -131,7 +130,7 @@ class Ajax extends CI_Controller
                 'couverture'=>''
             );
 
-            $bpath = (isset($_FILES['couverture-local']))? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
+            $bpath = ($_POST['add-path'] === 'true')? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
 
             if (!$this->livre->exist(array('auteur'=>$_POST['auteur']))){
                 $this->livre->addAuteur($_POST['auteur']);
@@ -142,19 +141,7 @@ class Ajax extends CI_Controller
                 $id = $this->db->insert_id();
 
                 // TODO : clean
-                if (strpos($bpath,"http:") === false){ // Getting from uplaoded files
-
-                    // Getting the book extension
-                    $bookext = '.'.explode('/',$_FILES['couverture-local']['type'])[1];
-                    // Moving from $_FILES to local image storage
-                    if (!move_uploaded_file($bpath,__DIR__.'/../../'.BOOK_PATH.'lastdownload'.$bookext)){
-                        echo $result." 2";
-                        exit();
-                    }
-                    // Setting the old name of the book
-                    $old = 'lastdownload'.$bookext;
-
-                }else{ // Downloading from url
+                if (strpos($bpath,"http:") === 0){ // Download from url
 
                     // Getting image extension type from url
                     $bookext = '.'.explode('/',get_headers($bpath, 1)["Content-Type"])[1];
@@ -167,6 +154,18 @@ class Ajax extends CI_Controller
                     // Setting the old name of the book
                     $old = 'lastdownload'.$bookext;
 
+                }else{ // Get from uploaded
+
+                    // Getting the book extension
+                    $bookext = '.'.explode('/',$_FILES['couverture-local']['type'])[1];
+                    // Moving from $_FILES to local image storage
+                    if (!move_uploaded_file($bpath,__DIR__.'/../../'.BOOK_PATH.'lastdownload'.$bookext)){
+                        echo $result." 2";
+                        exit();
+                    }
+                    // Setting the old name of the book
+                    $old = 'lastdownload'.$bookext;
+
                 }
                 // Updating old with full path
                 $old = __DIR__.'/../../'.BOOK_PATH.$old;
@@ -174,7 +173,7 @@ class Ajax extends CI_Controller
                 $couverture = BOOK_PATH.$id.$bookext;
 
                 // Changing access and resizing
-                chmod($old,"777");
+                chmod($old,0777);
                 $this->resize($bookext);
                 // Renaming to the book id and moving it to correct path
                 if (!rename($old,__DIR__.'/../../'.$couverture)){
