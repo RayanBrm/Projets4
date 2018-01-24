@@ -24,6 +24,8 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
+        dump($this->livre->maxPage(),$this->livre->getPage(3),ceil(($this->db->count_all('Livre')/BOOK_PER_PAGE)));
+
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;

@@ -61,6 +61,12 @@ function addBook() {
             if (responseText === "true") {
                 document.getElementById('book_form').reset();
                 Materialize.toast('Le livre a été ajouté', 4000);
+
+                let addpath = $('#add-path');
+                if (addpath.get(0).checked === true){
+                    addpath.checked(false);
+                    toggleFile();
+                }
             }
             else {
                 Materialize.toast('Une erreur s\'est produite ' + responseText, 4000);

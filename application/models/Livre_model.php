@@ -62,8 +62,7 @@ class Livre_model extends CI_Model
 
     public function maxPage(): string
     {
-        $result = $this->db->count_all($this->table)/BOOK_PER_PAGE;
-        return round($result,0);
+        return ceil($this->db->count_all($this->table)/BOOK_PER_PAGE);
     }
 
     public function getTheme($id_theme) : ?array
