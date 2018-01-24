@@ -87,49 +87,68 @@ class Main extends CI_Controller
 
     public function historique()
     {
-        $data['classes'] = "";
-        $listeClasses = $this->classe->getAll();
-        foreach ($listeClasses as $uneClasse){
-            $data['classes'].=$this->format->class->toOption($uneClasse);
+        if ($this->isLogged()){
+            $data['classes'] = "";
+            $listeClasses = $this->classe->getAll();
+            foreach ($listeClasses as $uneClasse){
+                $data['classes'].=$this->format->class->toOption($uneClasse);
+            }
+
+            $data['emprunts'] = "<li class=\"collection-header center\"><h4>Emprunt de ".$_SESSION['user']['prenom']." ".$_SESSION['user']['nom']."</h4></li>";
+
+            $baselen = strlen($data['emprunts']);
+            $emprunts = $this->emprunt->get(array('id_eleve'=>$_SESSION['user']['id']));
+            foreach ($emprunts as $emprunt){
+                $data['emprunts'].=$this->format->book->toLi($emprunt);
+            }
+
+            if ($baselen == strlen($data['emprunts'])){
+                $data['emprunts'].= "<li class=\"collection-header center\"><h5><blockquote>Vous n'avez encore jamais emprunter de livre!</blockquote></h5></li>";
+            }
+
+            $this->load->view('main/historique', $data);
         }
+        else
+            redirect('catalogue');
 
-        $data['emprunts'] = "<li class=\"collection-header center\"><h4>Emprunt de ".$_SESSION['user']['prenom']." ".$_SESSION['user']['nom']."</h4></li>";
-
-        $baselen = strlen($data['emprunts']);
-        $emprunts = $this->emprunt->get(array('id_eleve'=>$_SESSION['user']['id']));
-        foreach ($emprunts as $emprunt){
-            $data['emprunts'].=$this->format->book->toLi($emprunt);
-        }
-
-        if ($baselen == strlen($data['emprunts'])){
-            $data['emprunts'].= "<li class=\"collection-header center\"><h5><blockquote>Vous n'avez encore jamais emprunter de livre!</blockquote></h5></li>";
-        }
-
-        $this->load->view('main/historique', $data);
     }
 
     public function gestionbu()
     {
-        $this->load->view('main/gestionbu');
+        if ($this->isLogged()){
+            $this->load->view('main/gestionbu');
+        }
+        else
+            redirect('catalogue');
+
     }
 
     public function gestionutil(){
-        $this->load->view('main/gestionutil');
+        if ($this->isLogged()){
+            $this->load->view('main/gestionutil');
+        }
+        else
+            redirect('catalogue');
     }
 
     public function modifier()
     { // TODO : UI for both page
-        $what = $_GET['what'];
-        $who = $_GET['who'];
 
-        if (isset($what) && $what == "user"){
-            $data['user'] = $this->user->get(array('id'=>$who))[0];
-            $this->load->view('main/modifierUtilisateur',$data);
+        if ($this->isLogged()){
+            $what = $_GET['what'];
+            $who = $_GET['who'];
+
+            if (isset($what) && $what == "user"){
+                $data['user'] = $this->user->get(array('id'=>$who))[0];
+                $this->load->view('main/modifierUtilisateur',$data);
+            }
+            elseif (isset($what) && $what == "book"){
+                $data['book'] = $this->livre->get(array('id'=>$who))[0];
+                $this->load->view('main/modifierLivre',$data);
+            }
         }
-        elseif (isset($what) && $what == "book"){
-            $data['book'] = $this->livre->get(array('id'=>$who))[0];
-            $this->load->view('main/modifierLivre',$data);
-        }
+        else
+            redirect('catalogue');
     }
 
     /**
