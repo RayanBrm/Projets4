@@ -1,4 +1,4 @@
-var bookToReturn = {};
+let bookToReturn = [];
 
 function multiLoad() {
     loadClasse();
@@ -56,22 +56,43 @@ function loadEmprunt() {
 
 function toggleBook(checkField) {
     let id = checkField.id;
-    let bookId = document.getElementById('_'+id).value;
 
-    if (bookToReturn[bookId] === 1){
-        delete bookToReturn[bookId];
-    }else {
-        bookToReturn[bookId] = 1;
+    let bookId = $('#'+id+'_id').get(0).value;
+    let childId = $('#'+id+'_child').get(0).value;
+    let date = $('#'+id+'_date').get(0).value;
+
+    let i = 0;
+    let found = false;
+
+    for (let val of bookToReturn){
+        if (val.id === checkField.id){
+            bookToReturn.splice(i,1);
+            found = true;
+            break;
+        }
+        i++;
+    }
+
+    if (found === false){
+        bookToReturn.push({id:id,id_livre:bookId,id_eleve:childId,dateEmprunt:date});
     }
 }
 
 function returnAllCurrent() {
-    let bookList = {};
-    let input = $('input[type=text]').forEach(function (current) {
-        bookList[current.id] = 1;
+
+    bookToReturn = [];
+
+    $('input:checkbox').each(function () {
+        let id = this.id;
+
+        let bookId = $('#'+id+'_id').get(0).value;
+        let childId = $('#'+id+'_child').get(0).value;
+        let date = $('#'+id+'_date').get(0).value;
+
+        bookToReturn.push({id:id,id_livre:bookId,id_eleve:childId,dateEmprunt:date});
     });
 
-    returnBook(bookList);
+    returnBook(bookToReturn);
 }
 
 function returnAllChecked() {
@@ -79,16 +100,23 @@ function returnAllChecked() {
 }
 
 function returnBook(bookArray) {
-    $.ajax({
-        type : 'POST',
-        url  : '/ajax/returnBook',
-        data: {bookList:bookArray},
-        success: function (responseText) {
-            if (responseText === 'true'){
-                Materialize.toast('Les livres ont été supprimer', 4000);
-            }else {
-                Materialize.toast('Une erreur est survenue '+responseText, 4000);
+
+    if (bookArray.length !== 0){
+        $.ajax({
+            type : 'POST',
+            url  : '/ajax/returnBook',
+            data: {bookList:bookArray},
+            success: function (responseText) {
+                if (responseText === 'true'){
+                    Materialize.toast('Les livres ont été supprimer', 4000);
+                    loadClasseEmrunt();
+                }else {
+                    Materialize.toast('Une erreur est survenue '+responseText, 4000);
+                }
             }
-        }
-    });
+        });
+    }
+    else {
+        Materialize.toast('Vous n\'avez selectionner aucun livre', 4000);
+    }
 }

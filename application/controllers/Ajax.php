@@ -219,8 +219,12 @@ class Ajax extends CI_Controller
         $bookList = $_POST['bookList'];
 
         foreach ($bookList as $key => $value){
-            echo 'ok';
+            if ($this->emprunt->set(array('id_livre'=>$value['id_livre'],'id_eleve'=>$value['id_eleve'],'dateEmprunt'=>$value['dateEmprunt'])) === false){
+                echo "false";
+                exit();
+            }
         }
+        echo "true";
     }
 
 }

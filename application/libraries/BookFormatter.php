@@ -62,7 +62,9 @@ class BookFormatter implements FormatterInterface
             $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
             $color = (isset($emprunt['dateRendu']))? 'green ligthen-1' : 'red accent-1' ;
             $checkBox = (isset($emprunt['dateRendu']))? '' : "<div style=\"text-indent: 20px;\"><input type='checkbox' id='".$uid."' onchange='toggleBook(this)' /> <label for='".$uid."'>Rendu ?</label></div>" ;
-            $hiddenFieldForId = (isset($emprunt['dateRendu']))? '' : '<input type="text" id="_'.$uid.'" value="'.$emprunt['id_livre'].'" hidden/>' ;
+            $hiddenFieldForId = (isset($emprunt['dateRendu']))? '' : '<input type="text" id="'.$uid.'_id" value="'.$emprunt['id_livre'].'" hidden/>' ;
+            $hiddenFieldForChild = (isset($emprunt['dateRendu']))? '' : '<input type="text" id="'.$uid.'_child" value="'.$emprunt['id_eleve'].'" hidden/>' ;
+            $hiddenFieldForDate = (isset($emprunt['dateRendu']))? '' : '<input type="text" id="'.$uid.'_date" value="'.$emprunt['dateEmprunt'].'" hidden/>' ;
 
             return "<li>".
                         "<div class='collapsible-header ".$color."'>".
@@ -72,6 +74,8 @@ class BookFormatter implements FormatterInterface
                         "</div>".
                         $checkBox.
                         $hiddenFieldForId.
+                        $hiddenFieldForChild.
+                        $hiddenFieldForDate.
                    "</li>";
         }
         return "";

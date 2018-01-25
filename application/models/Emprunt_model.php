@@ -57,18 +57,21 @@ class Emprunt_model extends CI_Model
     }
 
     //rendre un livre
-    public function set(string $id) : bool
+    public function set(array $data) : bool
     {
-        $livre = $this->set('disponible',1)
-                      ->where('id',$id)
-                      ->update('Livre');
+        if (isset($data['id_livre']) && isset($data['id_eleve']) && isset($data['dateEmprunt'])){
+            $livre = $this->livre->set(array('id'=>$data['id_livre'],'disponible'=>'1'));
 
-        $date = new DateTime();
-        $emprunt = $this->set('dateRendu',$date->format('Y-m-d'))
-                        ->where('id_livre',$id)
-                        ->update('Emprunt');
+            $date = new DateTime();
+            $emprunt = $this->db->set('dateRendu',$date->format('Y-m-d'))
+                ->where('id_livre',$data['id_livre'])
+                ->where('id_eleve',$data['id_eleve'])
+                ->where('dateEmprunt',$data['dateEmprunt'])
+                ->update($this->table);
 
-        return $livre and $emprunt;
+            return $livre and $emprunt;
+        }
+        return false;
     }
 
     public function exist(string $id_eleve) : bool
