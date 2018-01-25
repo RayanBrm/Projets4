@@ -1,67 +1,52 @@
 <?php
+    echo '<div class="row">'.
+            '<div class="col s3">'.
+            '<form class="col s12">'.
+                '<div class="row">'.
+                    '<div id="catalogue_container" class="input-field col s12">'.
+                        '<i id="search" class="material-icons prefix">search</i>'.
+                        '<div class="chips-placeholder" onchange="rechercher()"></div>'.
+                    '</div>';
+    if (isset($env) && $env == 'childlog') { //affichage pour les enfants
+        echo
+                    '<div id="catalogue_container" class="input-field col s12">'.
+                        '<i id="search" class="material-icons prefix">search</i>'.
+                        '<div class="chips-placeholder" onchange="rechercher()"></div>'.
+                    '</div>';
 
-if (isset($env) && $env == 'childlog') { //affichage pour les enfants
-        echo '<div class="row">
-        <div class="col s3">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <form class="col s12">
-                <div class="row">
-                    <div id="catalogue_container" class="input-field col s12">
-                        <i id="search" class="material-icons prefix">search</i>
-                        <div class="chips-placeholder" onchange="rechercher()"></div>
-                    </div>
-                    <div id="catalogue_container" class="input-field col s12">
-                        <i id="search" class="material-icons prefix">search</i>
-                        <div class="chips-placeholder" onchange="rechercher()"></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col s9">
-            <div id="book_container" class="container">';
-} else { //affichage pour tous les autres utilisateurs
-    echo '<div class="row">
-        <div class="col s3">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <form class="col s12">
-                <div class="row">
-                    <div id="catalogue_container" class="input-field col s12">
-                        <i id="search" class="material-icons prefix">search</i>
-                        <div class="chips-placeholder" onchange="rechercher()"></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col s9">
-            <div id="book_container" class="container">';
-}
-    ?>            <?= $books ?>
+    }
+
+    echo        '</div>'.
+           '</form>'.
+         '</div>';
+    echo '<div class="col s9">';
+
+    // Pagination
+    echo    '<ul class="pagination center">'.
+                // Navigation icon
+                '<li class="waves-effect">'.
+                    '<a href="?page=1"><i class="material-icons">first_page</i></a>'.
+                '</li>'.
+                '<li class="waves-effect">'.
+                    '<a href="?page='.($currentPage-1).'"><i class="material-icons">chevron_left</i></a>'.
+                '</li>'.
+                // Current page
+                '<li class="active"><a href="#">'.$currentPage.'</a></li>'.
+
+                // Navigation icon
+                '<li class="waves-effect">'.
+                    '<a href="?page='.($currentPage+1).'"><i class="material-icons">chevron_right</i></a>'.
+                '</li>'.
+                '<li class="waves-effect">'.
+                    '<a href="?page='.$maxPage.'"><i class="material-icons">last_page</i></a>'.
+                '</li>'.
+            '</ul>';
+
+    echo    '<div id="book_container" class="container">';
+    echo        $books;
+    echo    '</div>'.
+        '</div>'.
+    '</div>';
 
 
-            <!--            <div class="card col s3">-->
-            <!--                <div class="card-image waves-effect waves-block waves-light">-->
-            <!--                    <img class="activator" src="assets/img/p1.jpg">-->
-            <!--                </div>-->
-            <!--                <div class="card-content">-->
-            <!--                    <span class="card-title activator grey-text text-darken-4">Harry Potter</span>-->
-            <!--                    <p><a href="#">Détails</a></p>-->
-            <!--                </div>-->
-            <!--                <div class="card-reveal">-->
-            <!--                    <span class="card-title grey-text text-darken-4">Harry Potter<i class="material-icons right">close</i></span>-->
-            <!--                    <p><ul class="pink-text">-->
-            <!--                        <li>Auteur : blabla</li>-->
-            <!--                        <li>Genre : blablablabla</li>-->
-            <!--                    </ul></p>-->
-            <!--                </div>-->
-            <!--            </div>-->
-        </div>
-    </div>
-</div>
+

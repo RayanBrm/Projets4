@@ -24,12 +24,64 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
-        dump($this->format->date("19 January, 2018","datepicker"));
+        dump($this->livre->maxPage(),$this->livre->getPage(3),ceil(($this->db->count_all('Livre')/BOOK_PER_PAGE)));
+
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
 
         $this->load->view('test/display',$data);
+    }
+
+    /**
+     * Testing about Google Books API
+     */
+    public function gapi()
+    {
+        $this->load->view('test/gapi');
+    }
+
+    /**
+     * Testing about Amazon API
+     */
+    public function aapi()
+    {
+        $this->load->view('test/gapi');
+    }
+
+    /**
+     * Testing about WorldCat API
+     */
+    public function wapi()
+    {
+        $this->load->view('test/gapi');
+    }
+
+    public function resize()
+    {
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = '/home/guillaume/Projets4/assets/img/livres/test.jpeg';
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = FALSE;
+        $config['width']     = BOOK_PIC_WIDTH;
+        $config['height']   = BOOK_PIC_HEIGHT;
+        $this->load->library('image_lib',$config);
+
+//        $this->image_lib->clear();
+//        $this->image_lib->initialize($config);
+
+        if(!$this->image_lib->resize()){
+            dump($this->image_lib);
+            $this->image_lib->display_errors('<p>', '</p>');
+        }
+    }
+
+    public function getImage()
+    {
+        if (isset($_GET['url'])){
+            $img=file_get_contents($_GET['url']);
+            file_put_contents(__DIR__.'/../../'.BOOK_PATH.'image',$img);
+        }
     }
 
     private function livreTest()

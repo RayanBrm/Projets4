@@ -60,6 +60,11 @@ class Livre_model extends CI_Model
                         ->result_array();
     }
 
+    public function maxPage(): string
+    {
+        return ceil($this->db->count_all($this->table)/BOOK_PER_PAGE);
+    }
+
     public function getTheme($id_theme) : ?array
     {
         return $this->bd->select()
@@ -67,5 +72,20 @@ class Livre_model extends CI_Model
                         ->like('id_theme',$id_theme)
                         ->get()
                         ->result_array();
+    }
+
+    public function exist(array $data): bool
+    {
+        if (isset($data['auteur'])){
+            return (count($this->db->select()->from('Auteur')->where(array('nom'=>$data['auteur']))->get()->result_array()) > 0);
+        }elseif (isset($data['titre'])){
+            return (count($this->db->select()->from($this->table)->where($data)->get()->result_array()) > 0);
+        }
+    }
+
+    // TODO : move ?
+    public function addAuteur(string $auteur)
+    {
+        return $this->db->insert('Auteur',array('Nom'=>$auteur));
     }
 }

@@ -18,8 +18,15 @@ class Child extends CI_Controller
 
     public function main()
     {
+        $page = isset($_GET['page'])? $_GET['page'] : 1 ;
+
         if ($this->isLogged()){
-            $data['books'] = $this->loadBooks();
+            $data['maxPage'] = $this->livre->maxPage();
+            if ($page > $data['maxPage'] || $page <= 0){
+                $page = $data['maxPage'];
+            }
+            $data['books'] = $this->loadBooks($page);
+            $data['currentPage'] = $page;
 
             $this->load->view('child/main',$data);
         }
@@ -84,20 +91,6 @@ class Child extends CI_Controller
         }
 
         return $data;
-    }
-
-    public function catalogue(int $page = 1)
-    {
-        if (!$this->isLogged()){
-            $data['script'] = '<script src="'.base_url().'assets/js/index.js" type="text/javascript"></script>';
-            $data['ajax'] = includeAJAX();
-            $data['books'] = $this->loadBooks($page);
-
-            $this->load->view('main/catalogue',$data);
-        }
-        else{
-            redirect('accueil');
-        }
     }
 
 }
