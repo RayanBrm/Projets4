@@ -42,7 +42,7 @@ class Emprunt_model extends CI_Model
     public function add(array $data) : bool
     {
         $emprunt = $this->db->set($data)
-                            ->update('Emprunt');
+                            ->insert('Emprunt');
 
         $livre = $this->db->set('disponible',0)
                           ->where('id',$data['id'])

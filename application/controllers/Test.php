@@ -28,7 +28,10 @@ class Test extends CI_Controller
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
 
+        $this->empruntTest();
+
         $this->load->view('test/display',$data);
+
     }
 
     /**
@@ -288,5 +291,22 @@ class Test extends CI_Controller
         }
 
         return $result;
+    }
+
+    private function empruntTest()
+    {
+        $id = '1';
+
+        $nv_emprunt= array('id_livre'=>1,'id_eleve'=>3,'dateEmprunt'=>'2018-08-03','dateRendu'=>'');
+        //$res = $this->emprunt->add($nv_emprunt);
+
+        $this->emprunt->add($nv_emprunt);
+        $obtained = $this->emprunt->get($nv_emprunt);
+        $expected_add = $nv_emprunt;
+        $result['emprunt']['add'] = $this->unit->run($obtained,$expected_add, 'livre->add');
+
+
+
+
     }
 }
