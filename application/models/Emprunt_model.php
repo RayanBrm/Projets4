@@ -41,15 +41,12 @@ class Emprunt_model extends CI_Model
     //emprunter un livre
     public function add(array $data) : bool
     {
-        $emprunt = $this->db->set($data)
-                            ->insert('Emprunt');
+        $emprunt = $this->db->insert('Emprunt',$data);
 
-        $livre = $this->db->set('disponible',0)
-                          ->where('id',$data['id'])
-                          ->update('livre');
+        $livre = $this->db->where('id',$data['id_livre'])
+                          ->update('Livre',array('disponible'=>'0'));
 
         return $emprunt and $livre;
-
     }
 
     public function del()

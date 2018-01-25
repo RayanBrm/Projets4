@@ -24,11 +24,10 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
+        $data['report']['emprunt'] = $this->empruntTest();
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
-
-        $this->empruntTest();
 
         $this->load->view('test/display',$data);
 
@@ -295,18 +294,13 @@ class Test extends CI_Controller
 
     private function empruntTest()
     {
-        $id = '1';
+        $expected_add[0]= array('id_livre'=>'1','id_eleve'=>'3','dateEmprunt'=>'2018-08-03');
 
-        $nv_emprunt= array('id_livre'=>1,'id_eleve'=>3,'dateEmprunt'=>'2018-08-03','dateRendu'=>'');
-        //$res = $this->emprunt->add($nv_emprunt);
-
-        $this->emprunt->add($nv_emprunt);
-        $obtained = $this->emprunt->get($nv_emprunt);
-        $expected_add = $nv_emprunt;
+        $this->emprunt->add($expected_add[0]);
+        $obtained = $this->emprunt->get(array('id_livre'=>$expected_add[0]['id_livre']));
         $result['emprunt']['add'] = $this->unit->run($obtained,$expected_add, 'livre->add');
+        dump($obtained);
 
-
-
-
+        return $result;
     }
 }
