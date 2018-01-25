@@ -76,7 +76,7 @@ class Emprunt_model extends CI_Model
 
     public function exist(string $id_eleve) : bool
     {
-        return (count($this->db->select()->from($this->table)->where('id_eleve',$id_eleve)->where('dateRendu', 'IS NULL')->get()->result_array()) > 0);
+        return (count($this->db->select()->from($this->table)->where('id_eleve',$id_eleve)->where('dateRendu IS NULL')->get()->result_array()) > 0);
     }
 
 }

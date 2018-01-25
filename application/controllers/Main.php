@@ -1,5 +1,6 @@
 <?php
 
+// TODO : lock if child is logged
 class Main extends CI_Controller
 {
     public $level = array();
