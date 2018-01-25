@@ -108,7 +108,7 @@ function returnBook(bookArray) {
             data: {bookList:bookArray},
             success: function (responseText) {
                 if (responseText === 'true'){
-                    Materialize.toast('Les livres ont été supprimer', 4000);
+                    Materialize.toast('Les livres ont été rendu', 4000);
                     loadClasseEmrunt();
                 }else {
                     Materialize.toast('Une erreur est survenue '+responseText, 4000);

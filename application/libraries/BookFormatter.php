@@ -22,10 +22,15 @@ class BookFormatter implements FormatterInterface
                     "</div>".
                     "<div class='card-reveal'>".
                         "<span class='card-title grey-text text-darken-4'>".$data['titre']."<i class='material-icons right'>close</i></span>".
-                    "<p><ul class='pink-text'>".
-                            "<li>Auteur : ".$data['auteur']."</li>".
-                            "<li>Genre : "."</li>".
-                    "</ul></p>".
+                        "<p>".
+                            "<ul class='pink-text'>".
+                                "<li>Auteur : ".$data['auteur']."</li>".
+                                "<li>Genre : "."</li>".
+                            "</ul>".
+                        "</p>".
+                        "<a class=\"btn-floating btn-large waves-effect waves-light red lighten-3 tooltipped\" data-position=\"bottom\" data-delay=\"50\" data-tooltip=\"Emprunter\" onclick=\"loan(".$data['id'].")\">".
+                            "<i class=\"material-icons\">get_app</i>".
+                        "</a>".
                     "</div>".
                   "</div>";
 
@@ -35,23 +40,7 @@ class BookFormatter implements FormatterInterface
 
     public function toChildCatalog(array $data)
     {
-        $result = "<div class='card col s3 '>".
-            "<div class='card-image waves-effect waves-block waves-light'>".
-            "<img class='activator' src='".base_url().$data['couverture']."'>".
-            "</div>".
-            "<div class='card-content'>".
-            "<span class=' activator grey-text text-darken-4 truncate'>".$data['titre']."</span>".
-            "</div>".
-            "<div class='card-reveal'>".
-            "<span class='card-title grey-text text-darken-4'>".$data['titre']."<i class='material-icons right'>close</i></span>".
-            "<p><ul class='pink-text'>".
-            "<li>Auteur : ".$data['auteur']."</li>".
-            "<li>Genre : "."</li>".
-            "</ul></p>".
-            "</div>".
-            "</div>";
-
-        return $result;
+        return $this->toCatalog($data);
     }
 
     public function toLi(?array $emprunt): string //$emprunt est un livre

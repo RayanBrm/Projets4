@@ -49,6 +49,17 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    public function getClasseList()
+    {
+        $result = '';
+
+        $data = $this->classe->getAll();
+        foreach ($data as $classe){
+            $result.=$this->format->class->toOption($classe);
+        }
+        echo $result;
+    }
+
     public function getEmprunt(string $id, string $isClasse = null)
     {
         $result="";
@@ -76,6 +87,16 @@ class Ajax extends CI_Controller
             }
         }
 
+        echo $result;
+    }
+
+    public function addEmprunt(string $bookId, string $userId)
+    {
+        $result = 'false';
+
+        if ($this->emprunt->add(array('id_livre'=>$bookId,'id_eleve'=>$userId,'dateEmprunt'=>date('Y-m-d')))){
+            $result = 'true';
+        }
         echo $result;
     }
 
