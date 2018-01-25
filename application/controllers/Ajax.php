@@ -214,4 +214,11 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function returnBook()
+    {
+        $bookList = json_decode($_POST['bookList']);
+
+        dump($bookList,$_POST);
+    }
+
 }
