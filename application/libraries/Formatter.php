@@ -45,7 +45,7 @@ class Formatter
         return $this->$field;
     }
 
-    public function date($date, $from): string
+    public function date($date): string
     {
         $result = "";
         if (strpos($date,",")){

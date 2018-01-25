@@ -38,9 +38,18 @@ class Emprunt_model extends CI_Model
         return null;
     }
 
-    public function add()
+    //emprunter un livre
+    public function add(array $data) : bool
     {
-        // TODO
+        $emprunt = $this->db->set($data)
+                            ->update('Emprunt');
+
+        $livre = $this->db->set('disponible',0)
+                          ->where('id',$data['id'])
+                          ->update('livre');
+
+        return $emprunt and $livre;
+
     }
 
     public function del()
@@ -48,9 +57,19 @@ class Emprunt_model extends CI_Model
         // TODO
     }
 
-    public function set()
+    //rendre un livre
+    public function set(string $id) : bool
     {
-        // TODO
+        $livre = $this->set('disponible',1)
+                      ->where('id',$id)
+                      ->update('Livre');
+
+        $date = new DateTime();
+        $emprunt = $this->set('dateRendu',$date->format('Y-m-d'))
+                        ->where('id_livre',$id)
+                        ->update('Emprunt');
+
+        return $livre and $emprunt;
     }
 
 }
