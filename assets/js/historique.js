@@ -1,3 +1,5 @@
+var bookToReturn = {};
+
 function multiLoad() {
     loadClasse();
     loadClasseEmrunt();
@@ -17,7 +19,6 @@ function loadClasseEmrunt(){
     xhr.open("GET", "/ajax/getEmprunt/"+classe+"/1", true);
     xhr.send();
 }
-
 
 function loadClasse() {
     var xhr = getXHR();
@@ -51,4 +52,29 @@ function loadEmprunt() {
 
     xhr.open("GET", "/ajax/getEmprunt/"+child, true);
     xhr.send();
+}
+
+function toggleBook(checkField) {
+    let id = checkField.id;
+    let bookId = document.getElementById('_'+id).value;
+
+    if (bookToReturn[bookId] === 1){
+        delete bookToReturn[bookId];
+    }else {
+        bookToReturn[bookId] = 1;
+    }
+}
+
+function returnAllCurrent() {
+    
+}
+
+function returnAllChecked() {
+    
+}
+
+function returnBook(bookArray) {
+    $.ajax({
+        
+    });
 }
