@@ -30,6 +30,10 @@ $this->load->view('utilities/page_nav', $data);
                     <option value="" disabled selected>Elève</option>
                 </select>
             </div>
+            <div class="col s12">
+                <a class="waves-effect waves-light btn" onclick="returnAllCurrent()">rendre tout</a>
+                <a class="waves-effect waves-light btn" onclick="returnAllChecked()">rendre la selection</a>
+            </div>
     </div>
     <div class="col s9">
         <div class="container">

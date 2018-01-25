@@ -214,4 +214,13 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function returnBook()
+    {
+        $bookList = $_POST['bookList'];
+
+        foreach ($bookList as $key => $value){
+            echo 'ok';
+        }
+    }
+
 }
