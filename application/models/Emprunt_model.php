@@ -41,17 +41,19 @@ class Emprunt_model extends CI_Model
     //emprunter un livre
     public function add(array $data) : bool
     {
-        $emprunt = $this->db->insert('Emprunt',$data);
-
+        if($this->exist($data['id_eleve'])) //l'élève a déjà un emprunt en cours
+            return false;
+        $emprunt = $this->db->insert($this->table,$data);
         $livre = $this->db->where('id',$data['id_livre'])
                           ->update('Livre',array('disponible'=>'0'));
 
         return $emprunt and $livre;
     }
 
-    public function del()
+    public function del(array $data) : bool
     {
-        // TODO
+        return $this->db->where($data)
+                    ->delete($this->table);
     }
 
     //rendre un livre
@@ -67,6 +69,11 @@ class Emprunt_model extends CI_Model
                         ->update('Emprunt');
 
         return $livre and $emprunt;
+    }
+
+    public function exist(string $id_eleve) : bool
+    {
+        return (count($this->db->select()->from($this->table)->where('id_eleve',$id_eleve)->get()->result_array()) > 0);
     }
 
 }
