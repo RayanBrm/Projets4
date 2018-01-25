@@ -62,7 +62,9 @@ class BookFormatter implements FormatterInterface
             $checkBox = (isset($emprunt['dateRendu']))? '' : "<div style=\"text-indent: 20px;\" ><input type='checkbox' id='test1' /> <label for='test1'>Rendu ?</label></div>" ;
 
             return "<li>".
-                        "<div class='collapsible-header ".$color."'><i class='material-icons'>book</i>".$bookTitle."</div>".
+                        "<div class='collapsible-header ".$color."'>".
+                            "<i class='material-icons'>book</i>".$bookTitle.
+                        "</div>".
                         "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span></div>".
                         $checkBox.
                    "</li>";

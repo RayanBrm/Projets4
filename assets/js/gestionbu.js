@@ -86,7 +86,7 @@ function deleteBook(bookid)
 function agree()
 {
     console.log('Book : '+bookToDelete+' will be deleted');
-    // TODO : ajax method to delet book
+    // TODO : ajax method to delete book
     if (true){
         document.getElementById('book_container').innerHTML = "";
         Materialize.toast('Le livre a été supprimé', 4000);
