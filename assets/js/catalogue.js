@@ -85,3 +85,15 @@ function validateLoan() {
         });
     }
 }
+
+function validateChildLoan(childId) {
+    $.ajax({
+        type : 'GET',
+        url  : '/ajax/addEmprunt/'+bookToLoan+'/'+childId,
+        success: function (responseText) {
+            $('#modal1').modal('close');
+            let message = (responseText === 'true')? 'Le livre a bien été emprunter' : 'Une erreur est survenue, le livre est deja emprunter ou l\'utilisateur a déjà un emprunt en cours' ;
+            Materialize.toast(message,4000);
+        }
+    });
+}
