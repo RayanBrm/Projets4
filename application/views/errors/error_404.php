@@ -67,8 +67,13 @@
                 color:#FFFFFF;
 
             }
+            a:link
+            {
+                text-decoration:none;
+            }
 
         </style>
+
     </head>
 
     <body>
@@ -79,7 +84,10 @@
             <p>Vous vous êtes égarés dans l'espace ?</p>
         </span>
 
-        <center><button type="button" class="btn">Rentrez vite !</button></center>
+
+        <center><a href="accueil"><button type="button" class="btn">Rentrez vite !</button></a></center>';
+
 
     </body>
+
 </html>
