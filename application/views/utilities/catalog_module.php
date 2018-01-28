@@ -1,15 +1,16 @@
 <?php
-    if (isset($env) && $env === 'childlog'){ // TODO : refactoring for this module part
+    if (isset($env) && $env === 'childlog') { // TODO : refactoring for this module part
         echo '<div id="modal1" class="modal">'.
                 '<div class="modal-content">'.
                     '<h4>Emprunter un livre</h4>'.
                     '<blockquote>Vous vous appretez a emprunter un livre.<br>Vous aurez 15 jours pour le rendre.</blockquote>'.
                 '</div>'.
-                '<div class="modal-footer">'.
-                    '<a href="#" class="modal-action waves-effect waves-green btn-flat" onclick="validateChildLoan('.$_SESSION['child']['id'].')">Valider</a>'.
-                '</div>'.
-              '</div>';
-    }elseif (isset($env) && $env !== 'nonlog'){
+            '<div class="modal-footer">'.
+            '<a href="#" class="modal-action waves-effect waves-green btn-flat" onclick="validateChildLoan('.$_SESSION['child']['id'].')">Valider</a>'.
+            '</div>'.
+            '</div>';
+
+    }else if(isset($env) && $env !== 'nonlog'){
         // Modal for loan confirmation dialog
         echo '<div id="modal1" class="modal">'.
                 '<div class="modal-content">'.

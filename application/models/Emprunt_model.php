@@ -41,7 +41,7 @@ class Emprunt_model extends CI_Model
     //emprunter un livre
     public function add(array $data) : bool
     {
-        if($this->exist($data['id_eleve'])) //l'élève a déjà un emprunt en cours
+        if($this->exist($data['id_eleve']) || !$this->livre->isAvailable($data['id_livre'])) //l'élève a déjà un emprunt en cours
             return false;
         $emprunt = $this->db->insert('Emprunt',$data);
         $livre = $this->db->where('id',$data['id_livre'])
@@ -74,6 +74,11 @@ class Emprunt_model extends CI_Model
         return false;
     }
 
+    /**
+     * Check if the giveng child id have a running loan
+     * @param string $id_eleve
+     * @return bool
+     */
     public function exist(string $id_eleve) : bool
     {
         return (count($this->db->select()->from($this->table)->where('id_eleve',$id_eleve)->where('dateRendu IS NULL')->get()->result_array()) > 0);

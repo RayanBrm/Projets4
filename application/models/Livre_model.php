@@ -88,4 +88,9 @@ class Livre_model extends CI_Model
     {
         return $this->db->insert('Auteur',array('Nom'=>$auteur));
     }
+
+    public function isAvailable(string $bookId): bool
+    {
+        return $this->get(array('id'=>$bookId))[0]['disponible'] === '1';
+    }
 }
