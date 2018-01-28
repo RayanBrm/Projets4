@@ -19,7 +19,9 @@ class Emprunt_model extends CI_Model
                 $this->db->where(array($constraint=>$value));
             }
         }
-        return $this->db->get()
+        return $this->db
+            ->order_by('dateEmprunt','DESC')
+            ->get()
             ->result_array();
     }
 
