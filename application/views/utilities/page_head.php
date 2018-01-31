@@ -6,11 +6,12 @@
     <title><?= $title ?></title>
     <meta name="author" content="Axelle Delomez, Guillaume Marmorat, Rayan Barama, Emile Canac">
     <meta name="description" content="Application de gestion de bibliotheque." />
+    <link rel="icon" type="image/png" href="<?= base_url().'assets/img/icon.png' ?>">
 
     <!-- Media -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link rel="stylesheet" href="<?= base_url().'assets/css/materialIcon.css' ?>" >
     <!-- Stylesheet -->
     <?php
         if(isset($env) && $env !== 'test'){

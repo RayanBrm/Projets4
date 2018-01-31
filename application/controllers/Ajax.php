@@ -7,24 +7,12 @@ class Ajax extends CI_Controller
         parent::__construct();
 
         $this->load->library('Formatter',null,'format');
-    }
-
-    public function getBook()
-    {
-        $keyWord = $this->input->post('search');
-        $books = $this->livre->search($keyWord);
-
-        if (!isset($_POST['display'])){
-            foreach ($books as $book){
-                echo $this->format->book->toCatalog($book);
-            }
-        }
-        elseif ($_POST['display'] == 'toModify'){
-            foreach ($books as $book){
-                echo $this->format->book->toModify($book);
-            }
+        if (!isset($_SESSION)){
+            session_start();
         }
     }
+
+    // *********** Classes functions
 
     public function getClasse(string $classeID, string $displayMode)
     {
@@ -60,45 +48,7 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-    public function getEmprunt(string $id, string $isClasse = null)
-    {
-        $result="";
-        if (!isset($isClasse)){
-            $emprunts = $this->emprunt->get(array('id_eleve'=>$id));
-            $eleve = $this->user->get(array('id'=>$id))[0];
-
-            $result.="<li class='collection-header center'><h4>Historique des emprunts pour ".$eleve['prenom']." ".$eleve['nom']."</h4></li>";
-
-            foreach ($emprunts as $emprunt){
-                $result.=$this->format->book->toLi($emprunt);
-            }
-        }
-        else{
-            $childList = $this->eleve->getClasse($id);
-            $classe = $this->classe->get(array('id'=>$id))[0];
-            $result.="<li class='collection-header center'><h4>Emprunt en cours dans la classe : ".$classe['libelle']."</h4></li>";
-
-            $baselen = strlen($result);
-            foreach ($childList as $child){
-                $result.= $this->format->book->toLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
-            }
-            if ($baselen == strlen($result)){
-                $result.="<li class='collection-header center'><h5><blockquote>Aucun emprunt en cours dans la classe</blockquote></h5></li>";
-            }
-        }
-
-        echo $result;
-    }
-
-    public function addEmprunt(string $bookId, string $userId)
-    {
-        $result = 'false';
-
-        if ($this->emprunt->add(array('id_livre'=>$bookId,'id_eleve'=>$userId,'dateEmprunt'=>date('Y-m-d')))){
-            $result = 'true';
-        }
-        echo $result;
-    }
+    // *********** User functions
 
     public function adduser()
     {
@@ -116,6 +66,21 @@ class Ajax extends CI_Controller
             } else {
                 echo 'failure';
             }
+        } elseif (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['classe'])){
+            $child = array( // TODO : alea pastille from directory
+                'identifiant'=>'eleve'.uniqid(),
+                'nom'=>$_POST['nom'],
+                'prenom'=>$_POST['prenom'],
+                'role'=>'3',
+                'classe'=>$_POST['classe'],
+                'pastille'=>$this->getAleaPastille($_POST['classe'])
+            );
+
+            if ($this->user->add($child)) {
+                echo 'success';
+            } else {
+                echo 'failure';
+            }
         } else {
             echo 'incomplete';
         }
@@ -124,9 +89,10 @@ class Ajax extends CI_Controller
     public function getUser()
     {
         $keyWord = $_POST['search'];
+        $type = $_POST['type'];
         $result = "";
 
-        $users = $this->user->search($keyWord,'util');
+        $users = $this->user->search($keyWord,$type);
 
         if (count($users) > 0){
             foreach ($users as $user){
@@ -136,6 +102,22 @@ class Ajax extends CI_Controller
 
         echo $result;
     }
+
+    public function delUser()
+    {
+        if (isset($_SESSION) && $_SESSION['user']['role'] === '1' && isset($_POST['userId'])) {
+            if ($this->user->del(array('id' => $_POST['userId']))) {
+                echo "true";
+            } else {
+                echo "false";
+            }
+            exit();
+        }
+        echo "false";
+        dump($_SESSION);
+    }
+
+    // ************ Book functions
 
     public function addBook()
     {
@@ -210,28 +192,20 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-    private function getBookCoverFromUrl(string $url, $ext): bool
+    public function getBook()
     {
-        $img = __DIR__.'/../../'.BOOK_PATH.'lastdownload'.$ext;
-        return file_put_contents($img, file_get_contents($url));
-    }
+        $keyWord = $this->input->post('search');
+        $books = $this->livre->search($keyWord);
 
-    private function resize(string $ext)
-    {
-        $config['image_library'] = 'gd2';
-        $config['source_image'] = '/home/guillaume/Projets4/assets/img/livres/lastdownload'.$ext;
-        $config['create_thumb'] = FALSE;
-        $config['maintain_ratio'] = FALSE;
-        $config['width']     = BOOK_PIC_WIDTH;
-        $config['height']   = BOOK_PIC_HEIGHT;
-        $this->load->library('image_lib',$config);
-
-//        $this->image_lib->clear();
-//        $this->image_lib->initialize($config);
-
-        if(!$this->image_lib->resize()){
-            dump($this->image_lib);
-            $this->image_lib->display_errors('<p>', '</p>');
+        if (!isset($_POST['display'])){
+            foreach ($books as $book){
+                echo $this->format->book->toCatalog($book);
+            }
+        }
+        elseif ($_POST['display'] == 'toModify'){
+            foreach ($books as $book){
+                echo $this->format->book->toModify($book);
+            }
         }
     }
 
@@ -258,6 +232,90 @@ class Ajax extends CI_Controller
         else{
             echo "false";
         }
+    }
+
+    public function addEmprunt(string $bookId, string $userId)
+    {
+        $result = 'false';
+
+        if ($this->emprunt->add(array('id_livre'=>$bookId,'id_eleve'=>$userId,'dateEmprunt'=>date('Y-m-d')))){
+            $result = 'true';
+        }
+        echo $result;
+    }
+
+    public function getEmprunt(string $id, string $isClasse = null)
+    {
+        $result="";
+        if (!isset($isClasse)){
+            $emprunts = $this->emprunt->get(array('id_eleve'=>$id));
+            $eleve = $this->user->get(array('id'=>$id))[0];
+
+            $result.="<li class='collection-header center'><h4>Historique des emprunts pour ".$eleve['prenom']." ".$eleve['nom']."</h4></li>";
+
+            foreach ($emprunts as $emprunt){
+                $result.=$this->format->book->toLi($emprunt);
+            }
+        }
+        else{
+            $childList = $this->eleve->getClasse($id);
+            $classe = $this->classe->get(array('id'=>$id))[0];
+            $result.="<li class='collection-header center'><h4>Emprunt en cours dans la classe : ".$classe['libelle']."</h4></li>";
+
+            $baselen = strlen($result);
+            foreach ($childList as $child){
+                $result.= $this->format->book->toLi($this->emprunt->getRunning(array('id_eleve'=>$child['id'])));
+            }
+            if ($baselen == strlen($result)){
+                $result.="<li class='collection-header center'><h5><blockquote>Aucun emprunt en cours dans la classe</blockquote></h5></li>";
+            }
+        }
+
+        echo $result;
+    }
+
+    // Private methods only used here
+
+    private function getBookCoverFromUrl(string $url, $ext): bool
+    {
+        $img = __DIR__.'/../../'.BOOK_PATH.'lastdownload'.$ext;
+        return file_put_contents($img, file_get_contents($url));
+    }
+
+    private function resize(string $ext)
+    {
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = '/home/guillaume/Projets4/assets/img/livres/lastdownload'.$ext;
+        $config['create_thumb'] = FALSE;
+        $config['maintain_ratio'] = FALSE;
+        $config['width']     = BOOK_PIC_WIDTH;
+        $config['height']   = BOOK_PIC_HEIGHT;
+        $this->load->library('image_lib',$config);
+
+//        $this->image_lib->clear();
+//        $this->image_lib->initialize($config);
+
+        if(!$this->image_lib->resize()){
+            dump($this->image_lib);
+            $this->image_lib->display_errors('<p>', '</p>');
+        }
+    }
+
+    public function getAleaPastille(string $classId): string
+    {
+        $usedPastilles = $this->eleve->getUsedPastilleFromClasse($classId);
+        $availablePastilles = scandir(__DIR__.'/../../assets/img/pastilles_eleve');
+
+        unset($availablePastilles[0],$availablePastilles[1]);
+
+        for ($i = 2 ; $i < count($availablePastilles) ; $i++){
+            if (in_array(explode('.',$availablePastilles[$i])[0],$usedPastilles)){
+                unset($availablePastilles[$i]);
+            }
+        }
+
+        $i = array_rand($availablePastilles,1);
+        return explode('.',$availablePastilles[$i])[0];
     }
 
 }

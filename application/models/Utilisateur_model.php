@@ -105,8 +105,8 @@ class Utilisateur_model extends CI_Model
         // Trying to insert
         if (isset($data['motdepasse'])){
             $pwd = $data['motdepasse'];
+
             unset($data['motdepasse']);
-            echo 'ok';
         }
         if (isset($data['pastille']) || isset($data['classe'])){
             $pastille = $data['pastille'];
@@ -122,13 +122,14 @@ class Utilisateur_model extends CI_Model
             'role'=>$data['role']
         );
 
-        $result = $this->db->insert($this->table,$data);
+        $result = $this->db->insert($this->table,$user);
+        $id = $this->db->insert_id();
 
         if ($result === true && isset($pwd)) { // if user is personnel
-            return $result && $this->person->add(array('id' => $data['id'], 'motdepasse' => $pwd));
+            return $result && $this->person->add(array('id' => $id, 'motdepasse' => $pwd));
         }
         elseif ($result === true && isset($classe) && isset($pastille)) {
-            return $result && $this->eleve->add(array('id' => $data['id'], 'classe' => $classe, 'pastille' => $pastille));
+            return $result && $this->eleve->add(array('id' => $id, 'classe' => $classe, 'pastille' => $pastille));
         }
         else{
             return $result;
@@ -144,18 +145,21 @@ class Utilisateur_model extends CI_Model
     public function del(array $data): bool
     {
         if (isset($data['id'])){
-            $result = $this->db->where($data)
-                ->delete($this->table);
+            $sdata = array('id'=>$data['id']);
+            $result = true;
 
-            if (array_key_exists($data['id'],$this->childList)){
-                return $result && $this->eleve->del($data);
+            if ($this->eleve->exist($sdata)){
+                $result = $this->eleve->del($sdata);
             }
-            else if ($this->person->exist($data)){
-                return $result && $this->person->del($data);
+            else if ($this->person->exist($sdata)){
+                $result = $this->person->del($sdata);
             }
-            else{
-                return $result;
-            }
+
+            $result = $result && $this->emprunt->del(array('id_eleve'=>$data['id']));
+
+            return $result && $this->db->where($sdata)
+                                        ->delete($this->table) ;
+
         }
         return false;
     }
@@ -185,23 +189,24 @@ class Utilisateur_model extends CI_Model
 
     public function search(string $keyWord, string $where): array
     {
-        if ($where == "util" && isset($keyWord)){
-            // Producing : SELECT * FROM Utilisateur WHERE (role = 1 OR role = 2) AND (nom LIKE 'test' OR prenom LIKE 'test' OR identifiant LIKE 'test')
+        if (($where == "util" || $where == "child" )&& isset($keyWord)) {
+            $constraint = ($where == "util")? 'role = 1 OR role = 2' : 'role = 3' ;
+
+            // Producing : SELECT * FROM Utilisateur WHERE [(role = 1 OR role = 2)|(role = 3)] AND (nom LIKE 'test' OR prenom LIKE 'test' OR identifiant LIKE 'test')
             return $this->db->select()
-                ->from($this->table)
-                ->group_start()
-                    ->where('role = 1 OR role = 2')
-                ->group_end()
-                ->group_start()
-                    ->or_like('nom',$keyWord)
-                    ->or_like('prenom', $keyWord)
-                    ->or_like('identifiant', $keyWord)
-                ->group_end()
-                ->get()
-                ->result_array();
-        }elseif ($where == "child" && isset($keyWord)){
-            return array();
-        }else
+                            ->from($this->table)
+                            ->group_start()
+                                ->where($constraint)
+                            ->group_end()
+                            ->group_start()
+                                ->or_like('nom', $keyWord)
+                                ->or_like('prenom', $keyWord)
+                                ->or_like('identifiant', $keyWord)
+                            ->group_end()
+                        ->get()
+                        ->result_array();
+        }
+        else
             return array();
     }
 }

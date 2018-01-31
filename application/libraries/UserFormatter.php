@@ -18,12 +18,12 @@ class UserFormatter implements FormatterInterface
     {
         if (count($element) > 0){
             $uid = $element['id'];
-            //$upic = ($element['role'] == '1')? 'android' : 'person' ;
+//            $upic = ($element['role'] == '1')? 'android' : 'person' ;
 
             return "<li class=\"collection-item\">".
                         "<div>".
                                 $element['prenom']." ".$element['nom'].
-                                //"<i class=\"material-icons\">$upic</i>".
+//                                "<i class=\"material-icons\">$upic</i>".
                             "<a href=\"".base_url('modifier?what=user&who='.$uid)."\" class=\"secondary-content red-text lighten-2\">".
                                 "<i class=\"material-icons \">edit</i>".
                             "</a>".

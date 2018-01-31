@@ -126,7 +126,13 @@ class Main extends CI_Controller
 
     public function gestionutil(){
         if ($this->isLogged()){
-            $this->load->view('main/gestionutil');
+            $data['classList'] = "";
+            $listeClasses = $this->classe->getAll();
+            foreach ($listeClasses as $uneClasse){
+                $data['classList'].=$this->format->class->toOption($uneClasse);
+            }
+
+            $this->load->view('main/gestionutil',$data);
         }
         else
             redirect('catalogue');
