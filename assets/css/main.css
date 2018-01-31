@@ -42,3 +42,16 @@ span.icon{
 .collection-item:hover .material-icons{
     color: #5a5a5a;
 }
+
+span.title{
+    font-size: 1.0em;
+    font-weight: normal;
+}
+
+.card-content{
+    padding: 24px 0px!important;
+    height: 100px !important;
+    overflow: hidden;
+
+ }
+

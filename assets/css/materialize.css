@@ -4749,6 +4749,7 @@ small {
 .card.small .card-content, .card.medium .card-content, .card.large .card-content {
   max-height: 100%;
   overflow: hidden;
+
 }
 
 .card.small .card-action, .card.medium .card-action, .card.large .card-action {
@@ -4855,7 +4856,7 @@ small {
 }
 
 .card .card-content {
-  padding: 24px;
+  padding: 0 px;
   border-radius: 0 0 2px 2px;
 }
 
