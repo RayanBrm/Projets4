@@ -15,7 +15,8 @@ $this->load->view('utilities/page_nav', $data);
         <br>
         <br>
         <br>
-            <div class="input-field col s12">
+        <a class="waves-effect waves-light btn-large" href="historique">Mon historique</a>
+        <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
                 <select id="classe_select" onchange="multiLoad()">
                     <option value="" disabled selected>Classe</option>

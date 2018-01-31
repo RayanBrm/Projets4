@@ -24,7 +24,6 @@ class Test extends CI_Controller
         // Bug on add or set ?
         //$data['report']['user'] = $this->userTest();
         //$data['report']['livre'] = $this->livreTest();
-        dump($this->emprunt->exist('3'));
         $data['report']['emprunt'] = $this->empruntTest();
 
         $data['PassedTest'] = $this->testPassed;

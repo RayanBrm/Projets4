@@ -35,8 +35,11 @@ class Livre_model extends CI_Model
 
     public function del(array $data): bool
     {
-        return $this->db->where($data)
-                        ->delete($this->table);
+        if (isset($data ['id']) || isset($data['isbn'])){
+            return $this->db->where($data)
+                            ->delete($this->table);
+        }
+        return false;
     }
 
     public function search(string $keyWord): ?array

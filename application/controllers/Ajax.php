@@ -248,4 +248,16 @@ class Ajax extends CI_Controller
         echo "true";
     }
 
+    public function deleteBook()
+    {
+        $bookId = $_POST['book'];
+
+        if($this->livre->del(array('id'=>$bookId))){
+            echo "true";
+        }
+        else{
+            echo "false";
+        }
+    }
+
 }
