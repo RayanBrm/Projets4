@@ -62,3 +62,4 @@ $route['accueil'] = 'main/main';
 $route['bibliotheque'] = 'main/gestionbu';
 $route['utilisateur'] = 'main/gestionutil';
 $route['modifier'] = 'main/modifier';
+$route['gestion'] = 'main/gestionglobal';

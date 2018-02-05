@@ -17,6 +17,7 @@
         if(isset($env) && $env !== 'test'){
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/materialize.min.css">';
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/main.css">';
+            echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/nestable.css">';
         }
     ?>
 </head>

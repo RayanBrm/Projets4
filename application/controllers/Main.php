@@ -138,6 +138,15 @@ class Main extends CI_Controller
             redirect('catalogue');
     }
 
+    public function gestionglobal()
+    {
+        if ($this->isLogged()){
+            $this->load->view('main/gestionGlobal');
+        }else{
+            redirect('utilisateur');
+        }
+    }
+
     public function modifier()
     { // TODO : UI for both page
 
