@@ -1,7 +1,7 @@
 <?php
 
 $data['env'] = 'log';
-$data['title'] = 'Accueuil';
+$data['title'] = 'Accueil';
 
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
