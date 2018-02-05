@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "lobster";
+    src: url('/assets/fonts/lobsterId.ttf');
+}
+
 .row .col.i{
     width: 20.5%;
     margin-left: auto;
@@ -48,10 +53,14 @@ span.title{
     font-weight: normal;
 }
 
-.card-content{
-    padding: 24px 0px!important;
+.card-content {
+    padding: 24px 0px !important;
     height: 100px !important;
     overflow: hidden;
 
- }
+}
 
+h1#identifiant{
+    font-family: 'lobster', sans-serif;
+    margin-left: 2%;
+}

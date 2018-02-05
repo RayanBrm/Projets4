@@ -7,7 +7,7 @@ $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 ?>
 
-<h1>Bienvenue <?= $_SESSION['user']['identifiant'] ?></h1>
+<h1 id="identifiant">Bienvenue <?= $_SESSION['user']['identifiant'] ?> !</h1>
 
 <?php
     $data['books'] = $books;
