@@ -22,8 +22,8 @@ class Test extends CI_Controller
         $data = array();
 
         // Bug on add or set ?
-        //$data['report']['user'] = $this->userTest();
-        //$data['report']['livre'] = $this->livreTest();
+        $data['report']['user'] = $this->userTest();
+        $data['report']['livre'] = $this->livreTest();
         $data['report']['emprunt'] = $this->empruntTest();
 
         $data['PassedTest'] = $this->testPassed;
@@ -86,10 +86,18 @@ class Test extends CI_Controller
 
     private function livreTest()
     {
+        // Declaration des resultat
         $result = array();
 
+        // Variable récurrente de la fonction, ici l'id du livre tester tout au long
         $livre_id = '1';
 
+        // Declaration des résultat attendu pour tous les tests
+        // Attention, lors du ->result_array() des models CodeIgniter renvoie un tablea sous la form :
+        // array([0]=>array(
+        //      'super_nom_de_champ'=>'super_valeur'
+        //  ))
+        // Meme si une seul ligne correspond a la requete donnée
         $expected_get[0] = array(
             'id'=>'1',
             'isbn'=>null,
@@ -102,6 +110,9 @@ class Test extends CI_Controller
             'disponible'=>null
         );
 
+        // Pour les tests d'ajouts la fonction renvoie un boolean mais on dois tester las valeurs insérées
+        // Donc, on est obligés de faire un get derriere et tester sur le get
+        // /!\ Ca implique que, si un get foire, tout les test suivant foire !!
         $expected_add = array(
             'isbn'=>null,
             'titre'=>'Harry Potter',
@@ -113,6 +124,7 @@ class Test extends CI_Controller
             'disponible'=>null
         );
 
+        // Idem que precedemment
         $expected_set = array(
             'isbn'=>null,
             'titre'=>'Harry Petteur',
@@ -124,8 +136,11 @@ class Test extends CI_Controller
             'disponible'=>null
         );
 
+        // Idem, mais ici c'est logique le get renvoie
+        // array([0]=>null)
         $expected_del = null;
 
+        // Blabla, vous avez compris
         $expected_search = array(
             array(
                 'id'=>'2',
@@ -151,9 +166,19 @@ class Test extends CI_Controller
             )
         );
 
+        // On rentre dans le dur ;)
+        // La variable obtained va etre celle qui recupere les resultat des fonction testées
         $obtained = $this->livre->get(array('id'=>$livre_id));
+        // Et ici tout simplement, on ajoute le joli rapport générer par CI au tableau global de resultat
+        // Important, les resultat doivent TOUJOURS etre spécifiées sous cette forme, a savoir :
+        // ici ['livre'] ca dit qu'on teste le model des livre
+        // et ['get'] c'est le nom de la fonction
+        // Les parametres du unit->run(le resultat obtenu, le resultat attendu, un petit nom simpa pour le rapport)
         $result['livre']['get'] = $this->unit->run($obtained,$expected_get,'livre->get');
 
+        // Meme combat, mais ici plus d'étape, d'abord on ajoute, la valeur de retour devra être tester mais la,
+        // la flemme
+        // Et on fait le fameux get pour tester l'insertion
         $this->livre->add($expected_add);
         $obtained = $this->livre->get(array('titre'=>$expected_add['titre']))[0];
         $expected_add['id'] = $obtained['id'];
@@ -171,7 +196,8 @@ class Test extends CI_Controller
         $obtained = $this->livre->search('le petit');
         $result['livre']['search'] = $this->unit->run($obtained,$expected_search,'livre->search');
 
-
+        // Important, copier coller la boucle a la fin de chaque test, c'est juste un apercu globale
+        // des test effectués et des retour positif
         foreach ($result['livre'] as $test){
             if (strpos($test,"Passed")){
                 $this->testPassed++;
@@ -179,7 +205,12 @@ class Test extends CI_Controller
             $this->testNB++;
         }
 
+        // Logique on renvoie le tableau de resultat de ce test
         return $result;
+
+        // La meme structure est a appliquer pour tout les test,
+        // Pourquoi? Parce que j'ai mis en place dans la vue une petite boucle sympa qui affiche tout comme il faut
+        // En plus avec des titres donc respectez mon travail
     }
 
     private function userTest()
