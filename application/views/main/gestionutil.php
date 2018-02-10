@@ -10,11 +10,20 @@ $this->load->view('utilities/page_nav',$data);
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Attention!</h4>
-            <blockquote id="modal_container"></blockquote>
+            <blockquote id="modal_container_1"></blockquote>
         </div>
         <div class="modal-footer">
             <a href="#" onclick="agree()" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
             <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <blockquote id="modal_container_2"></blockquote>
+        </div>
+        <div class="modal-footer">
+            <a href="#" id="popup_button" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
         </div>
     </div>
 
@@ -24,11 +33,12 @@ $this->load->view('utilities/page_nav',$data);
     <br>
     <br>
     <ul class="collapsible" data-collapsible="accordion">
+        <!--            User add form-->
         <li>
             <div class="collapsible-header ">
                 <i class="material-icons">person_add</i>Ajouter un utilisateur
             </div>
-            <div class="collapsible-body">
+            <div class="collapsible-body" id="useradd">
                 <span>
                     <form>
                         <div class="row">
@@ -65,7 +75,7 @@ $this->load->view('utilities/page_nav',$data);
                             </div>
                         </div>
                         <div class="row">
-                            <button class="btn waves-effect waves-light red lighten-3" onclick="adduser()" type="button" name="action">Enregistrer
+                            <button class="btn waves-effect waves-light red lighten-3" onclick="add('util')" type="button" name="action">Enregistrer
                                 <i class="material-icons rigth ">send</i>
                             </button>
                         </div>
@@ -73,20 +83,22 @@ $this->load->view('utilities/page_nav',$data);
                 </span>
             </div>
         </li>
+        <!--            User modify form-->
         <li>
             <div class="collapsible-header"><i class="material-icons">edit</i>Modifier/Supprimer un utilisateur</div>
             <div class="collapsible-body"><span>
              <div class="row">
-                <div id="catalogue_container" class="input-field col s12">
+                <div class="input-field col s12">
                     <i id="search" class="material-icons prefix">search</i>
-                    <div class="chips-placeholder"></div>
+                    <div id="utilchip" class="chips-placeholder"></div>
                 </div>
             </div>
-             <ul id="book_container" class="collection with-header">
+             <ul id="util_container" class="collection with-header">
 <!--           <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
              </ul>
         </span></div>
         </li>
+        <!--            Child add form-->
         <li>
             <div class="collapsible-header ">
                 <i class="material-icons">child_care</i>Ajouter un élève
@@ -108,18 +120,16 @@ $this->load->view('utilities/page_nav',$data);
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <select>
+                                <select id="Classe">
                                   <option value="" disabled selected>Classe</option>
-                                  <option value="1">CP</option>
-                                  <option value="2">CE1</option>
-                                  <option value="3">CE2</option>
+                                  <?= $classList ?>q
                                 </select>
                                 <label>Classe</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <button class="btn waves-effect waves-light red lighten-3 " type="submit" name="action">Enregistrer
+                                <button class="btn waves-effect waves-light red lighten-3 " onclick="add('child')" type="button" name="action">Enregistrer
                                     <i class="material-icons rigth ">send</i>
                                 </button>
                             </div>
@@ -128,22 +138,27 @@ $this->load->view('utilities/page_nav',$data);
                 </span>
             </div>
         </li>
+        <!--            Child modify form-->
         <li>
             <div class="collapsible-header"><i class="material-icons">edit</i>Modifier/Supprimer un élève</div>
             <div class="collapsible-body"><span>
              <div class="row">
-                <div id="catalogue_container" class="input-field col s12">
+                <div class="input-field col s12">
                     <i id="search" class="material-icons prefix">search</i>
-                    <div class="chips-placeholder"></div>
+                    <div id="childchip" class="chips-placeholder"></div>
                 </div>
             </div>
-             <ul id="book_container" class="collection with-header">
+             <ul id="child_container" class="collection with-header">
 <!--           <li class="collection-item"><div>Harry Potter<a href="#!" class="secondary-content"><i class="material-icons red-text lighten-2"">edit</i></a><a href="#!" class="secondary-content red-text lighten-2""><i class="material-icons">clear</i></a></div></li>-->
              </ul>
 
         </span></div>
         </li>
-
+        <li>
+            <div class="collapsible-header ">
+                <a class="none" href="<?= base_url('gestion') ?>"><i class="material-icons">settings</i>Gestion globale</a>
+            </div>
+        </li>
     </ul>
 </div>
 

@@ -1,67 +1,98 @@
 var userToDelete = -1;
+const modalAddc = '#modal_container_2';
+const modalAdd = '#modal2';
+const modalRmc = '#modal_container_1';
+const modalRm = '#modal1';
 
 $(document).ready(function() {
     $('.modal').modal();
 });
 
+$('.chips')
+    .on('chip.add',function (e,chip) {
+        let data = chip.tag;
+        let origin = "";
 
-function adduser() {
-    var xhr = getXHR();
+        if (this.id === 'childchip')
+            origin = 'child';
+        else if(this.id === 'utilchip')
+            origin = 'util';
+        else{
+            Materialize.toast('Error',4000);
+            return;
+        }
 
-    var identifiant = document.getElementById('identifiant').value;
-    var mdp = document.getElementById('motdepasse').value;
-    var nom = document.getElementById('nom').value;
-    var prenom = document.getElementById('prenom').value;
-    var role = document.getElementById('role').value;
+        rechercher(data, origin);
+    })
+    .on('chip.delete',function () {
+        $('#child_container').html('');
+        $('#util_container').html('');
+    });
 
-    var message = "";
 
-    if (isCompleteForm('util')){
-        document.getElementById('popup_button').addEventListener("click", refresh);
+function add(form) {
+    let data = "";
+    let message = "";
 
-        console.log(identifiant,mdp,nom,prenom,role);
+    $('#popup_button').on('click',emptyForm);
 
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-                // callback
-                if (xhr.responseText === "success"){
-                    message = "<blockquote class='valid'>L'utilisateur a été ajouté</blockquote>";
-                }
-                else if (xhr.responseText === "failure"){
-                    message = "<blockquote>Un probleme est survenue, réessayer plus tard ou contactez un administrateur.</blockquote>";
-                }
+    if (form === 'util' && isCompleteForm(form)){
+        let identifiant = $('#identifiant').val();
+        let mdp = $('#motdepasse').val();
+        let nom = $('#nom').val();
+        let prenom = $('#prenom').val();
+        let role = $('#role').val();
+
+        data = "identifiant="+identifiant+"&motdepasse="+mdp+"&prenom="+prenom+"&nom="+nom+"&role="+role;
+        message = "L'utilisateur a été ajouté";
+    }else if(form === 'child' && isCompleteForm(form)){
+        let nom = $('#Nom').val();
+        let prenom = $('#Prenom').val();
+        let classe = $('#Classe').val();
+
+        data = 'nom='+nom+'&prenom='+prenom+'&classe='+classe;
+        message = "L'élève a été ajouté";
+    }else{
+        $(modalAddc).html("Le formulaire est incomplet, veuillez le remplir").removeClass('valid');
+        $(modalAdd).modal('open');
+        return;
+    }
+
+    $.ajax({
+        type:'POST',
+        url:'/ajax/adduser',
+        data: data,
+        success: function (responseText) {
+            if (responseText === "success"){
+                $(modalAddc).html(message).addClass('valid');
+                $(modalAdd).modal('open');
             }
-        };
+            else if (responseText === "failure"){
+                $(modalAddc).html("Un probleme est survenue, réessayer plus tard ou contactez un administrateur.").removeClass('valid');
+                $(modalAdd).modal('open');
+            }
+        }
+    });
 
-        xhr.open("POST", "/ajax/adduser", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("identifiant="+identifiant+"&motdepasse="+motdepasse+"&prenom="+prenom+"&nom="+nom+"&role="+role);
-
-        document.getElementById('popup_container').innerHTML = message;
-        $('#modal1').modal('open');
-    }
-    else {
-        console.log('passed');
-        document.getElementById('popup_container').innerHTML = "<blockquote>Le formulaire est incomplet, veuillez le remplir</blockquote>";
-
-        $('#modal1').modal('open');
-    }
 
 }
 
-function refresh() {
-    location.reload();
-}
+function rechercher(search,type) {
+    console.log('Recherché : '+search+', Type : '+type);
 
+    $.ajax({
+        type:'POST',
+        url:'/ajax/getUser',
+        data: 'search='+search+'&type='+type,
+        success: function (responseText) {
+            $('#'+type+'_container').html(responseText);
+        }
+    });
+}
 
 function emptyForm() {
-    // empty ajout utilisateur form
-    document.getElementById('identifiant').value = '';
-    document.getElementById('motdepasse').value = '';
-    document.getElementById('nom').value = '';
-    document.getElementById('prenom').value = '';
-    document.getElementById('role').value = '';
-    // empty ajout eleve form
+    $('input').val('');
+    $('label').removeClass('active');
 }
 
 function isCompleteForm(form) {
@@ -72,39 +103,40 @@ function isCompleteForm(form) {
             document.getElementById('nom').value !== "" &&
             document.getElementById('role').value !== ""
         );
+    }else if(form === 'child'){
+        return (document.getElementById('Nom').value !== "" &&
+            document.getElementById('Prenom').value !== "" &&
+            document.getElementById('Classe').value !== ""
+        );
     }
 }
 
-$('.chips').on('chip.add',function () {
-    // TODO : enhancements
-    var data = $('.chips').material_chip('data')[0]['tag'];
-    rechercherUtil(data);
-});
-
-function rechercherUtil(search)
+function deleteUser(uid)
 {
-    var xhr = getXHR();
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            // callback
-            console.log("Recherché : "+search);
-            document.getElementById('book_container').innerHTML = xhr.responseText;
-        }
-    };
-
-    xhr.open("POST", "/ajax/getUser", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("search="+search+"&");
-}
-
-function deleteUser(uid) {
     userToDelete = uid;
-    document.getElementById('modal_container').innerText = "La suppression d'un utilisateur est définitive! Etes vous sur de vouloir le supprimer?"
-    $('#modal1').modal('open');
+    $(modalRmc).html("La suppression d'un utilisateur est définitive! Etes vous sur de vouloir le supprimer?");
+    $(modalRm).modal('open');
 }
 
-function agree() {
+function agree()
+{
     console.log("user "+userToDelete+" will be deleted");
-    //window.location.reload();
+
+    $.ajax({
+        type:'POST',
+        url:'/ajax/delUser',
+        data: 'userId='+userToDelete,
+        success: function (responseText) {
+            if (responseText === 'true'){
+                $(modalAddc).html('L\'utilisateur a été supprimé').addClass('valid');
+                $(modalAdd).modal('open');
+            }else {
+                $(modalAddc).html('Une erreur est survenue, réessayez ou contactez un administrateur.').removeClass('active');
+                $(modalAdd).modal('open');
+            }
+        }
+    });
+
+    $('#child_container').html('');
+    $('#util_container').html('');
 }

@@ -331,8 +331,6 @@ class Test extends CI_Controller
         $obtained = $this->emprunt->get(array('id_livre'=>$expected_add[0]['id_livre']));
         $result['emprunt']['add'] = $this->unit->run($obtained,$expected_add, 'livre->add');
 
-
-
         $this->emprunt->del($expected_add[0]);
 
         foreach ($result['emprunt'] as $test){

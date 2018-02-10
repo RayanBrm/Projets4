@@ -1,5 +1,6 @@
 <?php
 
+// TODO : lock if child is logged
 class Main extends CI_Controller
 {
     public $level = array();
@@ -125,10 +126,25 @@ class Main extends CI_Controller
 
     public function gestionutil(){
         if ($this->isLogged()){
-            $this->load->view('main/gestionutil');
+            $data['classList'] = "";
+            $listeClasses = $this->classe->getAll();
+            foreach ($listeClasses as $uneClasse){
+                $data['classList'].=$this->format->class->toOption($uneClasse);
+            }
+
+            $this->load->view('main/gestionutil',$data);
         }
         else
             redirect('catalogue');
+    }
+
+    public function gestionglobal()
+    {
+        if ($this->isLogged()){
+            $this->load->view('main/gestionGlobal');
+        }else{
+            redirect('utilisateur');
+        }
     }
 
     public function modifier()

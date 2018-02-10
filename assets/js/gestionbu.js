@@ -1,4 +1,3 @@
-// TODo : Refactor gestionutil/gestionbu to 1 generic module
 var bookToDelete = -1;
 var chips = $('.chips');
 
@@ -86,14 +85,22 @@ function deleteBook(bookid)
 function agree()
 {
     console.log('Book : '+bookToDelete+' will be deleted');
-    // TODO : ajax method to delete book
-    if (true){
-        document.getElementById('book_container').innerHTML = "";
-        Materialize.toast('Le livre a été supprimé', 4000);
-    }
-    else {
-        Materialize.toast('Une erreur s\'est produite', 4000);
-    }
+    $.ajax({
+        type:'POST',
+        url:'/ajax/deleteBook',
+        data: 'book='+bookToDelete,
+        success:function (responseText) {
+            if (responseText === "true"){
+                document.getElementById('book_container').innerHTML = "";
+                Materialize.toast('Le livre a été supprimé', 4000);
+            }
+            else {
+                Materialize.toast('Une erreur s\'est produite', 4000);
+            }
+        }
+    });
+
+
 
 }
 

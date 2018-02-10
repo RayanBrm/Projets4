@@ -117,6 +117,6 @@ function returnBook(bookArray) {
         });
     }
     else {
-        Materialize.toast('Vous n\'avez selectionner aucun livre', 4000);
+        Materialize.toast('Vous n\'avez selectionné aucun livre', 4000);
     }
 }
