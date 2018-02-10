@@ -84,6 +84,7 @@ class Test extends CI_Controller
         }
     }
 
+    // Les tests ne sont plus a jour avec l'actuelle version, due a l'isbn et l'image de couverture
     private function livreTest()
     {
         // Declaration des resultat
@@ -107,7 +108,7 @@ class Test extends CI_Controller
             'parution'=>'2017-10-12',
             'couverture'=>'assets/img/livres/1.jpg',
             'description'=>'',
-            'disponible'=>null
+            'disponible'=>'0'
         );
 
         // Pour les tests d'ajouts la fonction renvoie un boolean mais on dois tester las valeurs insérées
@@ -121,7 +122,7 @@ class Test extends CI_Controller
             'parution'=>'2017-10-12',
             'couverture'=>'assets/img/livres/2.jpg',
             'description'=>'',
-            'disponible'=>null
+            'disponible'=>'0'
         );
 
         // Idem que precedemment
@@ -133,7 +134,7 @@ class Test extends CI_Controller
             'parution'=>'2017-10-12',
             'couverture'=>'assets/img/livres/2.jpg',
             'description'=>'',
-            'disponible'=>null
+            'disponible'=>'0'
         );
 
         // Idem, mais ici c'est logique le get renvoie
@@ -145,13 +146,13 @@ class Test extends CI_Controller
             array(
                 'id'=>'2',
                 'isbn'=>null,
-                'titre'=>'Le petit prince',
+                'titre'=>'Le petit Prince',
                 'auteur'=>'Antoine de Saint-Exupéry',
                 'edition'=>'Gallimard',
                 'parution'=>'2017-10-12',
                 'couverture'=>'assets/img/livres/2.jpeg',
                 'description'=>'',
-                'disponible'=>null
+                'disponible'=>'1'
             ),
             array(
                 'id'=>'8',
@@ -173,7 +174,7 @@ class Test extends CI_Controller
         // Important, les resultat doivent TOUJOURS etre spécifiées sous cette forme, a savoir :
         // ici ['livre'] ca dit qu'on teste le model des livre
         // et ['get'] c'est le nom de la fonction
-        // Les parametres du unit->run(le resultat obtenu, le resultat attendu, un petit nom simpa pour le rapport)
+        // Les parametres du unit->run(le resultat obtenu, le resultat attendu, un petit nom sympa pour le rapport)
         $result['livre']['get'] = $this->unit->run($obtained,$expected_get,'livre->get');
 
         // Meme combat, mais ici plus d'étape, d'abord on ajoute, la valeur de retour devra être tester mais la,
@@ -211,24 +212,27 @@ class Test extends CI_Controller
         // La meme structure est a appliquer pour tout les test,
         // Pourquoi? Parce que j'ai mis en place dans la vue une petite boucle sympa qui affiche tout comme il faut
         // En plus avec des titres donc respectez mon travail
+        // Si vous êtes bloquer dans un test, usez et abusez des dump(), c'est votre meilleur ami, en cas de gros dump :
+        // https://www.diffchecker.com/diff et oui je vous respect je vous fait pas faire ça en ligne de commande!
     }
 
     private function userTest()
     {
         $result = array();
 
-        $userID = '52';
+        //$userID = '52';
 
         $expected_get[0] = array(
-            'id'=>'52',
+            'id'=>'1',
             'identifiant'=>'admin',
             'nom'=>'Jean-Gui',
             'prenom'=>'Ladmin',
             'role'=>'1',
-            'motdepasse'=>'$2y$10$yz4DX9ZFBOO.MyCLYdiHp.ctKB8W94vXvz1U7mjVHP4RNSxUNrvoq'
+            'motdepasse'=>'$2y$10$PSRun0QaBZUWKhhFMoRNhetlscCgvjOuq36XbnNguew1v.uF4Nlai'
         );
 
         $expected_stock_user[0] = array(
+            'id'=>'',
             'identifiant'=>'jdstock',
             'nom'=>'John',
             'prenom'=>'Doe',
@@ -236,10 +240,12 @@ class Test extends CI_Controller
         );
 
         $expected_prof_user[0] = array(
+            'id'=>'',
             'identifiant'=>'jsprof',
             'nom'=>'John',
             'prenom'=>'Doe',
             'role'=>'2',
+            'motdepasse'=>'test'
         );
 
         $expected_child_user[0] = array(
@@ -254,7 +260,7 @@ class Test extends CI_Controller
         $expected_del = array();
 
         // ************* Get user test
-        $obtained = $this->user->get(array('id'=>$userID));
+        $obtained = $this->user->get(array('id'=>'1'));
         $result['user']['get'] = $this->unit->run($obtained,$expected_get,'user->get');
 
         // ************** Add user test
@@ -267,7 +273,7 @@ class Test extends CI_Controller
         $obtained = $this->user->get(array('identifiant'=>$expected_prof_user[0]['identifiant']));
         $expected_prof_user[0]['id'] = $obtained[0]['id'];
         $expected_prof_user[0]['motdepasse'] = $obtained[0]['motdepasse'];
-        $result['user']['add_prof'] = $this->unit->run($obtained,$expected_stock_user,'user->add_prof');
+        $result['user']['add_prof'] = $this->unit->run($obtained,$expected_prof_user,'user->add_prof');
 
         $this->user->add($expected_child_user[0]);
         $obtained = $this->user->get(array('identifiant'=>$expected_child_user[0]['identifiant']));
@@ -280,15 +286,16 @@ class Test extends CI_Controller
         $expected_stock_user_set = $expected_stock_user;
         $expected_stock_user_set[0]['nom'] = 'foo';
         $expected_stock_user_set[0]['prenom'] = 'bar';
-        $this->user->set($expected_stock_user_set);
+        $this->user->set($expected_stock_user_set[0]);
         $obtained = $this->user->get(array('id'=>$expected_stock_user_set[0]['id']));
+        $expected_stock_user_set[0]['id'] = $obtained[0]['id'];
         $result['user']['set_stock'] = $this->unit->run($obtained,$expected_stock_user_set,'user->set_stock');
 
         $expected_prof_user_set = $expected_prof_user;
         $expected_prof_user_set[0]['nom'] = 'foo';
         $expected_prof_user_set[0]['prenom'] = 'bar';
         $expected_prof_user_set[0]['motdepasse'] = 'johndoe';
-        $this->user->set($expected_prof_user_set);
+        $this->user->set($expected_prof_user_set[0]);
         $obtained = $this->user->get(array('id'=>$expected_prof_user_set[0]['id']));
         $result['user']['set_prof'] = $this->unit->run($obtained,$expected_prof_user_set,'user->set_prof');
 
@@ -296,7 +303,7 @@ class Test extends CI_Controller
         $expected_child_user_set[0]['nom'] = 'foo';
         $expected_child_user_set[0]['prenom'] = 'bar';
         $expected_child_user_set[0]['pastille'] = 'panda';
-        $this->user->set($expected_child_user_set);
+        $this->user->set($expected_child_user_set[0]);
         $obtained = $this->user->get(array('id'=>$expected_child_user_set[0]['id']));
         $result['user']['set_child'] = $this->unit->run($obtained,$expected_child_user_set,'user->set_child');
 
@@ -329,7 +336,7 @@ class Test extends CI_Controller
 
         $this->emprunt->add($expected_add[0]);
         $obtained = $this->emprunt->get(array('id_livre'=>$expected_add[0]['id_livre']));
-        $result['emprunt']['add'] = $this->unit->run($obtained,$expected_add, 'livre->add');
+        $result['emprunt']['add'] = $this->unit->run($obtained,$expected_add, 'emprunt->add');
 
         $this->emprunt->del($expected_add[0]);
 

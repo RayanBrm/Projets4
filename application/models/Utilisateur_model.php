@@ -4,24 +4,11 @@ class Utilisateur_model extends CI_Model
 {
     private $table;
 
-    /**
-     * Singleton for the list of child
-     * @var null
-     */
-    private $childList = null;
-
-    private $lastChildModified = false;
-
-    private $lastChildUpdated;
-
-    private $fiedList;
-
     public function __construct()
     {
         parent::__construct();
 
         $this->table = 'Utilisateur';
-        $this->fiedList = $this->db->list_fields($this->table);
     }
 
     /**
@@ -43,7 +30,7 @@ class Utilisateur_model extends CI_Model
             foreach ($users as $key => $user) { // Adding data
                 // TODO : better access to role value
 
-                if ($user['role'] == '2' || $user['role'] == '1' && $this->person->exist(array('id' => $user['id']))) {
+                if (($user['role'] == '2' || $user['role'] == '1') && $this->person->exist(array('id' => $user['id']))) {
                     $users[$key]['motdepasse'] = $this->person->get(array('id' => $user['id']))[0]['motdepasse'];
 
                 } elseif ($user['role'] === '3' && $this->eleve->exist(array('id' => $user['id']))) {
@@ -65,15 +52,14 @@ class Utilisateur_model extends CI_Model
      * @return bool True in case of success false else
      */
     public function set(array $data): bool
-    { // TODO : updated child list integration
-
-        foreach ($this->fiedList as $field){ // Dynamically checking if every field is present
-            if (!array_key_exists($field,$data)){
-                return false;
-            }
+    {
+        $result = true;
+        if(isset($data['id'])){
+            $id = $data['id'];
+            unset($data['id']);
         }
-        $id = $data['id'];
-        unset($data['id']);
+        else
+            return false;
 
         if (isset($data['pastille']) && isset($data['classe'])){ // updating Eleve table if needed
             $result = $this->eleve->set(array('id'=>$id,'pastille'=>$data['pastille'],'classe'=>$data['classe']));
@@ -85,11 +71,7 @@ class Utilisateur_model extends CI_Model
         }
 
         // Testing result & updating modified time if needed
-        if ($result && $this->db->where('id',$id)->update($this->table,$data)){
-            $this->lastChildModified = date("U");
-            return true;
-        }
-        return false;
+        return $result && $this->db->where('id',$id)->update($this->table,$data);
     }
 
     /**
@@ -115,6 +97,7 @@ class Utilisateur_model extends CI_Model
             unset($data['pastille'], $data['classe']);
         }
 
+        // TODO : Useless, remove
         $user = array(
             'identifiant'=>$data['identifiant'],
             'prenom'=>$data['prenom'],
@@ -124,7 +107,6 @@ class Utilisateur_model extends CI_Model
 
         $result = $this->db->insert($this->table,$user);
         $id = $this->db->insert_id();
-
         if ($result === true && isset($pwd)) { // if user is personnel
             return $result && $this->person->add(array('id' => $id, 'motdepasse' => $pwd));
         }
@@ -182,9 +164,7 @@ class Utilisateur_model extends CI_Model
      */
     public function getAllChild(): ?array
     {
-        return (isset($this->childList) && $this->lastChildModified<=$this->lastChildUpdated)
-            ? $this->childList
-            : $this->childList = $this->eleve->getAll();
+        $this->eleve->getAll();
     }
 
     public function search(string $keyWord, string $where): array
