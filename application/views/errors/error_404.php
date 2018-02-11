@@ -16,18 +16,18 @@
 
             @font-face {
                 font-family: "bold";
-                src: url('assets/fonts/bold.otf');
+                src: url('/assets/fonts/bold.otf');
             }
 
             @font-face {
                 font-family: "font";
-                src: url('assets/fonts/BL.ttf');
+                src: url('/assets/fonts/BL.ttf');
             }
 
             body {
                 color:black;
                 background-color:white;
-                background-image:url(assets/img/projets4_404R.png);
+                background-image:url(/assets/img/projets4_404R.png);
                 background-size: 100%;
                 background-attachment: fixed;
                 background-position: center;
@@ -60,7 +60,6 @@
                 font-family: 'bold';
                 letter-spacing: 2px;
                 display:block;
-                width:12%;
                 height: 30px;
                 background-color:#B175D9;
                 border-color:#B175D9;
@@ -85,7 +84,7 @@
         </span>
 
 
-        <center><a href="accueil"><button type="button" class="btn">Rentrez vite !</button></a></center>';
+        <center><a href="/accueil"><button type="button" class="btn">Rentrez vite !</button></a></center>'
 
 
     </body>

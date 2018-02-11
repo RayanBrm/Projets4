@@ -7,6 +7,7 @@
     $data['books'] = $books;
     $data['currentPage'] = $currentPage;
     $data['maxPage'] = $maxPage;
+
     $this->load->view('utilities/catalog_module',$data);
 
     $data['load'] = array('ajax','jquery.min','materialize.min','chips','catalogue');
