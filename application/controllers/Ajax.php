@@ -305,12 +305,12 @@ class Ajax extends CI_Controller
     {
         $usedPastilles = $this->eleve->getUsedPastilleFromClasse($classId);
         $availablePastilles = scandir(__DIR__.'/../../assets/img/pastilles_eleve');
+        // On supprime les references au dossier courant '.' et au dossier parent '..'
+        $availablePastilles = array_diff($availablePastilles, array('.', '..'));
 
-        unset($availablePastilles[0],$availablePastilles[1]);
-
-        for ($i = 2 ; $i < count($availablePastilles) ; $i++){
-            if (in_array(explode('.',$availablePastilles[$i])[0],$usedPastilles)){
-                unset($availablePastilles[$i]);
+        foreach ($availablePastilles as $currentKey => $currentValue) {
+            if (in_array(explode('.',$availablePastilles[$currentKey])[0],$usedPastilles)){
+                unset($availablePastilles[$currentKey]);
             }
         }
 

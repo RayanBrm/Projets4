@@ -30,7 +30,6 @@ class Test extends CI_Controller
         $data['NumberOfTest'] = $this->testNB;
 
         $this->load->view('test/display',$data);
-
     }
 
     /**
