@@ -2,6 +2,16 @@
     font-family: "lobster";
     src: url('/assets/fonts/lobsterId.ttf');
 }
+@font-face {
+    font-family: "pac";
+    src: url('/assets/fonts/Pacifico-Regular.ttf');
+}
+@font-face {
+    font-family: "ama";
+    src: url('/assets/fonts/Amaranth-Regular.ttf');
+}
+
+
 
 .row .col.i{
     width: 20.5%;
@@ -48,14 +58,18 @@ span.icon{
     color: #5a5a5a;
 }
 
-span.title{
+span.title {
     font-size: 1.0em;
     font-weight: normal;
+    text-align: justify !important;
+    font-family: 'ama';
+    
 }
+
 
 .card-content {
     padding: 24px 0px !important;
-    height: 100px !important;
+    height: 170px !important;
     overflow: hidden;
 
 }
