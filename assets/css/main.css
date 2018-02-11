@@ -63,13 +63,13 @@ span.title {
     font-weight: normal;
     text-align: justify !important;
     font-family: 'ama';
-    
+
 }
 
 
 .card-content {
     padding: 24px 0px !important;
-    height: 170px !important;
+    height: 125px !important;
     overflow: hidden;
 
 }
