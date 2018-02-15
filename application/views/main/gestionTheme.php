@@ -6,62 +6,84 @@ $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 ?>
 
-    <div class="container">
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">add</i>
+                Ajouter un thème
+            </div>
+            <div class="collapsible-body">
+                <form id="book_form">
+                    <!--        Theme-->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label class="red-text ligthen-2" for="theme">Nom du thème</label>
+                            <div id="theme" class="chips chips-autocomplete"></div>
+                        </div>
+                    </div>
+                    <!--        Save button-->
+                    <button class="btn waves-effect waves-light red lighten-3 " type="button" onclick="addBook()" name="save">Enregistrer
+                        <i class="material-icons rigth ">save</i>
+                    </button>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">library_books</i>
+                Chercher les livres à ajouter au thème
+            </div>
+            <div class="collapsible-body">
+                <!-- première colonne -->
+                <div class="input-field col s12 m6">
+                <!-- chercher livre -->
+                <span>
+                    <i id="search" class="material-icons prefix">search</i>
+                    <div class="chips-placeholder"></div>
+                    <ul id="book_container" class="collection with-header">
+                    </ul>
+                </span>
+                <!-- select livre-->
+                    <select class="icons">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="" data-icon="images/sample-1.jpg" class="circle">example 1</option>
+                        <option value="" data-icon="images/office.jpg" class="circle">example 2</option>
+                        <option value="" data-icon="images/yuna.jpg" class="circle">example 3</option>
+                    </select>
+                    <label>Images in select</label>
+                </div>
+                <!-- deuxième colonne -->
+                <div class="input-field col s12 m6">
+                    <!-- chercher thème -->
+                    <span>
+                        <i id="search" class="material-icons prefix">search</i>
+                        <div class="chips-placeholder"></div>
+                        <ul id="book_container" class="collection with-header">
+                        </ul>
+                    </span>
+                    <!-- select thème -->
+                    <select class="icons">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="" data-icon="images/sample-1.jpg" class="left circle">example 1</option>
+                        <option value="" data-icon="images/office.jpg" class="left circle">example 2</option>
+                        <option value="" data-icon="images/yuna.jpg" class="left circle">example 3</option>
+                    </select>
+                    <label>Images in select</label>
+                </div>
+            </div>
 
-        <div class="col s8 dd" id="nestable">
-            <ol class="dd-list rootList">
-
-                <li class="dd-item" data-id="class_1">
-                    <div class="dd-handle">Thème 1</div>
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="child_4"><div class="dd-handle">livre 1</div></li>
-                    </ol>
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="child_4"><div class="dd-handle">livre 2</div></li>
-                    </ol>
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="child_4"><div class="dd-handle">livre 3</div></li>
-                    </ol>
-                </li>
-
-                <li class="dd-item" data-id="class_2">
-                    <div class="dd-handle">Thème 2</div>
-                    <ol>
-                        <li class="dd-item" data-id="child_3"><div class="dd-handle">livre 1</div></li>
-                    </ol>
-                    <ol>
-                        <li class="dd-item" data-id="child_3"><div class="dd-handle">livre 2</div></li>
-                    </ol>
-                    <ol>
-                        <li class="dd-item" data-id="child_3"><div class="dd-handle">livre 3</div></li>
-                    </ol>
-                </li>
-            </ol>
-        </div>
-
-        <div class="col s8 dd" id="nestable2">
-            <ol class="dd-list">
-                Livres disponibles
-                <li class="dd-item" data-id="child_5"><div class="dd-handle">Eleve 3</div></li>
-                <li class="dd-item" data-id="child_3434"><div class="dd-handle">Eleve 4</div></li>
-            </ol>
-        </div>
-
-        <div class="col">
-            <button class="btn waves-effect waves-light red lighten-3 " onclick="verifier()" type="button" name="action">Verifier
-                <!--        <i class="material-icons rigth ">send</i>-->
-            </button>
-        </div>
-
-    </div>
+        </li>
+    </ul>
+</div>
 
 <?php
-$data['books'] = $books;
-$data['currentPage'] = $currentPage;
-$data['maxPage'] = $maxPage;
 
-$this->load->view('utilities/catalog_module',$data);
-
-$data['load'] = array('ajax','jquery.min','materialize.min','nestable','chips','catalogue');
+$data['load'] = array('ajax','jquery.min','materialize.min','nestable', 'gestiontheme');
 $this->load->view('utilities/page_footer',$data);
+
 ?>

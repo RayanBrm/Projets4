@@ -151,6 +151,7 @@ class Main extends CI_Controller
     {
         if ($this->isLogged()){
             $this->load->view('main/gestionTheme');
+            //$_POST[''];
         }else{
             redirect('utilisateur');
         }
