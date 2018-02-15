@@ -134,6 +134,7 @@ class Ajax extends CI_Controller
             );
 
             $bpath = ($_POST['add-path'] === 'true')? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
+            $theme = explode(';', $_POST['theme']);
 
             if (!$this->livre->exist(array('auteur'=>$_POST['auteur']))){
                 $this->livre->addAuteur($_POST['auteur']);
@@ -184,7 +185,7 @@ class Ajax extends CI_Controller
                     exit();
                 }
                 // Updating book
-                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture))){
+                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture)) && $this->theme->assignThemeToBook($id,$theme)){
                     $result = "true";
                 }
             }
@@ -274,7 +275,12 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-    // Private methods only used here
+    public function getThemeList()
+    {
+        echo json_encode(array('Foret','Montagne','Magie'));
+    }
+
+    // ************ Private methods only used here
 
     private function getBookCoverFromUrl(string $url, $ext): bool
     {

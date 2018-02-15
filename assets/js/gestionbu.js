@@ -1,16 +1,37 @@
 var bookToDelete = -1;
 var chips = $('.chips');
+var tmp = {};
+var themeAutocomplete = [];
+var bookTheme = [];
 
 $(document).ready(function() {
+    getAutocompleteThemeList();
+    $.each(themeAutocomplete,function (index,value) {
+        themeAutocomplete[value] = null;
+    });
+
     $('select').material_select();
     $('input#input_text, textarea#textarea1').characterCounter();
     $('.modal').modal();
+    console.log(themeAutocomplete);
+    $('.chips-autocomplete').material_chip({
+        autcompleteOptions:{
+            // data:themeAutocomplete,
+            autocompleteData:themeAutocomplete,
+            limit:5,
+            minLength:2
+        }
+    });
 });
 
-chips.on('chip.add',function () {
-    // TODO : enhancements
-    var data = $('.chips').material_chip('data')[0]['tag'];
-    rechercher(data);
+chips.on('chip.add',function (e, chip) {
+    let data = chip.tag;
+    if (this.id !== 'theme'){
+        rechercher(data);
+    }else {
+        bookTheme.push(data);
+        console.log(bookTheme);
+    }
 });
 
 chips.on('chip.delete',function () {
@@ -35,8 +56,6 @@ function rechercher(search)
             // callback
             console.log("Recherché : "+search);
             document.getElementById('book_container').innerHTML = xhr.responseText;
-
-
         }
     };
 
@@ -49,6 +68,7 @@ function addBook() {
     let form = $('form')[0];
     let data = new FormData(form);
     data.append('add-path',document.getElementById('add-path').checked);
+    data.append('theme',bookTheme.join(';'));
 
     $.ajax({
         type : 'POST',
@@ -164,4 +184,18 @@ function fill(bookInfo)
 function toggleFile() {
     $('#file-input').toggle();
     $('[id^=local-couverture]').val('');
+}
+
+function getAutocompleteThemeList() {
+    $.ajax({
+       type:'GET',
+       url:'/ajax/getThemeList',
+       success: function (responseText) {
+            let tmp = JSON.parse(responseText);
+
+            for(let name of tmp){
+                themeAutocomplete[name] = null;
+            }
+       }
+    });
 }
