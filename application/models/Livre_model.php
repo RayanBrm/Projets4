@@ -58,6 +58,7 @@ class Livre_model extends CI_Model
     {
         return  $this->db->select()
                         ->from($this->table)
+                        ->order_by('titre','ASC')
                         ->limit(BOOK_PER_PAGE,BOOK_PER_PAGE*($page-1))
                         ->get()
                         ->result_array();

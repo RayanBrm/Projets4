@@ -80,14 +80,17 @@ class Theme_model extends CI_Model
      * @param array $books Contains a list of book id
      * @return bool
      */
-    public function assignBookToTheme(string $themeName, array $books)
+    public function assignBookToTheme(string $themeName, array $books): bool
     {
-        $result = true;
-        $themeId = $this->themeList[$themeName];
-        foreach ($books as $book){
-            $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$book,'id_theme'=>$themeId));
+        if (isset($themeName) && $themeName != ''){
+            $result = true;
+            $themeId = $this->themeList[$themeName];
+            foreach ($books as $book){
+                $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$book,'id_theme'=>$themeId));
+            }
+            return $result;
         }
-        return $result;
+        return false;
     }
 
     /**
@@ -96,14 +99,20 @@ class Theme_model extends CI_Model
      * @param array $themes A list of thems name
      * @return bool
      */
-    public function assignThemeToBook(string $bookId, array $themes)
+    public function assignThemeToBook(string $bookId, array $themes): bool
     {
-        $result = true;
-        foreach ($themes as $theme){
-            $themeId = $this->themeList[$theme];
-            $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
+        if (isset($bookId) && $bookId != ''){
+            $result = true;
+            foreach ($themes as $theme){
+                if (!key_exists($theme,$this->themeList)){
+                    $this->add($theme);
+                }
+                $themeId = $this->themeList[$theme];
+                $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
+            }
+            return $result;
         }
-        return $result;
+        return false;
     }
 
     /**
