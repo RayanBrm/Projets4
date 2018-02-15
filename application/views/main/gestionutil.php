@@ -159,6 +159,11 @@ $this->load->view('utilities/page_nav',$data);
                 <a class="none" href="<?= base_url('gestion') ?>"><i class="material-icons">settings</i>Gestion globale</a>
             </div>
         </li>
+        <li>
+            <div class="collapsible-header ">
+                <a class="none" href="<?= base_url('theme') ?>"><i class="material-icons">settings</i>Gestion des Thèmes</a>
+            </div>
+        </li>
     </ul>
 </div>
 

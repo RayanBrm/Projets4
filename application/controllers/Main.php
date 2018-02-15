@@ -147,6 +147,15 @@ class Main extends CI_Controller
         }
     }
 
+    public function gestiontheme()
+    {
+        if ($this->isLogged()){
+            $this->load->view('main/gestionTheme');
+        }else{
+            redirect('utilisateur');
+        }
+    }
+
     public function modifier()
     { // TODO : UI for both page
 
