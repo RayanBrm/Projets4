@@ -28,4 +28,6 @@ class Classe_model extends CI_Model
         }
         return null;
     }
+
+    // TODO : autre methode crud
 }
