@@ -86,6 +86,20 @@ $this->load->view('utilities/page_nav',$data);
     </form>
 </div>
 
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">textsms</i>
+                    <input type="text" id="autocomplete" class="autocomplete">
+                    <label for="autocomplete">Autocomplete</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 <?php
  $data['load'] = array('jquery.min','materialize.min','ajax','test/test');
  $this->load->view('utilities/page_footer',$data);

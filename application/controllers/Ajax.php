@@ -227,7 +227,7 @@ class Ajax extends CI_Controller
     {
         $bookId = $_POST['book'];
 
-        if($this->livre->del(array('id'=>$bookId))){
+        if($this->emprunt->del(array('id_livre'=>$bookId)) && $this->theme->delBook(array('id_livre'=>$bookId)) && $this->livre->del(array('id'=>$bookId))){
             echo "true";
         }
         else{
@@ -277,7 +277,13 @@ class Ajax extends CI_Controller
 
     public function getThemeList()
     {
-        echo json_encode(array('Foret','Montagne','Magie'));
+        $themes = $this->theme->getAll();
+        $tmp = array();
+        foreach ($themes as $theme){
+            $tmp[] = $theme['nom'];
+        }
+
+        echo json_encode($tmp);
     }
 
     // ************ Private methods only used here

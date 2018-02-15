@@ -98,10 +98,13 @@ $this->load->view('utilities/page_nav', $data);
                         </div>
                     </div>
                     <!--        Theme-->
+
                     <div class="row">
                         <div class="input-field col s12">
-                            <label class="red-text ligthen-2" for="theme">Themes</label>
-                            <div id="theme" class="chips chips-autocomplete"></div>
+                            <div id="autocomplete" class="chips chips-autocomplete">
+                                <input type="text" id="autocomplete">
+                            </div>
+                            <label class="red-text lighten-2" for="autocomplete">Themes</label>
                         </div>
                     </div>
                     <!--        Save button-->

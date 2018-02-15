@@ -64,30 +64,46 @@ class Theme_model extends CI_Model
         // TODO : implements
     }
 
+    public function delBook(array $data): bool
+    {
+        return $this->db->where($data)->delete('LivreTheme');
+    }
+
+    public function getAll(): ?array
+    {
+        return $this->db->select()->from($this->table)->get()->result_array();
+    }
+
     /**
      * Assign to the given theme name each book id from the given array
      * @param string $themeName The theme name
      * @param array $books Contains a list of book id
+     * @return bool
      */
     public function assignBookToTheme(string $themeName, array $books)
     {
+        $result = true;
         $themeId = $this->themeList[$themeName];
         foreach ($books as $book){
-            $this->db->insert('LivreTheme',array('id_livre'=>$book,'id_theme'=>$themeId));
+            $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$book,'id_theme'=>$themeId));
         }
+        return $result;
     }
 
     /**
      * Assign to the given book id each themes from the given array
      * @param string $bookId A book id
      * @param array $themes A list of thems name
+     * @return bool
      */
     public function assignThemeToBook(string $bookId, array $themes)
     {
+        $result = true;
         foreach ($themes as $theme){
             $themeId = $this->themeList[$theme];
-            $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
+            $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
         }
+        return $result;
     }
 
     /**
