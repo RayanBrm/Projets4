@@ -77,7 +77,7 @@ function addBook() {
 
                 let addpath = $('#add-path');
                 if (addpath.get(0).checked === true) {
-                    addpath.checked(false);
+                    addpath.attr('checked', false);
                     toggleFile();
                 }
             }
@@ -88,6 +88,7 @@ function addBook() {
     });
 
     form.reset();
+
 }
 
 function deleteBook(bookid) {
