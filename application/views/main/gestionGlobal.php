@@ -7,6 +7,17 @@ $this->load->view('utilities/page_nav', $data);
 
 $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
 ?>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Attention!</h4>
+            <blockquote id="modal_container_1"></blockquote>
+        </div>
+        <div class="modal-footer">
+            <a href="#" onclick="agree()"
+               class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
+        </div>
+    </div>
 
     <div class="container">
         <h1>HAAAN MAMÈNE, JE JOUE <?= $words[array_rand($words)] ?></h1>
@@ -32,7 +43,17 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                     <i class="material-icons">edit</i>Modifier une classe
                 </div>
                 <div class="collapsible-body">
-                    J'ai pas eu le temps t'es pressé?
+                    Bientot complet.
+                    <span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i id="search" class="material-icons prefix">search</i>
+                                <div id="utilchip" class="chips-placeholder"></div>
+                            </div>
+                        </div>
+                        <ul id="classe_container" class="collection with-header">
+                        </ul>
+                    </span>
                 </div>
             </li>
             <li>
@@ -43,8 +64,8 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                     <div class="row">
                         <div class="col s6">
                             <div class="row" id="child_container">
-<!--                                 TODO : resize-->
-                                <?=  $childCardList; ?>
+                                <!--                                 TODO : resize-->
+                                <?= $childCardList; ?>
                             </div>
                         </div>
                         <div class="col s6">
@@ -55,8 +76,8 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                                 </ul>
                             </form>
                             <br>
-
-                            <button class="btn waves-effect waves-light" type="submit" name="changeClasses" id="changeClasses">
+                            <button class="btn waves-effect waves-light" type="submit" name="changeClasses"
+                                    id="changeClasses">
                                 Valider les changements
                                 <i class="material-icons right">send</i>
                             </button>
@@ -73,5 +94,5 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
 
 <?php
 
-$data['load'] = array('jquery.min', 'materialize.min', 'jquery.ui.min', 'nestable', 'gestionglobal');
+$data['load'] = array('jquery.min', 'materialize.min', 'chips','gestionglobal');
 $this->load->view('utilities/page_footer', $data);

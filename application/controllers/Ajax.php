@@ -148,6 +148,36 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function editClasse(){
+        if (isset($_POST['classe'])){
+            //echo ($this->classe->set(array('id'=>)))
+        }else{
+            echo 'failure';
+        }
+    }
+
+    public function deleteClasse(){
+        if (isset($_POST['classe'])){
+
+        }else{
+            echo 'failure';
+        }
+    }
+
+    public function searchClasse(){
+        if (isset($_POST['classe'])){
+            $classes = $this->classe->search($_POST['classe']);
+            $result = '';
+
+            foreach ($classes as $classe){
+                $result.= $this->format->class->toModify($classe);
+            }
+            echo $result;
+        }else{
+            echo '';
+        }
+    }
+
     // ************ Book functions
 
     public function addBook()

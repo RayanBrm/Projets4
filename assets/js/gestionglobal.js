@@ -1,9 +1,17 @@
 var ERROR_MESSAGE = 'Une erreur s\'est produite durant l\'opération. Réessayer plus tard ou contactez l\'administrateur.';
-
+var toDelete = -1;
+const modalRmc = '#modal_container_1';
+const modalRm = '#modal1';
 
 $(document).ready(function () {
         $('#changeClasses').on('click', modifyClasses);
         $('#newClasse').on('click', addClass);
+        $('.modal').modal();
+        $('.chips')
+            .on('chip.add',search)
+            .on('chip.delete',function () {
+                $('#classe_container').html('')
+            });
 });
 
 
@@ -63,4 +71,63 @@ function addClass() {
     }else{
         Materialize.toast('Veuillez completer le nom de classe avant de valider', 5000);
     }
+}
+
+function editClass(classe) {
+    $.ajax({
+       type:'POST',
+       url:'ajax/editClasse',
+       data:{
+           id:classe,
+           libelle:$('#input_'+classe).val()
+       },
+       success: function (responseText) {
+           if (responseText === "success"){
+               Materialize.toast('La classe a été modifée.', 5000);
+           }else if(responseText === "failure"){
+               Materialize.toast(ERROR_MESSAGE, 5000);
+           }
+       }
+    });
+}
+
+function deleteClass(classe) {
+    toDelete = classe;
+    $(modalRmc).html("La suppression d'une classe est définitive! Etes vous sur de vouloir la supprimer?");
+    $(modalRm).modal('open');
+}
+
+function agree() {
+    $.ajax({
+        type:'POST',
+        url:'ajax/deleteClasse',
+        data:{
+            classe:toDelete
+        },
+        success: function (responseText) {
+            if (responseText === "success"){
+                Materialize.toast('La classe a été supprimée.', 5000);
+            }else if(responseText === "failure"){
+                Materialize.toast(ERROR_MESSAGE, 5000);
+            }
+        }
+    });
+}
+
+function search(e,chip) {
+    $.ajax({
+       type:'POST',
+       url:'ajax/searchClasse',
+       data:{
+           classe:chip.tag
+       },
+       success:function (responseText) {
+           $('#classe_container').html(responseText);
+           Materialize.updateTextFields();
+           $('.classe_input').css({
+                margin:'0px',
+                height:'2rem'
+           }).parent().parent().css('margin','0px');
+       }
+    });
 }
