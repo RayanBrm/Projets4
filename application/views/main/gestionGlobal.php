@@ -2,53 +2,70 @@
 $data['title'] = 'Gestion global de l\'application';
 $data['env'] = 'log';
 
-$this->load->view('utilities/page_head',$data);
-$this->load->view('utilities/page_nav',$data);
+$this->load->view('utilities/page_head', $data);
+$this->load->view('utilities/page_nav', $data);
 
-$words = array('SCISSOR','PAPER','ROCKS');
+$words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
+
 
 ?>
 
-<div class="container">
-    <h1>IT WORKS, <?= $words[array_rand($words)] ?></h1>
+    <div class="container">
+        <h1>HAAAN MAMÈNE, JE JOUE <?= $words[array_rand($words)] ?></h1>
 
-    <div class="col s8 dd" id="nestable">
-        <ol class="dd-list rootList">
+        <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header">
+                    <i class="material-icons">create_new_folder</i>Ajouter une classe
+                </div>
+                <div class="collapsible-body">
+                    <div class="input-field col s6">
+                        <input id="classe" type="text" class="validate">
+                        <label for="classe">Nom de la classe</label>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        Enregistrer
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                    <i class="material-icons">create</i>Modifier les classe
+                </div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="col s6">
+                            <div class="row" id="child_container">
+<!--                                 TODO : resize-->
+                                <?=  $childCardList; ?>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <h5>Classe à affecter :</h5>
+                            <form action="#">
+                                <ul>
+                                    <?= $classeLiList ?>
+                                </ul>
+                            </form>
+                            <br>
 
-            <li class="dd-item" data-id="class_1">
-                <div class="dd-handle">CP1</div>
-                <ol class="dd-list">
-                    <li class="dd-item" data-id="child_4"><div class="dd-handle">Eleve 1</div></li>
-                </ol>
+                            <button class="btn waves-effect waves-light" type="submit" name="action" id="changeClasses">
+                                Valider les changements
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </li>
 
-            <li class="dd-item" data-id="class_2">
-                <div class="dd-handle">CE1</div>
-                <ol>
-                    <li class="dd-item" data-id="child_3"><div class="dd-handle">Eleve 2</div></li>
-                </ol>
-            </li>
-        </ol>
-    </div>
+        </ul>
 
-    <div class="col s8 dd" id="nestable2">
-        <ol class="dd-list">
-            Eleves non assignées
-            <li class="dd-item" data-id="child_5"><div class="dd-handle">Eleve 3</div></li>
-            <li class="dd-item" data-id="child_3434"><div class="dd-handle">Eleve 4</div></li>
-        </ol>
-    </div>
 
-    <div class="col">
-        <button class="btn waves-effect waves-light red lighten-3 " onclick="verifier()" type="button" name="action">Verifier
-            <!--        <i class="material-icons rigth ">send</i>-->
-        </button>
     </div>
-
-</div>
 
 
 <?php
 
-$data['load'] = array('jquery.min','materialize.min','jquery.ui.min','nestable','gestionglobal');
-$this->load->view('utilities/page_footer',$data);
+$data['load'] = array('jquery.min', 'materialize.min', 'jquery.ui.min', 'nestable', 'gestionglobal');
+$this->load->view('utilities/page_footer', $data);

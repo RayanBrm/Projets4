@@ -16,7 +16,10 @@ class ClassFormatter implements FormatterInterface
 
     public function toLi(array $element) : string
     {
-        return "<li> </li>";
+        return '<li>'.
+                '<input name="classes" type="radio" id="classe_'.$element['id'].'" value="'.$element['libelle'].'"/>'.
+                '<label class="black-text" for="classe_'.$element['id'].'">'.$element['libelle'].'</label>'.
+               '</li>';
     }
 
 

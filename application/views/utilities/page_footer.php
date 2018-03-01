@@ -1,18 +1,5 @@
 </main>
 <footer class="center red-text lighten-2"> © 2018 Copyright Holder All Rights Reserved. Axelle Delomez, Guillaume Marmorat, Rayan Barama, Emile Canac. Projet de DUT <!-- <a class="ml" href="">Mentions légales</a> --></footer>
-<!--        <footer class="page-footer">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="footer-copyright">-->
-<!--                <div class="container">-->
-<!--                    Copyright © 2018 Holder All Rights Reserved. Axelle Delomez, Guillaume Marmorat, Rayan Barama, Emile Canac. Projet de DUT Informatique 2018.-->
-<!--                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </footer>-->
-
         <?php
             if (isset($load)){
                 foreach ($load as $module){

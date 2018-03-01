@@ -1,34 +1,36 @@
-
-// $(function () {
-//     $('.draggable').draggable({snap:".classe_container", snapMode:"outer"});
-// });
 $(document).ready(function () {
-        $('#nestable').nestable({maxDepth:2, group:1});
-        $('#nestable2').nestable({maxDepth:2, group:1});
+        $('#changeClasses').on('click', modifyClasses);
+});
 
-    $('.dd').nestable({
-        reject: [
-            {
-                rule: function() {
-                    // $(this) refers to the dragged element.
-                    // Return TRUE to cancel the drag action.
-                    return $(this).parent().hasClass("rootList");
+
+function modifyClasses() {
+    let classe = $(`input[name=classes]:checked`);
+    let checkbox = $('input[type=checkbox]:checked');
+
+    if(classe.length === 0 || checkbox.length === 0){
+        Materialize.toast('Veuillez selectionnez des éléments a modifier.',5000);
+    }else {
+        let newClass = classe.attr('id').split('_')[1];
+        let childs = [];
+
+        for (elm of checkbox){
+            childs.push(elm.id);
+        }
+
+        $.ajax({
+            type:'POST',
+            url:'ajax/changeChildClass',
+            data:{
+                childs:JSON.stringify(childs),
+                classe:newClass
+            },
+            success: function (responseText) {
+                if(responseText === "success"){
+                    location.reload();
+                }else if(responseText === "failure"){
+                    Materialize.toast('Une erreur s\'est produite durant l\'opération. Réessayer plus tard ou contactez l\'administrateur.',5000);
                 }
             }
-        ]
-    });
-    }
-);
-
-function verifier() {
-    let unassigned = $('#nestable2').nestable('serialize');
-    let serial = $('#nestable').nestable('serialize');
-
-    console.log(unassigned.length === 0,serial);
-
-    for (let classe of serial){
-        for (let chld of classe.children){
-            console.log('Classe : '+ classe.id.split('_')[1] +' Eleve : '+chld.id.split('_')[1]);
-        }
+        })
     }
 }

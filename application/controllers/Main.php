@@ -141,7 +141,20 @@ class Main extends CI_Controller
     public function gestionglobal()
     {
         if ($this->isLogged()){
-            $this->load->view('main/gestionGlobal');
+            $data['classeLiList'] = '';
+            $data['childCardList'] = '';
+
+            $classes = $this->classe->getAll();
+            foreach ($classes as $class){
+                $data['classeLiList'].=$this->format->class->toLi($class);
+            }
+
+            $eleves = $this->user->getAllChild();
+            foreach ($eleves as $eleve){
+                $data['childCardList'].=$this->format->child->toCard($eleve);
+            }
+
+            $this->load->view('main/gestionGlobal', $data);
         }else{
             redirect('utilisateur');
         }

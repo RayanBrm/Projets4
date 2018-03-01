@@ -32,4 +32,16 @@ class ChildFormatter implements FormatterInterface
         return "<li> </li>";
     }
 
+    public function toCard(array $child) : string
+    {
+        return '<div class="col s4">'.
+                    '<div class="card-panel grey darken-1 white-text">'.
+                        '<h5>'.$child['prenom'].' '.$child['nom'].'</h5>'.
+                        '<p>Classe actuelle : '.$child['classe'].'</p>'.
+                        '<input type="checkbox" id="'.$child['id'].'"/>'.
+                        '<label class="white-text" for="'.$child['id'].'">Selectionner</label>'.
+                    '</div>'.
+                '</div>';
+    }
+
 }

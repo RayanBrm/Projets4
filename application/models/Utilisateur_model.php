@@ -166,11 +166,16 @@ class Utilisateur_model extends CI_Model
 
     /**
      * Getter for the whole list of child
-     * @return array|null Return the child id, class and picture for each child
+     * @return array|null format as array([.]=>array('id'=>?,'identifiant'=>?,'nom'=>?,...))
      */
     public function getAllChild(): ?array
     {
-        $this->eleve->getAll();
+        return $this->db->select()
+                        ->from($this->table)
+                        ->join('Eleve', 'Eleve.id=Utilisateur.id')
+                        ->where('Role = "3"')
+                    ->get()
+                    ->result_array();
     }
 
     public function search(string $keyWord, string $where): array

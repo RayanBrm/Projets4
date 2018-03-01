@@ -121,6 +121,22 @@ class Ajax extends CI_Controller
         dump($_SESSION);
     }
 
+    public function changeChildClass(){
+        if (isset($_POST['childs']) && isset($_POST['classe'])){
+            $childs = json_decode($_POST['childs']);
+            $classe = $_POST['classe'];
+            $result = true;
+
+            foreach ($childs as $child){
+                $result == $result && $this->eleve->set(array('id'=>$child,'classe'=>$classe));
+            }
+
+            echo ($result)? 'success' : 'fail';
+        }else{
+            echo 'fail';
+        }
+    }
+
     // ************ Book functions
 
     public function addBook()
@@ -312,7 +328,7 @@ class Ajax extends CI_Controller
 //        $this->image_lib->initialize($config);
 
         if(!$this->image_lib->resize()){
-            dump($this->image_lib);
+            //dump($this->image_lib);
             $this->image_lib->display_errors('<p>', '</p>');
         }
     }
