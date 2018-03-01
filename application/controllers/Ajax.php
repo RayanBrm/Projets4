@@ -137,6 +137,17 @@ class Ajax extends CI_Controller
         }
     }
 
+    // ************ Classes functions
+
+    public function addClasse()
+    {
+        if (isset($_POST['classe'])){
+            echo (!$this->classe->exist($_POST['classe']) && $this->classe->add($_POST['classe']))? 'success' : 'failure' ;
+        }else{
+            echo 'failure';
+        }
+    }
+
     // ************ Book functions
 
     public function addBook()

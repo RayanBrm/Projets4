@@ -6,8 +6,6 @@ $this->load->view('utilities/page_head', $data);
 $this->load->view('utilities/page_nav', $data);
 
 $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
-
-
 ?>
 
     <div class="container">
@@ -23,7 +21,7 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                         <input id="classe" type="text" class="validate">
                         <label for="classe">Nom de la classe</label>
                     </div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                    <button class="btn waves-effect waves-light" type="button" name="newClasse" id="newClasse">
                         Enregistrer
                         <i class="material-icons right">send</i>
                     </button>
@@ -31,7 +29,15 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
             </li>
             <li>
                 <div class="collapsible-header">
-                    <i class="material-icons">create</i>Modifier les classe
+                    <i class="material-icons">edit</i>Modifier une classe
+                </div>
+                <div class="collapsible-body">
+                    J'ai pas eu le temps t'es pressé?
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                    <i class="material-icons">people</i>Modifier les affectations
                 </div>
                 <div class="collapsible-body">
                     <div class="row">
@@ -50,7 +56,7 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                             </form>
                             <br>
 
-                            <button class="btn waves-effect waves-light" type="submit" name="action" id="changeClasses">
+                            <button class="btn waves-effect waves-light" type="submit" name="changeClasses" id="changeClasses">
                                 Valider les changements
                                 <i class="material-icons right">send</i>
                             </button>

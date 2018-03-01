@@ -1,5 +1,9 @@
+var ERROR_MESSAGE = 'Une erreur s\'est produite durant l\'opération. Réessayer plus tard ou contactez l\'administrateur.';
+
+
 $(document).ready(function () {
         $('#changeClasses').on('click', modifyClasses);
+        $('#newClasse').on('click', addClass);
 });
 
 
@@ -28,9 +32,35 @@ function modifyClasses() {
                 if(responseText === "success"){
                     location.reload();
                 }else if(responseText === "failure"){
-                    Materialize.toast('Une erreur s\'est produite durant l\'opération. Réessayer plus tard ou contactez l\'administrateur.',5000);
+                    Materialize.toast(ERROR_MESSAGE,5000);
                 }
             }
         })
+    }
+}
+
+function addClass() {
+    let libelle = $('#classe');
+
+    if (libelle.val().length > 0){
+        $.ajax({
+            type:'POST',
+            url:'ajax/addClasse',
+            data:{
+                classe:libelle.val()
+            },
+            success: function (responseText) {
+                if (responseText === "success"){
+                    Materialize.toast('La classe a été ajoutée', 5000);
+                    libelle.val('');
+                    libelle.next().removeClass('active');
+
+                }else if(responseText === "failure"){
+                    Materialize.toast(ERROR_MESSAGE, 5000);
+                }
+            }
+        });
+    }else{
+        Materialize.toast('Veuillez completer le nom de classe avant de valider', 5000);
     }
 }
