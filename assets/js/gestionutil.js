@@ -70,10 +70,12 @@ function add(form) {
             else if (responseText === "failure"){
                 $(modalAddc).html("Un probleme est survenue, réessayer plus tard ou contactez un administrateur.").removeClass('valid');
                 $(modalAdd).modal('open');
+            } else if (responseText === "exist"){
+                $(modalAddc).html("L'identifiant que vous avez saisie éxiste déjà, réessayer avec un autre.").removeClass('valid');
+                $(modalAdd).modal('open');
             }
         }
     });
-
 
 }
 

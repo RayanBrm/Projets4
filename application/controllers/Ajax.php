@@ -52,22 +52,26 @@ class Ajax extends CI_Controller
 
     public function adduser()
     {
-        if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role'])) {
-            $user = array(
-                'identifiant' => $_POST['identifiant'],
-                'motdepasse' => $_POST['motdepasse'],
-                'nom' => $_POST['nom'],
-                'prenom' => $_POST['prenom'],
-                'role' => $_POST['role']
-            );
+        if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role']) && isset($_POST['motdepasse'])) {
+            if (!$this->user->userExist($_POST['identifiant'])){
+                $user = array(
+                    'identifiant' => $_POST['identifiant'],
+                    'motdepasse' => $_POST['motdepasse'],
+                    'nom' => $_POST['nom'],
+                    'prenom' => $_POST['prenom'],
+                    'role' => $_POST['role']
+                );
 
-            if ($this->user->add($user)) {
-                echo 'success';
-            } else {
-                echo 'failure';
+                if ($this->user->add($user)) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }else{
+                echo 'exist';
             }
         } elseif (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['classe'])){
-            $child = array( // TODO : alea pastille from directory
+            $child = array(
                 'identifiant'=>'eleve'.uniqid(),
                 'nom'=>$_POST['nom'],
                 'prenom'=>$_POST['prenom'],
@@ -81,7 +85,7 @@ class Ajax extends CI_Controller
             } else {
                 echo 'failure';
             }
-        } else {
+        } else { // Should not appear
             echo 'incomplete';
         }
     }
@@ -134,6 +138,7 @@ class Ajax extends CI_Controller
             );
 
             $bpath = ($_POST['add-path'] === 'true')? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
+            $theme = explode(';', $_POST['theme']);
 
             if (!$this->livre->exist(array('auteur'=>$_POST['auteur']))){
                 $this->livre->addAuteur($_POST['auteur']);
@@ -184,7 +189,7 @@ class Ajax extends CI_Controller
                     exit();
                 }
                 // Updating book
-                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture))){
+                if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture)) && $this->theme->assignThemeToBook($id,$theme)){
                     $result = "true";
                 }
             }
@@ -226,7 +231,7 @@ class Ajax extends CI_Controller
     {
         $bookId = $_POST['book'];
 
-        if($this->livre->del(array('id'=>$bookId))){
+        if($this->emprunt->del(array('id_livre'=>$bookId)) && $this->theme->delBook(array('id_livre'=>$bookId)) && $this->livre->del(array('id'=>$bookId))){
             echo "true";
         }
         else{
@@ -274,7 +279,18 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
-    // Private methods only used here
+    public function getThemeList()
+    {
+        $themes = $this->theme->getAll();
+        $tmp = array();
+        foreach ($themes as $theme){
+            $tmp[] = $theme['nom'];
+        }
+
+        echo json_encode($tmp);
+    }
+
+    // ************ Private methods only used here
 
     private function getBookCoverFromUrl(string $url, $ext): bool
     {

@@ -58,6 +58,7 @@ class Livre_model extends CI_Model
     {
         return  $this->db->select()
                         ->from($this->table)
+                        ->order_by('titre','ASC')
                         ->limit(BOOK_PER_PAGE,BOOK_PER_PAGE*($page-1))
                         ->get()
                         ->result_array();
@@ -71,7 +72,7 @@ class Livre_model extends CI_Model
     public function getTheme($id_theme) : ?array
     {
         return $this->bd->select()
-                        ->from('livretheme')
+                        ->from('LivreTheme')
                         ->like('id_theme',$id_theme)
                         ->get()
                         ->result_array();

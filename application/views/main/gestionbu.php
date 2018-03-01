@@ -97,6 +97,16 @@ $this->load->view('utilities/page_nav', $data);
                             <label class="red-text ligthen-2" for="description">Résumé</label>
                         </div>
                     </div>
+                    <!--        Theme-->
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <div id="autocomplete" class="chips chips-autocomplete">
+                                <input type="text" id="autocomplete">
+                            </div>
+                            <label class="red-text lighten-2" for="autocomplete">Themes</label>
+                        </div>
+                    </div>
                     <!--        Save button-->
                     <button class="btn waves-effect waves-light red lighten-3 " type="button" onclick="addBook()" name="save">Enregistrer
                         <i class="material-icons rigth ">save</i>

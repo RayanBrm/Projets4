@@ -3,6 +3,12 @@
 class Utilisateur_model extends CI_Model
 {
     private $table;
+    /**
+     * Describe the different available mode for checking user exist or not
+     */
+    public static $LIGHT = 0;
+    public static $HARD = 1;
+
 
     public function __construct()
     {
@@ -188,5 +194,33 @@ class Utilisateur_model extends CI_Model
         }
         else
             return array();
+    }
+
+    /**
+     * Check if user with given field already exist or not, default behavior is LIGHT
+     * @param string $data Data to search
+     * @param int $mode Mode on how to search user,
+     *                   -> HARD : every field is searched (identifiant,nom,prenom)
+     *                   -> LIGHT : only identifiant is searched
+     * @return bool True if some with given data exist
+     */
+    public function userExist(string $data, int $mode = -1): bool
+    {
+        if ($mode == -1){
+            $mode = self::$LIGHT;
+        }
+
+        if ($mode == self::$HARD){
+            $constraint = array(
+                'identifiant'=>$data,
+                'nom'=>$data,
+                'prenom'=>$data
+            );
+        } elseif ($mode == self::$LIGHT){
+            $constraint = array('identifiant'=>$data);
+        }else{
+            return false;
+        }
+        return (count($this->db->select()->from($this->table)->where($constraint)->get()->result_array()) > 0);
     }
 }

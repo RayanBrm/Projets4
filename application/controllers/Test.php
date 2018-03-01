@@ -21,7 +21,6 @@ class Test extends CI_Controller
     {
         $data = array();
 
-        // Bug on add or set ?
         $data['report']['user'] = $this->userTest();
         $data['report']['livre'] = $this->livreTest();
         $data['report']['emprunt'] = $this->empruntTest();

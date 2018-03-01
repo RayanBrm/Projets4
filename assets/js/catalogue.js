@@ -3,10 +3,8 @@ var bookToLoan = 0;
 
 $('.chips').on('chip.delete',function () {
             location.reload();
-         }).on('chip.add',function () {
-            // TODO : enhancements
-            var data = $('.chips').material_chip('data')[0]['tag'];
-            rechercher(data);
+         }).on('chip.add',function (e, chip) {
+            rechercher(chip.tag);
         });
 
 $(document).ready(function() {
