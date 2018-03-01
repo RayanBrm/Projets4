@@ -52,22 +52,26 @@ class Ajax extends CI_Controller
 
     public function adduser()
     {
-        if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role'])) {
-            $user = array(
-                'identifiant' => $_POST['identifiant'],
-                'motdepasse' => $_POST['motdepasse'],
-                'nom' => $_POST['nom'],
-                'prenom' => $_POST['prenom'],
-                'role' => $_POST['role']
-            );
+        if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role']) && isset($_POST['motdepasse'])) {
+            if (!$this->user->userExist($_POST['identifiant'])){
+                $user = array(
+                    'identifiant' => $_POST['identifiant'],
+                    'motdepasse' => $_POST['motdepasse'],
+                    'nom' => $_POST['nom'],
+                    'prenom' => $_POST['prenom'],
+                    'role' => $_POST['role']
+                );
 
-            if ($this->user->add($user)) {
-                echo 'success';
-            } else {
-                echo 'failure';
+                if ($this->user->add($user)) {
+                    echo 'success';
+                } else {
+                    echo 'failure';
+                }
+            }else{
+                echo 'exist';
             }
         } elseif (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['classe'])){
-            $child = array( // TODO : alea pastille from directory
+            $child = array(
                 'identifiant'=>'eleve'.uniqid(),
                 'nom'=>$_POST['nom'],
                 'prenom'=>$_POST['prenom'],
@@ -81,7 +85,7 @@ class Ajax extends CI_Controller
             } else {
                 echo 'failure';
             }
-        } else {
+        } else { // Should not appear
             echo 'incomplete';
         }
     }
