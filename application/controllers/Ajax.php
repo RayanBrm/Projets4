@@ -158,7 +158,7 @@ class Ajax extends CI_Controller
 
     public function deleteClasse(){
         if (isset($_POST['classe'])){
-
+            echo ($this->classe->del($_POST['classe']))? 'success' : 'failure';
         }else{
             echo 'failure';
         }

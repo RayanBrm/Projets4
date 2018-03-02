@@ -28,7 +28,9 @@ class Classe_model extends CI_Model
 
     public function del(string $classId): bool
     {
-        return true;
+        if (isset($classId)){
+            return $this->db->where(array('id'=>$classId))->delete($this->table);
+        }
     }
 
     public function set(array $data): bool

@@ -107,6 +107,8 @@ function agree() {
         success: function (responseText) {
             if (responseText === "success"){
                 Materialize.toast('La classe a été supprimée.', 5000);
+                console.log(toDelete);
+                $('#classe_container').find('input[id=input_'+toDelete+']').parent().parent().parent().remove();
             }else if(responseText === "failure"){
                 Materialize.toast(ERROR_MESSAGE, 5000);
             }
