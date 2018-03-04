@@ -37,7 +37,7 @@ $this->load->view('utilities/page_nav', $data);
                             <label class="red-text ligthen-2" for="isbn">ISBN</label>
                         </div>
                         <div class="input-field col">
-                            <a class="waves-effect waves-light btn" onclick="getByIsbn()"><i class="material-icons">loop</i></a>
+                            <a class="waves-effect waves-light btn tooltipped" onclick="getByIsbn()" data-position="right" data-delay="50" data-tooltip="Rechercher cet ISBN pour completer le formulaire"><i class="material-icons">loop</i></a>
                         </div>
                     </div>
                     <!--        Image path add-->
@@ -98,7 +98,6 @@ $this->load->view('utilities/page_nav', $data);
                         </div>
                     </div>
                     <!--        Theme-->
-
                     <div class="row">
                         <div class="input-field col s12">
                             <div id="autocomplete" class="chips chips-autocomplete">
@@ -108,9 +107,7 @@ $this->load->view('utilities/page_nav', $data);
                         </div>
                     </div>
                     <!--        Save button-->
-                    <button class="btn waves-effect waves-light red lighten-3 " type="button" onclick="addBook()" name="save">Enregistrer
-                        <i class="material-icons rigth ">save</i>
-                    </button>
+                    <a class="btn waves-effect waves-light teal" onclick="addBook()" name="save">Enregistrer<i class="material-icons rigth ">save</i></a>
                 </form>
             </div>
         </li>

@@ -11,12 +11,13 @@ class ChildFormatter implements FormatterInterface
 
     public function toLog(array $child): string
     {
+        // TODO : add name and icon for older child
         $img = "assets/img/pastilles_eleve/".$child['pastille'].".png";
         $alt = $child['pastille'];
         $link = "child/connect/".$child['id'];
 
         return "<div class='col i'>".
-                    "<a href='". base_url($link) ."'>".
+                    "<a href='". base_url($link) ."' class=\"tooltipped\" data-position=\"bottom\" data-delay=\"50\" data-tooltip=\"Se connecter :\n Test Test\">".
                     "<img src='". base_url($img) ."' alt='".$alt."'>".
                     "</a>".
                "</div>";

@@ -100,11 +100,24 @@ function validateChildLoan(childId) {
     }
 }
 
-function themeFilter() {
-    let theme = $('#theme_selector').val()
+// TODO : implements
+function mainThemeFilter() {
+    let theme = $('#main_theme_selector').val()
 
-    $.ajax({
-        type:'GET',
-        url:'ajax/getThemeList'
-    })
+    // $.ajax({
+    //     type:'GET',
+    //     url:'ajax/getThemeList'
+    // })
 }
+
+function secondThemeFilter() {
+    let theme = $('#second_theme_selector').val()
+
+    // $.ajax({
+    //     type:'GET',
+    //     url:'ajax/getThemeList'
+    // })
+}
+
+
+

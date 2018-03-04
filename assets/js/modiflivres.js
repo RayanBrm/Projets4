@@ -98,6 +98,10 @@ function initAuthorAutocomplete() {
     })
 }
 
+// Called when clicking validate button on book editing
+/**
+ * Get the data from the form and send it the new ones to the ajax controller to be save
+ */
 function validate() {
     let data = {};
 
@@ -107,12 +111,11 @@ function validate() {
     data['edition'] = $('#editeur').val();
     data['description'] = $('#description').val();
     data['themes'] = [];
-
+    // Filling thems list thanks to global array which is up to date from secondary theme
     for(let i of secondaryTheme){
         data['themes'].push(i);
     }
 
-    
     $.ajax({
         type:'POST',
         url:'ajax/editBook',

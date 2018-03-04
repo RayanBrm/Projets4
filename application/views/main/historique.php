@@ -15,7 +15,7 @@ $this->load->view('utilities/page_nav', $data);
         <br>
         <br>
         <br>
-        <a class="waves-effect waves-light btn-large" href="historique">Mon historique</a>
+        <a class="waves-effect waves-light btn-large tooltipped" href="historique" data-position="bottom" data-delay="50" data-tooltip="Acceder a mon historique">Mon historique</a>
         <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
                 <select id="classe_select" onchange="multiLoad()">
@@ -32,8 +32,8 @@ $this->load->view('utilities/page_nav', $data);
                 </select>
             </div>
             <div class="col s12">
-                <a class="waves-effect waves-light btn" onclick="returnAllCurrent()">rendre tout</a>
-                <a class="waves-effect waves-light btn" onclick="returnAllChecked()">rendre la selection</a>
+                <a class="waves-effect waves-light btn tooltipped" onclick="returnAllCurrent()" data-position="bottom" data-delay="50" data-tooltip="Rendre tous les livres selectionner">rendre tout</a>
+                <a class="waves-effect waves-light btn tooltipped" onclick="returnAllChecked()" data-position="bottom" data-delay="50" data-tooltip="Rendre tous les livres en cours d'emprunt ici">rendre la selection</a>
             </div>
     </div>
     <div class="col s9">

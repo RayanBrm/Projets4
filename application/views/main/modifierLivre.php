@@ -40,10 +40,10 @@ $this->load->view('utilities/page_nav',$data);
                 </div>
                 <div class="row col s6">
                     <div class="col s6">
-                        <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">cancel</i>annuler</a>
+                        <a class="waves-effect waves-light btn tooltipped" href="javascript:history.back()" data-position="bottom" data-delay="50" data-tooltip="Annuler les changements et revenir."><i class="material-icons left">cancel</i>annuler</a>
                     </div>
                     <div class="col s6">
-                        <a id="valider" class="waves-effect waves-light btn"><i class="material-icons left">check</i>valider</a>
+                        <a id="valider" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Valider les changements."><i class="material-icons left">check</i>valider</a>
                     </div>
                 </div>
             </div>

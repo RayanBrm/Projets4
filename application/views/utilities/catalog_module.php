@@ -60,14 +60,18 @@
                         '<div class="chips-placeholder" onchange="rechercher()"></div>'.
                         '<label>Rechercher un livre</label>'.
                     '</div>';
+    // TODO : load themes; add secondary theme select; chain ?
     echo            '<div class="input-field col s10 offset-s2">'.
-                        '<select id="theme_selector" class="icons" onchange="themeFilter()">'.
-                            '<option value="" disabled selected>Themes</option>'.
-                            '<option value="" data-icon="/assets/img/pastilles_theme/fantastique.png" class="circle">theme 1</option>'.
-                            '<option value="" data-icon="/assets/img/pastilles_theme/animaux.png" class="circle">theme 2</option>'.
-                            '<option value="" data-icon="/assets/img/pastilles_theme/mer.png" class="circle">theme 3</option>'.
+                        '<select id="main_theme_selector" class="icons" onchange="mainThemeFilter()">'.
+                            '<option value="" disabled selected>Themes principaux</option>'.
                         '</select>'.
                         '<label>Themes principaux</label>'.
+                    '</div>';
+    echo            '<div class="input-field col s10 offset-s2">'.
+                        '<select id="second_theme_selector" class="icons" onchange="secondThemeFilter()">'.
+                            '<option value="" disabled selected>Themes secondaires</option>'.
+                        '</select>'.
+                        '<label>Themes secondaires</label>'.
                     '</div>';
     if (isset($env) && $env == 'childlog') { //affichage pour les enfants
 //        echo        '<div class="input-field col s12">'.
@@ -90,10 +94,10 @@
     echo    '<ul class="pagination center">'.
                 // Navigation icon
                 '<li class="waves-effect">'.
-                    '<a href="?page=1"><i class="material-icons">first_page</i></a>'.
+                    '<a href="?page=1" class="tooltipped" data-position="top" data-delay="50" data-tooltip="Premiere page"><i class="material-icons">first_page</i></a>'.
                 '</li>'.
                 '<li class="waves-effect">'.
-                    '<a href="?page='.($currentPage-1).'"><i class="material-icons">chevron_left</i></a>'.
+                    '<a href="?page='.($currentPage-1).'" class="tooltipped" data-position="top" data-delay="50" data-tooltip="Page précédente"><i class="material-icons">chevron_left</i></a>'.
                 '</li>'.
 
                 // Current page
@@ -101,10 +105,10 @@
 
                 // Navigation icon
                 '<li class="waves-effect">'.
-                    '<a href="?page='.($currentPage+1).'"><i class="material-icons">chevron_right</i></a>'.
+                    '<a href="?page='.($currentPage+1).'" class="tooltipped" data-position="top" data-delay="50" data-tooltip="Page suivante"><i class="material-icons">chevron_right</i></a>'.
                 '</li>'.
                 '<li class="waves-effect">'.
-                    '<a href="?page='.$maxPage.'"><i class="material-icons">last_page</i></a>'.
+                    '<a href="?page='.$maxPage.'" class="tooltipped" data-position="top" data-delay="50" data-tooltip="Dernière page"><i class="material-icons">last_page</i></a>'.
                 '</li>'.
             '</ul>';
     // End of navigation

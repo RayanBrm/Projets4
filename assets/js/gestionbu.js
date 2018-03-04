@@ -44,6 +44,7 @@ $('.datepicker').pickadate({
     closeOnSelect: true // Close upon selecting a date,
 });
 
+// Search bar
 function rechercher(search) {
     var xhr = getXHR();
 
@@ -60,7 +61,9 @@ function rechercher(search) {
     xhr.send("search=" + search + "&display=toModify");
 }
 
+// Add book button
 function addBook() {
+    // Check non empty form before
     let form = $('form')[0];
     let data = new FormData(form);
     data.append('add-path', document.getElementById('add-path').checked);
@@ -94,11 +97,13 @@ function addBook() {
 
 }
 
+// Called on click of delete icon
 function deleteBook(bookid) {
     bookToDelete = bookid;
     $('#modal1').modal('open');
 }
 
+// Called when validation button clicked on book deleting
 function agree() {
     console.log('Book : ' + bookToDelete + ' will be deleted');
     $.ajax({
@@ -180,6 +185,7 @@ function toggleFile() {
     $('[id^=local-couverture]').val('');
 }
 
+// Initialize autocomplete data for author, editor and themes
 function initThemeAutocomplete() {
     $.ajax({
         type: 'GET',
