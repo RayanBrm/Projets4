@@ -347,6 +347,36 @@ class Ajax extends CI_Controller
         echo json_encode($tmp);
     }
 
+    public function getMainThemes()
+    {
+        $themes = $this->theme->getAll();
+        $result = "";
+        foreach ($themes as $theme){
+            if (count(explode('_',$theme['nom'])) > 1){
+                $result.=$this->format->theme->toOption($theme);
+            }
+        }
+
+        echo $result;
+    }
+
+    public function getBookThemes(string $bookid)
+    {
+        $result = array('main'=>null,'secondary'=>array());
+        $themes = $this->theme->getAssigned($bookid);
+
+        foreach ($themes as $theme){
+            $theme = $this->theme->getName($theme['id_theme']);
+            if (!isset($result['main']) && count(explode('_',$theme)) > 1){
+                $result['main'] = $theme;
+            }else{
+                $result['secondary'][] = $theme;
+            }
+        }
+
+        echo json_encode($result);
+    }
+
     // ************ Private methods only used here
 
     private function getBookCoverFromUrl(string $url, $ext): bool

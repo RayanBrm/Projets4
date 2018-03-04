@@ -99,3 +99,12 @@ function validateChildLoan(childId) {
         });
     }
 }
+
+function themeFilter() {
+    let theme = $('#theme_selector').val()
+
+    $.ajax({
+        type:'GET',
+        url:'ajax/getThemeList'
+    })
+}

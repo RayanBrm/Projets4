@@ -126,4 +126,14 @@ class Theme_model extends CI_Model
             $this->themeList[$theme['nom']] = $theme['id'];
         }
     }
+
+    public function getName(string $themeId): ?string
+    {
+        return isset($this->themeList[$themeId])? $this->themeList[$themeId] : null ;
+    }
+
+    public function getAssigned($bookid)
+    {
+        return $this->db->select()->from('LivreTheme')->where('id_livre',$bookid)->get()->result_array();
+    }
 }

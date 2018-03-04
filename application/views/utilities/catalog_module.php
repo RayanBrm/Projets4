@@ -58,13 +58,27 @@
                     '<div id="catalogue_container" class="input-field col s12">'.
                         '<i id="search" class="material-icons prefix">search</i>'.
                         '<div class="chips-placeholder" onchange="rechercher()"></div>'.
+                        '<label>Rechercher un livre</label>'.
+                    '</div>';
+    echo            '<div class="input-field col s10 offset-s2">'.
+                        '<select id="theme_selector" class="icons" onchange="themeFilter()">'.
+                            '<option value="" disabled selected>Themes</option>'.
+                            '<option value="" data-icon="/assets/img/pastilles_theme/fantastique.png" class="circle">theme 1</option>'.
+                            '<option value="" data-icon="/assets/img/pastilles_theme/animaux.png" class="circle">theme 2</option>'.
+                            '<option value="" data-icon="/assets/img/pastilles_theme/mer.png" class="circle">theme 3</option>'.
+                        '</select>'.
+                        '<label>Themes principaux</label>'.
                     '</div>';
     if (isset($env) && $env == 'childlog') { //affichage pour les enfants
-        echo        // Second search bar for child // TODO : implement searching by theme
-                    '<div id="catalogue_container" class="input-field col s12">'.
-                        '<i id="search" class="material-icons prefix">search</i>'.
-                        '<div class="chips-placeholder" onchange="rechercher()"></div>'.
-                    '</div>';
+//        echo        '<div class="input-field col s12">'.
+//                        '<select class="icons">'.
+//                            '<option value="" disabled selected>Themes</option>'.
+//                            '<option value="" data-icon="/assets/img/pastilles_theme/fantastique.png" class="circle">theme 1</option>'.
+//                            '<option value="" data-icon="/assets/img/pastilles_theme/animaux.png" class="circle">theme 2</option>'.
+//                            '<option value="" data-icon="/assets/img/pastilles_theme/mer.png" class="circle">theme 3</option>'.
+//                        '</select>'.
+//                        '<label>Themes principaux</label>'.
+//                     '</div>';
     }
 
     echo        '</div>'.

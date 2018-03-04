@@ -1,5 +1,5 @@
 
 $('.chips-placeholder').material_chip({
-    placeholder: 'mot-clé',
+    //placeholder: 'mot-clé',
     secondaryPlaceholder: '+ autre',
 });

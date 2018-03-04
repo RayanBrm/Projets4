@@ -5,6 +5,7 @@ require_once 'ClassFormatter.php';
 require_once 'ChildFormatter.php';
 require_once 'BookFormatter.php';
 require_once 'UserFormatter.php';
+require_once 'ThemeFormatter.php';
 
 class Formatter
 {
@@ -30,6 +31,11 @@ class Formatter
      */
     private $user;
 
+    /**
+     * @var FormatterInterface
+     */
+    private $theme;
+
 
     public function __construct()
     {
@@ -39,6 +45,7 @@ class Formatter
         $this->class = new ClassFormatter($this->CI);
         $this->child = new ChildFormatter($this->CI);
         $this->user = new UserFormatter($this->CI);
+        $this->theme = new ThemeFormatter($this->CI);
     }
 
     public function __get($field) {

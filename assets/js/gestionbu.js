@@ -71,6 +71,7 @@ function addBook() {
         processData: false,
         contentType: false,
         success: function (responseText) {
+            console.log(responseText.length);
             if (responseText === "true") {
                 document.getElementById('book_form').reset();
                 Materialize.toast('Le livre a été ajouté', 4000);
