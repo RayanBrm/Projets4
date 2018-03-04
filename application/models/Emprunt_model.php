@@ -46,6 +46,7 @@ class Emprunt_model extends CI_Model
         if($this->exist($data['id_eleve']) || !$this->livre->isAvailable($data['id_livre'])) //l'élève a déjà un emprunt en cours
             return false;
         $emprunt = $this->db->insert('Emprunt',$data);
+        // TODO : use $livre->set() instead
         $livre = $this->db->where('id',$data['id_livre'])
                           ->update('Livre',array('disponible'=>'0'));
 

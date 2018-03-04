@@ -2,12 +2,27 @@ var mainTheme;
 var secondaryTheme = [];
 
 $(document).ready(function () {
-   let bookId = $('#id').val();
+    let bookId = $('#id').val();
     initBookTheme(bookId);
     initEditorAutocomplete();
     initAuthorAutocomplete();
-    initThemeAutocomplete();
+
+    $('textarea#description').characterCounter();
+    $('#valider').on('click',validate);
 });
+
+$('.chips').on('chip.add',function (e, chip) {
+                secondaryTheme.push(chip.tag);
+                console.log(secondaryTheme);
+           })
+           .on('chip.delete',function(e,chip){
+               for(let i = 0; i < secondaryTheme.length; i++){
+                   if (secondaryTheme[i] === chip.tag){
+                       secondaryTheme.splice(i, 1);
+                       break;
+                   }
+               }
+           });
 
 function initBookTheme(bookId) {
     $.ajax({
@@ -24,15 +39,7 @@ function initBookTheme(bookId) {
 }
 
 function initMainTheme() {
-    $.ajax({
-        type:'GET',
-        url:'ajax/getMainThemes',
-        success:function (responseText) {
-            $('#main_theme').append(responseText);
-            $('option[value='+mainTheme+']').attr('selected',true);
-            $('select').material_select();
-        }
-    });
+    // TODO
 }
 
 function initSecondaryTheme() {
@@ -88,5 +95,34 @@ function initAuthorAutocomplete() {
             limit: 5,
             minLength: 2
         });
+    })
+}
+
+function validate() {
+    let data = {};
+
+    data['id'] = $('#id').val();
+    data['titre'] = $('#titre').val();
+    data['auteur'] = $('#auteur').val();
+    data['edition'] = $('#editeur').val();
+    data['description'] = $('#description').val();
+    data['themes'] = [];
+
+    for(let i of secondaryTheme){
+        data['themes'].push(i);
+    }
+
+    
+    $.ajax({
+        type:'POST',
+        url:'ajax/editBook',
+        data:data,
+        success: function (responseText) {
+            if (responseText === "success"){
+                Materialize.toast('Le livre a été modifié.', 5000);
+            } else if (responseText === "failure"){
+                Materialize.toast('Une erreur est survenue. Réessayer plus tard ou contactez un administrateur.', 5000);
+            }
+        }
     })
 }

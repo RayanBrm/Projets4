@@ -296,6 +296,29 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function editBook()
+    {
+        // TODO : edit book cover
+        if (isset($_POST)){
+            $toEdit = array(
+                'id'=> $_POST['id'],
+                'titre'=>$_POST['titre'],
+                'auteur'=>$_POST['auteur'],
+                'edition'=>$_POST['edition'],
+                'description'=>$_POST['description']
+                //'themes' => json_decode($_POST['themes'])
+            );
+
+            $result = $this->livre->set($toEdit);
+            $result = $result && $this->theme->delBook(array('id_livre'=>$_POST['id'])) && $this->theme->assignThemeToBook($_POST['id'],$_POST['themes']);
+
+            echo $result? 'success' : 'failure';
+
+        }else{
+            echo 'failure';
+        }
+    }
+
     // ************ Loan functions
 
     public function addEmprunt(string $bookId, string $userId)

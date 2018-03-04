@@ -183,6 +183,15 @@ class Main extends CI_Controller
             }
             elseif (isset($what) && $what == "book"){
                 $data['book'] = $this->livre->get(array('id'=>$who))[0];
+                $data['themeList'] = "";
+
+                $themes = $this->theme->getAll();
+                foreach ($themes as $theme){
+                    if (count(explode('_',$theme['nom'])) > 1){
+                        $data['themeList'].=$this->format->theme->toOption($theme);
+                    }
+                }
+
                 $this->load->view('main/modifierLivre',$data);
             }
         }

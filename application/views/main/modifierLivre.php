@@ -4,7 +4,7 @@ $data['env'] = 'log';
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 
-// TODO : autocomplete theme; Theme principale;
+// TODO : Theme principale;
 // TODO GLOBALS : ajout autocomplete editeur
 ?>
 
@@ -17,6 +17,10 @@ $this->load->view('utilities/page_nav',$data);
                 <input id="isbn" type="text" value="<?= $book['isbn'] ?>" disabled>
                 <label for="titre">Titre</label>
                 <input id="titre" type="text" value="<?= $book['titre'] ?>">
+                <div class="input-field">
+                    <label for="description">Résumé</label>
+                    <textarea id="description" class="materialize-textarea" data-length="500"><?= $book['description'] ?></textarea>
+                </div>
                 <label for="auteur">Auteur</label>
                 <input id="auteur" type="text" class="autocomplete" value="<?= $book['auteur'] ?>">
                 <label for="editeur">Editeur</label>
@@ -26,6 +30,7 @@ $this->load->view('utilities/page_nav',$data);
                         <label for="main_theme">Themes principaux</label>
                         <select id="main_theme" class="icons" onchange="themeFilter()">
                             <option id="main_default" value="" selected disabled>Themes</option>
+                            <?= $themeList ?>
                         </select>
                     </div>
                     <div class="col s6">
@@ -35,10 +40,10 @@ $this->load->view('utilities/page_nav',$data);
                 </div>
                 <div class="row col s6">
                     <div class="col s6">
-                        <a class="waves-effect waves-light btn"><i class="material-icons left">cancel</i>annuler</a>
+                        <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">cancel</i>annuler</a>
                     </div>
                     <div class="col s6">
-                        <a class="waves-effect waves-light btn"><i class="material-icons left">check</i>valider</a>
+                        <a id="valider" class="waves-effect waves-light btn"><i class="material-icons left">check</i>valider</a>
                     </div>
                 </div>
             </div>
