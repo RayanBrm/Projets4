@@ -97,4 +97,21 @@ class Livre_model extends CI_Model
     {
         return $this->get(array('id'=>$bookId))[0]['disponible'] === '1';
     }
+
+    public function getAllEditor()
+    {
+        return $this->db->select('edition')
+                        ->distinct()
+                        ->from($this->table)
+                    ->get()
+                    ->result_array();
+    }
+
+    public function getAllAuthor()
+    {
+        return $this->db->select('nom')
+                        ->from('Auteur')
+                    ->get()
+                    ->result_array();
+    }
 }

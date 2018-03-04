@@ -296,6 +296,8 @@ class Ajax extends CI_Controller
         }
     }
 
+    // ************ Loan functions
+
     public function addEmprunt(string $bookId, string $userId)
     {
         $result = 'false';
@@ -336,6 +338,8 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    // ************ Themes functions
+
     public function getThemeList()
     {
         $themes = $this->theme->getAll();
@@ -374,6 +378,30 @@ class Ajax extends CI_Controller
             }
         }
 
+        echo json_encode($result);
+    }
+
+    // ************ Other functions
+
+    public function getEditors()
+    {
+        $result = [];
+        $editors = $this->livre->getAllEditor();
+
+        foreach ($editors as $editor){
+            $result[] = $editor['edition'];
+        }
+        echo json_encode($result);
+    }
+
+    public function getAuthors()
+    {
+        $result = [];
+        $authors = $this->livre->getAllAuthor();
+
+        foreach ($authors as $author){
+            $result[] = $author['nom'];
+        }
         echo json_encode($result);
     }
 
