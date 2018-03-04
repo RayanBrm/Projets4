@@ -72,14 +72,14 @@ $this->load->view('utilities/page_nav', $data);
                     <!--        Author-->
                     <div class="row">
                         <div class="input-field col s12">
-                            <input name="auteur" id="auteur" type="text" class="validate">
+                            <input name="auteur" id="auteur" type="text" class="validate autocomplete">
                             <label class="red-text ligthen-2" for="auteur">Auteur</label>
                         </div>
                     </div>
                     <!--        Editor-->
                     <div class="row">
                         <div class="input-field col s12">
-                            <input name="edition" id="edition" type="text" class="validate">
+                            <input name="edition" id="edition" type="text" class="validate autocomplete">
                             <label class="red-text ligthen-2" for="edition">Edition</label>
                         </div>
                     </div>

@@ -4,7 +4,9 @@ var themeAutocomplete = {};
 var bookTheme = [];
 
 $(document).ready(function () {
-    getAutocompleteThemeList();
+    initThemeAutocomplete();
+    initEditorAutocomplete();
+    initAuthorAutocomplete();
     $('select').material_select();
     $('input#input_text, textarea#textarea1').characterCounter();
     $('.modal').modal();
@@ -178,7 +180,7 @@ function toggleFile() {
     $('[id^=local-couverture]').val('');
 }
 
-function getAutocompleteThemeList() {
+function initThemeAutocomplete() {
     $.ajax({
         type: 'GET',
         url: '/ajax/getThemeList',
@@ -198,4 +200,34 @@ function getAutocompleteThemeList() {
             });
         }
     });
+}
+
+function initEditorAutocomplete() {
+    $.getJSON('ajax/getEditors','',function (responseText) {
+        let editorAutoComplete = {};
+        for (let name of responseText) {
+            editorAutoComplete[name] = null;
+        }
+
+        $('#edition.autocomplete').autocomplete({
+            data: editorAutoComplete,
+            limit: 5,
+            minLength: 2
+        });
+    })
+}
+
+function initAuthorAutocomplete() {
+    $.getJSON('ajax/getAuthors','',function (responseText) {
+        let authorAutoComplete = {};
+        for (let name of responseText) {
+            authorAutoComplete[name] = null;
+        }
+
+        $('#auteur.autocomplete').autocomplete({
+            data: authorAutoComplete,
+            limit: 5,
+            minLength: 2
+        });
+    })
 }
