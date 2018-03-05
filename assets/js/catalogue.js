@@ -10,6 +10,8 @@ $('.chips').on('chip.delete',function () {
 $(document).ready(function() {
     $('#modal1').modal();
     $('select').material_select();
+
+    $('#second_theme_selector').on('change','',secondThemeFilter);
 });
 
 function rechercher(search)
@@ -103,18 +105,12 @@ function validateChildLoan(childId) {
 // TODO : implements
 function mainThemeFilter() {
     let theme = $('#main_theme_selector').val()
-
-    // $.ajax({
-    //     type:'GET',
-    //     url:'ajax/getThemeList'
-    // })
 }
 
 function secondThemeFilter() {
     let theme = $('#second_theme_selector').val()
 
-    // $.ajax({
-    //     type:'GET',
-    //     url:'ajax/getThemeList'
-    // })
+    $.get('ajax/getBookByTheme?themeId='+theme,function (responseText) {
+        $('#book_container').html(responseText);
+    })
 }

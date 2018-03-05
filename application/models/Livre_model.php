@@ -78,6 +78,12 @@ class Livre_model extends CI_Model
                         ->result_array();
     }
 
+    public function getByTheme(string $id_theme): ?array
+    {
+        // TODO : use qb
+        return $this->db->query('SELECT Livre.* FROM LivreTheme JOIN Livre WHERE LivreTheme.id_livre=Livre.id AND LivreTheme.id_theme ='.$id_theme)->result_array();
+    }
+
     public function exist(array $data): bool
     {
         if (isset($data['auteur'])){

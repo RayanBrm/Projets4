@@ -138,12 +138,22 @@ class Theme_model extends CI_Model
     }
 
     /**
-     * Return the theme list assigned to the given book id
-     * @param $bookid string valid book id
+     * Return the assigned item from the given id :
+     *  - $what = book => return all theme assigned to given book id
+     *  - $what = theme => return all book assigned to given theme id
+     * @param $id string valid book id
+     * @param string $what
      * @return null|array Array containing the theme list or null if book id don't exist in table
      */
-    public function getAssigned($bookid): ?array
+    public function getAssigned($id, $what = 'book'): ?array
     {
-        return $this->db->select()->from('LivreTheme')->where('id_livre',$bookid)->get()->result_array();
+        if (isset($id)){
+            if ($what == 'book'){
+                return $this->db->select()->from('LivreTheme')->where('id_livre',$id)->get()->result_array();
+            }else if ($what == 'theme'){
+                return $this->db->select()->from('LivreTheme')->where('id_theme',$id)->get()->result_array();
+            }
+        }
+        return null;
     }
 }

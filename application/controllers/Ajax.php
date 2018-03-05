@@ -271,6 +271,22 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function getBookByTheme()
+    {
+        $id = isset($_GET['themeId'])? $_GET['themeId'] : null;
+        $books = $this->livre->getByTheme($id);
+        $result = "";
+
+        if (isset($books)){
+            foreach ($books as $book){
+                $result.=$this->format->book->toCatalog($book);
+            }
+            echo $result;
+        }else{
+            echo 'failure';
+        }
+    }
+
     public function returnBook()
     {
         $bookList = $_POST['bookList'];
