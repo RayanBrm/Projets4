@@ -148,7 +148,7 @@ class Ajax extends CI_Controller
         }
     }
 
-    public function editClasse(){
+    public function editClasse(){ // TODO : other error message in case of existing libelle
         if (isset($_POST['id']) && isset($_POST['libelle']) && !$this->classe->exist($_POST['libelle'])){
             echo ($this->classe->set(array('id'=>$_POST['id'],'libelle'=>$_POST['libelle'])))? 'success' : 'failure';
         }else{
@@ -156,8 +156,8 @@ class Ajax extends CI_Controller
         }
     }
 
-    public function deleteClasse(){
-        if (isset($_POST['classe'])){
+    public function deleteClasse(){ // TODO : other error message in case of existing child id classe
+        if (isset($_POST['classe']) && $this->classe->assignedChild($_POST['classe']) == 0){
             echo ($this->classe->del($_POST['classe']))? 'success' : 'failure';
         }else{
             echo 'failure';

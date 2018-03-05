@@ -63,4 +63,9 @@ class Classe_model extends CI_Model
     {
         return $this->db->select()->from($this->table)->where('libelle LIKE "%'.$libelle.'%"')->get()->result_array();
     }
+
+    public function assignedChild(string $classId): int
+    {
+        return count($this->db->select()->from('Eleve')->where(array('classe'=>$classId))->get()->result_array());
+    }
 }
