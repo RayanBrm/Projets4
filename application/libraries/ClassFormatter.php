@@ -30,7 +30,7 @@ class ClassFormatter implements FormatterInterface
             return "<li class=\"collection-item\">".
                         "<div class=\"row\">".
                             "<div class=\"col s6\">".
-                                "<input class=\"classe_input\" type=\"text\" id=\"input_".$classeid."\" value=\"".$classe['libelle']."\">".
+                                "<input class=\"classe_input\" type=\"text\" id=\"input_".$classeid."\" value=\"".$classe['libelle']."\" data-origin=\"".$classe['libelle']."\">".
                             "</div>".
                             "<a href='#' class=\"secondary-content red-text lighten-2\" onclick='editClass(".$classeid.")'>".
                                 "<i class=\"material-icons \">edit</i>".

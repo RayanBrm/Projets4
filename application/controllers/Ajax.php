@@ -149,8 +149,8 @@ class Ajax extends CI_Controller
     }
 
     public function editClasse(){
-        if (isset($_POST['classe'])){
-            //echo ($this->classe->set(array('id'=>)))
+        if (isset($_POST['id']) && isset($_POST['libelle']) && !$this->classe->exist($_POST['libelle'])){
+            echo ($this->classe->set(array('id'=>$_POST['id'],'libelle'=>$_POST['libelle'])))? 'success' : 'failure';
         }else{
             echo 'failure';
         }

@@ -35,7 +35,15 @@ class Classe_model extends CI_Model
 
     public function set(array $data): bool
     {
-        return true;
+        if (isset($data['id'])){
+            $id = $data['id'];
+            unset($data['id']);
+        }else{
+            return false;
+        }
+
+        return $this->db->where(array('id'=>$id))->update($this->table,$data);
+
     }
 
     public function getAll()

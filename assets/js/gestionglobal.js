@@ -74,21 +74,34 @@ function addClass() {
 }
 
 function editClass(classe) {
-    $.ajax({
-       type:'POST',
-       url:'ajax/editClasse',
-       data:{
-           id:classe,
-           libelle:$('#input_'+classe).val()
-       },
-       success: function (responseText) {
-           if (responseText === "success"){
-               Materialize.toast('La classe a été modifée.', 5000);
-           }else if(responseText === "failure"){
-               Materialize.toast(ERROR_MESSAGE, 5000);
-           }
-       }
-    });
+    let lib = $('#input_'+classe);
+
+    if (lib.val().length === 0){
+        Materialize.toast('Veuillez entrez un nom valide', 5000);
+        return;
+    }
+
+    if (lib.attr('data-origin') !== lib.val()){
+        $.ajax({
+            type:'POST',
+            url:'ajax/editClasse',
+            data:{
+                id:classe,
+                libelle:lib.val()
+            },
+            success: function (responseText) {
+                if (responseText === "success"){
+                    Materialize.toast('La classe a été modifée.', 5000);
+                }else if(responseText === "failure"){
+                    Materialize.toast(ERROR_MESSAGE, 5000);
+                }
+            }
+        });
+    }else {
+        Materialize.toast('Veuillez entrez un nom différent de l\'actuel si vous voulez le modifier', 5000);
+    }
+
+
 }
 
 function deleteClass(classe) {

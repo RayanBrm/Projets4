@@ -23,6 +23,7 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
         <h1>HAAAN MAMÈNE, JE JOUE <?= $words[array_rand($words)] ?></h1>
 
         <ul class="collapsible popout" data-collapsible="accordion">
+<!--            Ajouter un classe-->
             <li>
                 <div class="collapsible-header">
                     <i class="material-icons">create_new_folder</i>Ajouter une classe
@@ -38,12 +39,12 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                     </button>
                 </div>
             </li>
+<!--            Modifier un classe-->
             <li>
                 <div class="collapsible-header">
                     <i class="material-icons">edit</i>Modifier une classe
                 </div>
                 <div class="collapsible-body">
-                    Bientot complet.
                     <span>
                         <div class="row">
                             <div class="input-field col s12">
@@ -56,6 +57,7 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                     </span>
                 </div>
             </li>
+<!--            Modifier les affectations-->
             <li>
                 <div class="collapsible-header">
                     <i class="material-icons">people</i>Modifier les affectations
@@ -85,12 +87,8 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                     </div>
                 </div>
             </li>
-
         </ul>
-
-
     </div>
-
 
 <?php
 
