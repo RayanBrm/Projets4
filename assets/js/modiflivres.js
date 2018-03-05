@@ -33,7 +33,7 @@ function initBookTheme(bookId) {
             mainTheme = responseText.main;
             secondaryTheme = responseText.secondary;
             initMainTheme();
-            initSecondaryTheme();
+            initChipsSecondaryTheme();
         }
     })
 }
@@ -42,7 +42,8 @@ function initMainTheme() {
     // TODO
 }
 
-function initSecondaryTheme() {
+// /!\ Use local variable
+function initChipsSecondaryTheme() {
     $.getJSON('ajax/getThemeList','',function (responseText) {
         let themeAutoComplete = {};
         let data = [];
@@ -55,8 +56,6 @@ function initSecondaryTheme() {
             data.push({tag:theme});
         }
 
-        $('.chips-initial').material_chip({});
-
         $('.chips-autocomplete').material_chip({
             data,
             autocompleteOptions: {
@@ -66,36 +65,6 @@ function initSecondaryTheme() {
         });
     })
 
-}
-
-function initEditorAutocomplete() {
-    $.getJSON('ajax/getEditors','',function (responseText) {
-        let editorAutoComplete = {};
-        for (let name of responseText) {
-            editorAutoComplete[name] = null;
-        }
-
-        $('#editeur.autocomplete').autocomplete({
-            data: editorAutoComplete,
-            limit: 5,
-            minLength: 2
-        });
-    })
-}
-
-function initAuthorAutocomplete() {
-    $.getJSON('ajax/getAuthors','',function (responseText) {
-        let authorAutoComplete = {};
-        for (let name of responseText) {
-            authorAutoComplete[name] = null;
-        }
-
-        $('#auteur.autocomplete').autocomplete({
-            data: authorAutoComplete,
-            limit: 5,
-            minLength: 2
-        });
-    })
 }
 
 // Called when clicking validate button on book editing
@@ -108,7 +77,7 @@ function validate() {
     data['id'] = $('#id').val();
     data['titre'] = $('#titre').val();
     data['auteur'] = $('#auteur').val();
-    data['edition'] = $('#editeur').val();
+    data['edition'] = $('#edition').val();
     data['description'] = $('#description').val();
     data['themes'] = [];
     // Filling thems list thanks to global array which is up to date from secondary theme

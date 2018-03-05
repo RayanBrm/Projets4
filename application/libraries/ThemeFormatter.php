@@ -14,7 +14,11 @@ class ThemeFormatter implements FormatterInterface
     {
         $tmp = explode('_',$element['nom']);
         $titre = $tmp[count($tmp)-1];
-        return '<option value="'.$element['id'].'" data-icon="/assets/img/pastilles_theme/'.$titre.'.png" class="circle">'.$titre.'</option>';
+        if (count($tmp) > 1){
+            return '<option value="'.$element['id'].'" data-icon="/assets/img/pastilles_theme/'.$titre.'.png" class="circle">'.$titre.'</option>';
+        }else{
+            return '<option value="'.$element['id'].'">'.$titre.'</option>';
+        }
     }
 
     public function toLi(array $element): string

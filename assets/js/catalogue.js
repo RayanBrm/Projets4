@@ -118,6 +118,3 @@ function secondThemeFilter() {
     //     url:'ajax/getThemeList'
     // })
 }
-
-
-

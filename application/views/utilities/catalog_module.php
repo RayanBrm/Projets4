@@ -64,12 +64,14 @@
     echo            '<div class="input-field col s10 offset-s2">'.
                         '<select id="main_theme_selector" class="icons" onchange="mainThemeFilter()">'.
                             '<option value="" disabled selected>Themes principaux</option>'.
+                            $mainThemes.
                         '</select>'.
                         '<label>Themes principaux</label>'.
                     '</div>';
     echo            '<div class="input-field col s10 offset-s2">'.
                         '<select id="second_theme_selector" class="icons" onchange="secondThemeFilter()">'.
                             '<option value="" disabled selected>Themes secondaires</option>'.
+                            $secondaryThemes.
                         '</select>'.
                         '<label>Themes secondaires</label>'.
                     '</div>';

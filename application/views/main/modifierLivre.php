@@ -23,8 +23,8 @@ $this->load->view('utilities/page_nav',$data);
                 </div>
                 <label for="auteur">Auteur</label>
                 <input id="auteur" type="text" class="autocomplete" value="<?= $book['auteur'] ?>">
-                <label for="editeur">Editeur</label>
-                <input id="editeur" type="text" class="autocomplete" value="<?= $book['edition'] ?>">
+                <label for="edition">Editeur</label>
+                <input id="edition" type="text" class="autocomplete" value="<?= $book['edition'] ?>">
                 <div class="row">
                     <div class="col s6">
                         <label for="main_theme">Themes principaux</label>
@@ -52,5 +52,5 @@ $this->load->view('utilities/page_nav',$data);
 
 <?php
 
-$data['load'] = array('jquery.min','materialize.min', 'select', 'chips', 'modiflivres');
+$data['load'] = array('jquery.min', 'materialize.min', 'select', 'chips', 'autocomplete', 'modiflivres');
 $this->load->view('utilities/page_footer',$data);

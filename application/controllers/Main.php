@@ -39,6 +39,18 @@ class Main extends CI_Controller
             $data['books'] = $this->loadBooks($page);
             $data['currentPage'] = $page;
 
+            $data['mainThemes'] = "";
+            $data['secondaryThemes'] = "";
+
+            $themes = $this->theme->getAll();
+            foreach ($themes as $theme){
+                if (count(explode('_',$theme['nom'])) > 1){
+                    $data['mainThemes'].=$this->format->theme->toOption($theme);
+                }else{
+                    $data['secondaryThemes'].=$this->format->theme->toOption($theme);
+                }
+            }
+
             $this->load->view('main/catalogue',$data);
         }
         else{
@@ -78,6 +90,18 @@ class Main extends CI_Controller
             }
             $data['books'] = $this->loadBooks($page);
             $data['currentPage'] = $page;
+
+            $data['mainThemes'] = "";
+            $data['secondaryThemes'] = "";
+
+            $themes = $this->theme->getAll();
+            foreach ($themes as $theme){
+                if (count(explode('_',$theme['nom'])) > 1){
+                    $data['mainThemes'].=$this->format->theme->toOption($theme);
+                }else{
+                    $data['secondaryThemes'].=$this->format->theme->toOption($theme);
+                }
+            }
 
             $this->load->view('main/main',$data);
         }

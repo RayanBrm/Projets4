@@ -136,5 +136,5 @@ $this->load->view('utilities/page_nav', $data);
 
 <?php
 
-$data['load'] = array('jquery.min','materialize.min','ajax','chips','datepicker','gestionbu');
+$data['load'] = array('jquery.min','materialize.min','ajax','chips','datepicker','autocomplete','gestionbu');
 $this->load->view('utilities/page_footer', $data); ?>

@@ -127,12 +127,22 @@ class Theme_model extends CI_Model
         }
     }
 
+    /**
+     * Return the name of the gven theme id, null if not recognized theme id
+     * @param string $themeId
+     * @return null|string
+     */
     public function getName(string $themeId): ?string
     {
         return isset($this->themeList[$themeId])? $this->themeList[$themeId] : null ;
     }
 
-    public function getAssigned($bookid)
+    /**
+     * Return the theme list assigned to the given book id
+     * @param $bookid string valid book id
+     * @return null|array Array containing the theme list or null if book id don't exist in table
+     */
+    public function getAssigned($bookid): ?array
     {
         return $this->db->select()->from('LivreTheme')->where('id_livre',$bookid)->get()->result_array();
     }

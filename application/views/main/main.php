@@ -13,6 +13,8 @@ $this->load->view('utilities/page_nav',$data);
     $data['books'] = $books;
     $data['currentPage'] = $currentPage;
     $data['maxPage'] = $maxPage;
+    $data['mainThemes'] = $mainThemes;
+    $data['secondaryThemes'] = $secondaryThemes;
 
     $this->load->view('utilities/catalog_module',$data);
 
