@@ -2,9 +2,16 @@
 
 class Test extends CI_Controller
 {
-
     private $testNB;
     private $testPassed;
+    private static $tables = array(
+        'Auteur',
+        'Classe',
+        'Livre',
+        'Rallye',
+        'Theme',
+        'Utilisateur'
+    );
 
     public function __construct()
     {
@@ -12,6 +19,8 @@ class Test extends CI_Controller
 
         $this->load->library('Unit_test');
         $this->load->library('Formatter',null,'format');
+        // DB Insulation
+        $this->db = $this->load->database('test', TRUE);
 
         $this->testNB = 0;
         $this->testPassed = 0;
@@ -20,6 +29,7 @@ class Test extends CI_Controller
     public function index()
     {
         $data = array();
+        $this->resetAI();
 
         $data['report']['user'] = $this->userTest();
         $data['report']['livre'] = $this->livreTest();
@@ -28,7 +38,10 @@ class Test extends CI_Controller
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
 
+
         $this->load->view('test/display',$data);
+        // Reset to prod db
+        $this->db = $this->load->database('default', TRUE);
     }
 
     /**
@@ -81,8 +94,7 @@ class Test extends CI_Controller
             file_put_contents(__DIR__.'/../../'.BOOK_PATH.'image',$img);
         }
     }
-
-    // Les tests ne sont plus a jour avec l'actuelle version, due a l'isbn et l'image de couverture
+    
     private function livreTest()
     {
         // Declaration des resultat
@@ -161,7 +173,7 @@ class Test extends CI_Controller
                 'parution'=>'2017-10-12',
                 'couverture'=>'assets/img/livres/8.jpg',
                 'description'=>'',
-                'disponible'=>null
+                'disponible'=>'0'
             )
         );
 
@@ -218,8 +230,6 @@ class Test extends CI_Controller
     {
         $result = array();
 
-        //$userID = '52';
-
         $expected_get[0] = array(
             'id'=>'1',
             'identifiant'=>'admin',
@@ -227,14 +237,6 @@ class Test extends CI_Controller
             'prenom'=>'Ladmin',
             'role'=>'1',
             'motdepasse'=>'$2y$10$PSRun0QaBZUWKhhFMoRNhetlscCgvjOuq36XbnNguew1v.uF4Nlai'
-        );
-
-        $expected_stock_user[0] = array(
-            'id'=>'',
-            'identifiant'=>'jdstock',
-            'nom'=>'John',
-            'prenom'=>'Doe',
-            'role'=>'4'
         );
 
         $expected_prof_user[0] = array(
@@ -262,11 +264,6 @@ class Test extends CI_Controller
         $result['user']['get'] = $this->unit->run($obtained,$expected_get,'user->get');
 
         // ************** Add user test
-        $this->user->add($expected_stock_user[0]);
-        $obtained = $this->user->get(array('identifiant'=>$expected_stock_user[0]['identifiant']));
-        $expected_stock_user[0]['id'] = $obtained[0]['id'];
-        $result['user']['add_stock'] = $this->unit->run($obtained,$expected_stock_user,'user->add_stock');
-
         $this->user->add($expected_prof_user[0]);
         $obtained = $this->user->get(array('identifiant'=>$expected_prof_user[0]['identifiant']));
         $expected_prof_user[0]['id'] = $obtained[0]['id'];
@@ -281,20 +278,12 @@ class Test extends CI_Controller
         $result['user']['add_child'] = $this->unit->run($obtained,$expected_child_user,'user->add_child');
 
         // *************** Update user test
-        $expected_stock_user_set = $expected_stock_user;
-        $expected_stock_user_set[0]['nom'] = 'foo';
-        $expected_stock_user_set[0]['prenom'] = 'bar';
-        $this->user->set($expected_stock_user_set[0]);
-        $obtained = $this->user->get(array('id'=>$expected_stock_user_set[0]['id']));
-        $expected_stock_user_set[0]['id'] = $obtained[0]['id'];
-        $result['user']['set_stock'] = $this->unit->run($obtained,$expected_stock_user_set,'user->set_stock');
-
         $expected_prof_user_set = $expected_prof_user;
         $expected_prof_user_set[0]['nom'] = 'foo';
         $expected_prof_user_set[0]['prenom'] = 'bar';
-        $expected_prof_user_set[0]['motdepasse'] = 'johndoe';
         $this->user->set($expected_prof_user_set[0]);
         $obtained = $this->user->get(array('id'=>$expected_prof_user_set[0]['id']));
+        $expected_prof_user_set[0]['motdepasse'] = $obtained[0]['motdepasse'];
         $result['user']['set_prof'] = $this->unit->run($obtained,$expected_prof_user_set,'user->set_prof');
 
         $expected_child_user_set = $expected_child_user;
@@ -306,10 +295,6 @@ class Test extends CI_Controller
         $result['user']['set_child'] = $this->unit->run($obtained,$expected_child_user_set,'user->set_child');
 
         // ***************** Delete
-        $this->user->del(array('id'=>$expected_stock_user[0]['id']));
-        $obtained = $this->user->get(array('id'=>$expected_stock_user[0]['id']));
-        $result['user']['del_stock'] = $this->unit->run($obtained,$expected_del,'user->del_stock');
-
         $this->user->del(array('id'=>$expected_prof_user[0]['id']));
         $obtained = $this->user->get(array('id'=>$expected_prof_user[0]['id']));
         $result['user']['del_prof'] = $this->unit->run($obtained,$expected_del,'user->del_prof');
@@ -346,5 +331,45 @@ class Test extends CI_Controller
         }
 
         return $result;
+    }
+
+    private function classTest() // TODO
+    {
+        $expected_add[0]= array('libelle'=>'CP');
+        $expected_set[0]= array('libelle'=>'CM1');
+
+        $this->classe->add($expected_add[0]);
+        $obtained = $this->classe->get();
+        $result['classe']['add'] = $this->unit->run($obtained,$expected_add, 'emprunt->add');
+
+        $this->classe->set($expected_set[0]);
+
+        $this->classe->del($expected_add[0]);
+
+        foreach ($result['class'] as $test){
+            if (strpos($test,"Passed")){
+                $this->testPassed++;
+            }
+            $this->testNB++;
+        }
+
+        return $result;
+    }
+
+    private function themeTest() // TODO
+    {
+        
+    }
+
+    private function apiTest() // TODO
+    {
+        
+    }
+
+    private function resetAI()
+    {
+        foreach (self::$tables as $table){
+            $this->db->query('ALTER TABLE '.$table.' AUTO_INCREMENT=10');
+        }
     }
 }
