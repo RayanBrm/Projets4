@@ -48,13 +48,13 @@ class Eleve_model extends Utilisateur_model
 
     public function set(array $data): bool
     {
-        if(isset($data['id'])){
+        if(isset($data['id']) && (isset($data['pastille']) || isset($data['classe']))){
             $id = $data['id'];
             unset($data['id']);
-        }else{
-            return false;
+
+            return $this->db->where('id',$id)->update($this->table,$data);
         }
-        return $this->db->where('id',$id)->update($this->table,$data);
+        return false;
     }
 
     public function setPastille(string $userID, string $pastille): bool

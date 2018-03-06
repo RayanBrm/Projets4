@@ -137,6 +137,22 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function editUser()
+    {
+        if (isset($_POST['id'])){
+            if (!($_SESSION['user']['role'] == "2" && $_POST['role'] == "1")){
+                if (isset($_POST['motdepasse']) && strlen($_POST['motdepasse']) == 0){
+                    unset($_POST['motdepasse']);
+                }
+                echo ($this->user->set($_POST))? 'success' : 'failure';
+            }else{
+                echo 'forbidden';
+            }
+        }else{
+            echo 'failure';
+        }
+    }
+
     // ************ Classes functions
 
     public function addClasse()

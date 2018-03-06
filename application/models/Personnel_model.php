@@ -51,7 +51,9 @@ class Personnel_model extends Utilisateur_model
             $id = $data['id'];
             unset($data['id']);
 
-            return $this->db->where(array('id'=>$id))->update($this->table,$data);
+            $pwd = $this->hash($data['motdepasse']);
+
+            return $this->db->where(array('id'=>$id))->update($this->table,array('motdepasse'=>$pwd));
         }
         return false;
     }

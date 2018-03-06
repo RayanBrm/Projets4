@@ -7,30 +7,32 @@ $this->load->view('utilities/page_nav',$data);
 
 <div class="container">
     <h2>Modifier <?= $user['identifiant'] ?></h2>
-
+    <form id="modifForm">
     <div class="row">
         <div class="col s8 offset-s1">
+            <input type="text" name="id" value="<?= $user['id'] ?>" hidden>
+            <input type="text" name="role" value="<?= $user['role'] ?>" hidden>
             <label for="identifiant">Identifiant</label>
-            <input type="text" id="identifiant" value="<?= $user['identifiant'] ?>" disabled>
+            <input name="identifiant" type="text" id="identifiant" value="<?= $user['identifiant'] ?>" disabled>
             <label for="prenom">Identifiant</label>
-            <input type="text" id="prenom" value="<?= $user['prenom'] ?>">
+            <input name="prenom" type="text" id="prenom" value="<?= $user['prenom'] ?>">
             <label for="nom">Identifiant</label>
-            <input type="text" id="nom" value="<?= $user['nom'] ?>">
+            <input name="nom" type="text" id="nom" value="<?= $user['nom'] ?>">
 <?php
     if ($user['role'] == "3"){
 ?>
             <div class="row">
-                <input type="text" title="" id="current_classe" hidden value="<?= $user['classe'] ?>">
                 <div class="col s6">
+                    <input type="text" title="" id="current_classe" hidden value="<?= $user['classe'] ?>">
                     <label for="classe_container">Classe</label>
-                    <select id="classe_container">
+                    <select id="classe_container" name="classe">
                         <?= $classList ?>
                     </select>
                 </div>
                 <div class="col s6">
                     <input type="text" title="" id="current_pastille" hidden value="<?= $user['pastille'] ?>">
                     <label for="pastille_container">Classe</label>
-                    <select id="pastille_container">
+                    <select id="pastille_container" name="pastille">
                         <?= $pastilles ?>
                     </select>
                 </div>
@@ -39,7 +41,7 @@ $this->load->view('utilities/page_nav',$data);
     } elseif ($user['role'] == "1" || $user['role'] == "2"){ // personnel case
 ?>
             <label for="motdepasse">Nouveau mot de passe</label>
-            <input type="password" id="motdepasse">
+            <input type="password" id="motdepasse" name="motdepasse">
 <?php
     }
 ?>
@@ -53,6 +55,7 @@ $this->load->view('utilities/page_nav',$data);
             </div>
         </div>
     </div>
+    </form>
 </div>
 
 <?php
