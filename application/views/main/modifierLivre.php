@@ -11,7 +11,7 @@ $this->load->view('utilities/page_nav',$data);
     <div class="container">
         <h2>Modifier un livre : <?= $book['titre'] ?></h2>
         <div class="row">
-            <div class="col s8 offset-s1">
+            <div class="col s9 offset-s1">
                 <input id="id" title="" type="text" value="<?= $book['id'] ?>" hidden>
                 <label for="isbn">ISBN</label>
                 <input id="isbn" type="text" value="<?= $book['isbn'] ?>" disabled>

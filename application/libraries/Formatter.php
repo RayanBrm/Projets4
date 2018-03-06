@@ -111,4 +111,9 @@ class Formatter
 
         return $result;
     }
+
+    public function pastilleToOption($pastille): string
+    {
+        return "<option value=\"$pastille\" data-icon=\"/assets/img/pastilles_eleve/$pastille.png\" class=\"circle\">$pastille</option>";
+    }
 }

@@ -49,9 +49,9 @@ class Classe_model extends CI_Model
     public function getAll()
     {
         return $this->db->select()
-            ->from($this->table)
-            ->get()
-            ->result_array();
+                        ->from($this->table)
+                    ->get()
+                    ->result_array();
     }
 
     public function exist(string $libelle): bool

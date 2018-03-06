@@ -203,6 +203,29 @@ class Main extends CI_Controller
 
             if (isset($what) && $what == "user"){
                 $data['user'] = $this->user->get(array('id'=>$who))[0];
+
+                if ($data['user']['role'] == "3"){
+                    $data['classList'] = "";
+                    $data['pastilles'] = "";
+
+                    $classes = $this->classe->getAll();
+
+                    foreach ($classes as $classe){
+                        $data['classList'].=$this->format->class->toOption($classe);
+                    }
+
+                    $usedPastilles = $this->eleve->getUsedPastilleFromClasse($data['user']['classe']);
+                    $availablePastilles = scandir(__DIR__.'/../../assets/img/pastilles_eleve');
+                    $availablePastilles = array_diff($availablePastilles, array('.', '..'));
+
+                    $data['pastilles'].=$this->format->pastilleToOption($data['user']['pastille']);
+                    foreach ($availablePastilles as $currentKey => $currentValue) {
+                        if (!in_array(explode('.',$availablePastilles[$currentKey])[0],$usedPastilles)){
+                            $data['pastilles'].=$this->format->pastilleToOption(explode('.',$currentValue)[0]);
+                        }
+                    }
+                }
+
                 $this->load->view('main/modifierUtilisateur',$data);
             }
             elseif (isset($what) && $what == "book"){
