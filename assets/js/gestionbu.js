@@ -7,7 +7,7 @@ $(document).ready(function () {
     initChipsThemeAutocomplete();
     initEditorAutocomplete();
     initAuthorAutocomplete();
-    $('select').material_select();
+    initThemeAutocomplete();
     $('input#input_text, textarea#textarea1').characterCounter();
     $('.modal').modal();
 });
@@ -66,6 +66,7 @@ function addBook() {
     // Check non empty form before
     let form = $('form')[0];
     let data = new FormData(form);
+    bookTheme.push($('#mainTheme').val());
     data.append('add-path', document.getElementById('add-path').checked);
     data.append('theme', bookTheme.join(';'));
 
@@ -183,4 +184,11 @@ function fill(bookInfo) {
 function toggleFile() {
     $('#file-input').toggle();
     $('[id^=local-couverture]').val('');
+}
+
+function initThemeAutocomplete() {
+    $.get('ajax/getMainThemes', function (responseText){
+        $('#mainTheme').append(responseText).material_select();
+    })
+
 }

@@ -44,6 +44,11 @@ class Test extends CI_Controller
         $this->db = $this->load->database('default', TRUE);
     }
 
+    public function ihmTest()
+    {
+        $this->load->view('test/test');
+    }
+
     /**
      * Testing about Google Books API
      */
@@ -94,7 +99,7 @@ class Test extends CI_Controller
             file_put_contents(__DIR__.'/../../'.BOOK_PATH.'image',$img);
         }
     }
-    
+
     private function livreTest()
     {
         // Declaration des resultat

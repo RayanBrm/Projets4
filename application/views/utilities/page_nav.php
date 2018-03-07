@@ -24,8 +24,13 @@
                     echo "<span class='icon'>".'Bébé connecté : '.$_SESSION['child']['prenom']."</span>";
                     echo '<img class=\'icon\' src=\''.base_url().'assets/img/pastilles_eleve/'.$_SESSION["child"]["pastille"].'.png\' >';
                     echo '<li><a class="icon" href="disconnect"><i class="material-icons right">highlight_off</i>Déconnexion</a></li>';
-                }
-                else{
+                }else if(isset($env) && $env == 'test'){
+                    echo '<li><a href=""><i class="material-icons left">highlight_off</i>Déconnexion</a></li>';
+                    echo '<li><a href=""><i class="material-icons left">child_care</i>Connexion élève</a></li>';
+                    echo '<li><a href=""><i class="material-icons left">library_books</i>Bibliothèque</a></li>';
+                    echo '<li><a href=""><i class="material-icons left">settings</i>Administration</a></li>';
+                    echo '<li><a href=""><i class="material-icons left">history</i>Historique</a></li>';
+                }else{
                     echo 'Error : unset environnement';
                 }
                 ?>

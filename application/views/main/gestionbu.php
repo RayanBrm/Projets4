@@ -99,7 +99,13 @@ $this->load->view('utilities/page_nav', $data);
                     </div>
                     <!--        Theme-->
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
+                            <select id="mainTheme">
+                                <option value="" disabled selected>Theme principal</option>
+                            </select>
+                            <label>Theme principal</label>
+                        </div>
+                        <div class="input-field col s6">
                             <div id="autocomplete" class="chips chips-autocomplete">
                                 <input type="text" id="autocomplete">
                             </div>
