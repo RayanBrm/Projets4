@@ -290,6 +290,7 @@ class Main extends CI_Controller
     /**
      * Initialize $this->level
      */
+    // TODO : useless
     private function levelInit()
     {
         $levels = $this->user->getLevels();
