@@ -74,11 +74,11 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=localhost;dbname=ProjetS4;charset=utf8',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password'=> '242htl8J3003',
-	'database' => 'ProjetS4',
+	'dsn'	=> 'mysql:host=gigondas;dbname=marmorag;charset=utf8',
+	'hostname' => 'gigondas',
+	'username' => 'marmorag',
+	'password'=> 'marmorag',
+	'database' => 'marmorag',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -96,11 +96,11 @@ $db['default'] = array(
 );
 
 $db['test'] = array(
-    'dsn'	=> 'mysql:host=localhost;dbname=ProjetS4_TEST;charset=utf8',
-    'hostname' => 'localhost',
-    'username' => 'root',
-    'password'=> '242htl8J3003',
-    'database' => 'ProjetS4_TEST',
+    'dsn'	=> 'mysql:host=gigondas;dbname=marmorag;charset=utf8',
+    'hostname' => 'gigondas',
+    'username' => 'marmorag',
+    'password'=> 'marmorag',
+    'database' => 'marmorag',
     'dbdriver' => 'pdo',
     'dbprefix' => '',
     'pconnect' => FALSE,

@@ -20,7 +20,7 @@ class Test extends CI_Controller
         $this->load->library('Unit_test');
         $this->load->library('Formatter',null,'format');
         // DB Insulation
-        $this->db = $this->load->database('test', TRUE);
+        //$this->db = $this->load->database('test', TRUE);
 
         $this->testNB = 0;
         $this->testPassed = 0;
@@ -29,11 +29,11 @@ class Test extends CI_Controller
     public function index()
     {
         $data = array();
-        $this->resetAI();
-
-        $data['report']['user'] = $this->userTest();
-        $data['report']['livre'] = $this->livreTest();
-        $data['report']['emprunt'] = $this->empruntTest();
+//        $this->resetAI();
+//
+//        $data['report']['user'] = $this->userTest();
+//        $data['report']['livre'] = $this->livreTest();
+//        $data['report']['emprunt'] = $this->empruntTest();
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
@@ -41,7 +41,7 @@ class Test extends CI_Controller
 
         $this->load->view('test/display',$data);
         // Reset to prod db
-        $this->db = $this->load->database('default', TRUE);
+        //$this->db = $this->load->database('default', TRUE);
     }
 
     public function ihmTest()

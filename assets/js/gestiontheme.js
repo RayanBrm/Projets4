@@ -1,23 +1,19 @@
 
 $(document).ready(function() {
-    $('.chips-autocomplete').material_chip();
-    $('.icons').material_select();
-})
+    //$('.chips-autocomplete').material_chip();
+    $('select').material_select();
+    $('#themeBtnAdd').on('click', addTheme);
+});
 
-function rechercher(search)
-{
-    var xhr = getXHR();
+function addTheme() {
+    let data = {};
+    data['nom'] = $('#themeType').val() + $('#theme').val();
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            // callback
-            console.log("Recherché : "+search);
-            document.getElementById('book_container').innerHTML = xhr.responseText;
+    $.post('ajax/addTheme', data,function (responseText) {
+        if (responseText === "success"){
+            Materialize.toast('Le theme a été ajouté avec succès', 5000);
+        }else if(responseText === "failure"){
+            Materialize.toast('Une erreur s\'est produite, réessayez plus tard ou contactez un administrateur', 5000);
         }
-    };
-
-    xhr.open("POST", "/ajax/getBook", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("search="+search+"&display=toModify");
+    })
 }
-

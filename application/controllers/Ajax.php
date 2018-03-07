@@ -436,6 +436,15 @@ class Ajax extends CI_Controller
         echo json_encode($result);
     }
 
+    public function addTheme()
+    {
+        if (isset($_POST['nom'])){
+            echo ($this->theme->add($_POST['nom']))? 'success' : 'failure';
+        }else{
+            echo 'failure';
+        }
+    }
+
     // ************ Other functions
 
     public function getEditors()
