@@ -14,7 +14,7 @@ $(document).ready(function () {
             });
 });
 
-
+// Affectations
 function modifyClasses() {
     let classe = $(`input[name=classes]:checked`);
     let checkbox = $('input[type=checkbox]:checked');
@@ -37,9 +37,10 @@ function modifyClasses() {
                 classe:newClass
             },
             success: function (responseText) {
-                if(responseText === "success"){
+                if(responseText === SUCCESS){
+                    // TODO : ??
                     location.reload();
-                }else if(responseText === "failure"){
+                }else if(responseText === FAILURE){
                     Materialize.toast(ERROR_MESSAGE,5000);
                 }
             }
@@ -58,12 +59,12 @@ function addClass() {
                 classe:libelle.val()
             },
             success: function (responseText) {
-                if (responseText === "success"){
+                if (responseText === SUCCESS){
                     Materialize.toast('La classe a été ajoutée', 5000);
                     libelle.val('');
                     libelle.next().removeClass('active');
 
-                }else if(responseText === "failure"){
+                }else if(responseText === FAILURE){
                     Materialize.toast(ERROR_MESSAGE, 5000);
                 }
             }
@@ -74,7 +75,7 @@ function addClass() {
 }
 
 function editClass(classe) {
-    let lib = $('#input_'+classe);
+    var lib = $('#input_'+classe);
 
     if (lib.val().length === 0){
         Materialize.toast('Veuillez entrez un nom valide', 5000);
@@ -90,9 +91,10 @@ function editClass(classe) {
                 libelle:lib.val()
             },
             success: function (responseText) {
-                if (responseText === "success"){
+                if (responseText === SUCCESS){
                     Materialize.toast('La classe a été modifée.', 5000);
-                }else if(responseText === "failure"){
+                    lib.attr('data-origin',lib.val());
+                }else if(responseText === FAILURE){
                     Materialize.toast(ERROR_MESSAGE, 5000);
                 }
             }
@@ -118,11 +120,11 @@ function agree() {
             classe:toDelete
         },
         success: function (responseText) {
-            if (responseText === "success"){
+            if (responseText === SUCCESS){
                 Materialize.toast('La classe a été supprimée.', 5000);
                 console.log(toDelete);
                 $('#classe_container').find('input[id=input_'+toDelete+']').parent().parent().parent().remove();
-            }else if(responseText === "failure"){
+            }else if(responseText === FAILURE){
                 Materialize.toast(ERROR_MESSAGE, 5000);
             }
         }

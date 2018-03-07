@@ -79,7 +79,7 @@ function validateLoan() {
             url  : '/ajax/addEmprunt/'+bookToLoan+'/'+user_id,
             success: function (responseText) {
                 $('#modal1').modal('close');
-                let message = (responseText === 'true')? 'Le livre a bien été emprunté' : 'Une erreur est survenue, le livre est deja emprunté ou l\'utilisateur a déjà un emprunt en cours' ;
+                let message = (responseText === SUCCESS)? 'Le livre a bien été emprunté' : 'Une erreur est survenue, le livre est deja emprunté ou l\'utilisateur a déjà un emprunt en cours' ;
                 Materialize.toast(message,4000);
                 bookToLoan = 0;
             }
@@ -94,7 +94,7 @@ function validateChildLoan(childId) {
             url  : '/ajax/addEmprunt/'+bookToLoan+'/'+childId,
             success: function (responseText) {
                 $('#modal1').modal('close');
-                let message = (responseText === 'true')? 'Le livre a bien été emprunté' : 'Le livre est déjà emprunté ou vous avez déjà un emprunt en cours !' ;
+                let message = (responseText === SUCCESS)? 'Le livre a bien été emprunté' : 'Le livre est déjà emprunté ou vous avez déjà un emprunt en cours !' ;
                 Materialize.toast(message,4000);
                 bookToLoan = 0;
             }

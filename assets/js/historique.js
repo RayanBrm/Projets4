@@ -107,7 +107,7 @@ function returnBook(bookArray) {
             url  : '/ajax/returnBook',
             data: {bookList:bookArray},
             success: function (responseText) {
-                if (responseText === 'true'){
+                if (responseText === SUCCESS){
                     Materialize.toast('Les livres ont été rendu', 4000);
                     loadClasseEmrunt();
                 }else {

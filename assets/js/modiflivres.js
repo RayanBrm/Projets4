@@ -90,9 +90,9 @@ function validate() {
         url:'ajax/editBook',
         data:data,
         success: function (responseText) {
-            if (responseText === "success"){
+            if (responseText === SUCCESS){
                 Materialize.toast('Le livre a été modifié.', 5000);
-            } else if (responseText === "failure"){
+            } else if (responseText === FAILURE){
                 Materialize.toast('Une erreur est survenue. Réessayer plus tard ou contactez un administrateur.', 5000);
             }
         }

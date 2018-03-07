@@ -20,11 +20,11 @@ function validate() {
     });
 
     $.post('ajax/editUser',data,function (responseText) {
-        if (responseText === "success"){
+        if (responseText === SUCCESS){
             Materialize.toast('L\'utilisateur a été modifier avec succès', 5000);
-        }else if (responseText === "failure"){
+        }else if (responseText === FAILURE){
             Materialize.toast('Une erreur est survenue, réessayer plus tard ou contactez un administrateur', 5000);
-        }else if(responseText === "forbidden"){
+        }else if(responseText === FORBID){
             Materialize.toast('Vous essayez de modifier un administrateur, opération non-autorisé.', 5000);
         }
     })

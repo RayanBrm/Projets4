@@ -63,14 +63,14 @@ function add(form) {
         url:'/ajax/adduser',
         data: data,
         success: function (responseText) {
-            if (responseText === "success"){
+            if (responseText === SUCCESS){
                 $(modalAddc).html(message).addClass('valid');
                 $(modalAdd).modal('open');
             }
-            else if (responseText === "failure"){
+            else if (responseText === FAILURE){
                 $(modalAddc).html("Un probleme est survenue, réessayer plus tard ou contactez un administrateur.").removeClass('valid');
                 $(modalAdd).modal('open');
-            } else if (responseText === "exist"){
+            } else if (responseText === EXIST){
                 $(modalAddc).html("L'identifiant que vous avez saisie éxiste déjà, réessayer avec un autre.").removeClass('valid');
                 $(modalAdd).modal('open');
             }
@@ -129,7 +129,7 @@ function agree()
         url:'/ajax/delUser',
         data: 'userId='+userToDelete,
         success: function (responseText) {
-            if (responseText === 'true'){
+            if (responseText === SUCCESS){
                 $(modalAddc).html('L\'utilisateur a été supprimé').addClass('valid');
                 $(modalAdd).modal('open');
             }else {

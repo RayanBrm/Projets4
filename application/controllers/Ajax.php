@@ -2,6 +2,21 @@
 
 class Ajax extends CI_Controller
 {
+   private const PARAMS = 'params';
+   private const EMPTY = 'empty';
+   private const SIZE = 'size';
+   private const UNKNOWN = 'unknown';
+   private const FORMAT = 'format';
+   private const UPLOAD = 'upload';
+   private const FORBID = 'forbidden';
+   private const INCOMPLETE = 'incomplete';
+   private const EXIST = 'exist';
+
+   private const FAILURE = 'failure';
+   private const SUCCESS = 'success';
+
+
+
     public function __construct()
     {
         parent::__construct();
@@ -62,13 +77,9 @@ class Ajax extends CI_Controller
                     'role' => $_POST['role']
                 );
 
-                if ($this->user->add($user)) {
-                    echo 'success';
-                } else {
-                    echo 'failure';
-                }
+                echo ($this->user->add($user))? self::SUCCESS : self::FAILURE ;
             }else{
-                echo 'exist';
+                echo self::EXIST;
             }
         } elseif (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['classe'])){
             $child = array(
@@ -80,13 +91,9 @@ class Ajax extends CI_Controller
                 'pastille'=>$this->getAleaPastille($_POST['classe'])
             );
 
-            if ($this->user->add($child)) {
-                echo 'success';
-            } else {
-                echo 'failure';
-            }
+            echo ($this->user->add($child))? self::SUCCESS : self::FAILURE;
         } else { // Should not appear
-            echo 'incomplete';
+            echo self::INCOMPLETE;
         }
     }
 
@@ -110,15 +117,11 @@ class Ajax extends CI_Controller
     public function delUser()
     {
         if (isset($_SESSION) && $_SESSION['user']['role'] === '1' && isset($_POST['userId'])) {
-            if ($this->user->del(array('id' => $_POST['userId']))) {
-                echo "true";
-            } else {
-                echo "false";
-            }
-            exit();
+            echo ($this->user->del(array('id' => $_POST['userId'])))? self::SUCCESS : self::FAILURE;
+        }else{
+            echo self::FAILURE;
         }
-        echo "false";
-        dump($_SESSION);
+
     }
 
     public function changeChildClass(){
@@ -131,9 +134,9 @@ class Ajax extends CI_Controller
                 $result == $result && $this->eleve->set(array('id'=>$child,'classe'=>$classe));
             }
 
-            echo ($result)? 'success' : 'fail';
+            echo ($result)? self::SUCCESS : self::FAILURE;
         }else{
-            echo 'fail';
+            echo self::FAILURE;
         }
     }
 
@@ -144,12 +147,12 @@ class Ajax extends CI_Controller
                 if (isset($_POST['motdepasse']) && strlen($_POST['motdepasse']) == 0){
                     unset($_POST['motdepasse']);
                 }
-                echo ($this->user->set($_POST))? 'success' : 'failure';
+                echo ($this->user->set($_POST))? self::SUCCESS : self::FAILURE;
             }else{
-                echo 'forbidden';
+                echo self::FORBID;
             }
         }else{
-            echo 'failure';
+            echo self::FAILURE;
         }
     }
 
@@ -158,40 +161,38 @@ class Ajax extends CI_Controller
     public function addClasse()
     {
         if (isset($_POST['classe'])){
-            echo (!$this->classe->exist($_POST['classe']) && $this->classe->add($_POST['classe']))? 'success' : 'failure' ;
+            echo (!$this->classe->exist($_POST['classe']) && $this->classe->add($_POST['classe']))? self::SUCCESS : self::FAILURE;
         }else{
-            echo 'failure';
+            echo self::FAILURE;
         }
     }
 
     public function editClasse(){ // TODO : other error message in case of existing libelle
         if (isset($_POST['id']) && isset($_POST['libelle']) && !$this->classe->exist($_POST['libelle'])){
-            echo ($this->classe->set(array('id'=>$_POST['id'],'libelle'=>$_POST['libelle'])))? 'success' : 'failure';
+            echo ($this->classe->set(array('id'=>$_POST['id'],'libelle'=>$_POST['libelle'])))? self::SUCCESS : self::FAILURE;
         }else{
-            echo 'failure';
+            echo self::FAILURE;
         }
     }
 
     public function deleteClasse(){ // TODO : other error message in case of existing child id classe
         if (isset($_POST['classe']) && $this->classe->assignedChild($_POST['classe']) == 0){
-            echo ($this->classe->del($_POST['classe']))? 'success' : 'failure';
+            echo ($this->classe->del($_POST['classe']))? self::SUCCESS : self::FAILURE;
         }else{
-            echo 'failure';
+            echo self::FAILURE;
         }
     }
 
     public function searchClasse(){
+        $result = '';
         if (isset($_POST['classe'])){
             $classes = $this->classe->search($_POST['classe']);
-            $result = '';
 
             foreach ($classes as $classe){
                 $result.= $this->format->class->toModify($classe);
             }
-            echo $result;
-        }else{
-            echo '';
         }
+        echo $result;
     }
 
     // ************ Book functions
@@ -297,10 +298,8 @@ class Ajax extends CI_Controller
             foreach ($books as $book){
                 $result.=$this->format->book->toCatalog($book);
             }
-            echo $result;
-        }else{
-            echo 'failure';
         }
+        echo $result;
     }
 
     public function returnBook()
@@ -309,23 +308,18 @@ class Ajax extends CI_Controller
 
         foreach ($bookList as $key => $value){
             if ($this->emprunt->set(array('id_livre'=>$value['id_livre'],'id_eleve'=>$value['id_eleve'],'dateEmprunt'=>$value['dateEmprunt'])) === false){
-                echo "false";
+                echo self::FAILURE;
                 exit();
             }
         }
-        echo "true";
+        echo self::SUCCESS;
     }
 
     public function deleteBook()
     {
         $bookId = $_POST['book'];
-
-        if($this->emprunt->del(array('id_livre'=>$bookId)) && $this->theme->delBook(array('id_livre'=>$bookId)) && $this->livre->del(array('id'=>$bookId))){
-            echo "true";
-        }
-        else{
-            echo "false";
-        }
+        echo ($this->emprunt->del(array('id_livre'=>$bookId)) && $this->theme->delBook(array('id_livre'=>$bookId)) && $this->livre->del(array('id'=>$bookId)))?
+            self::SUCCESS : self::FAILURE ;
     }
 
     public function editBook()
@@ -341,13 +335,10 @@ class Ajax extends CI_Controller
                 //'themes' => json_decode($_POST['themes'])
             );
 
-            $result = $this->livre->set($toEdit);
-            $result = $result && $this->theme->delBook(array('id_livre'=>$_POST['id'])) && $this->theme->assignThemeToBook($_POST['id'],$_POST['themes']);
-
-            echo $result? 'success' : 'failure';
-
+            echo ($this->livre->set($toEdit) && $this->theme->delBook(array('id_livre'=>$_POST['id'])) && $this->theme->assignThemeToBook($_POST['id'],$_POST['themes']))?
+                self::SUCCESS : self::FAILURE;
         }else{
-            echo 'failure';
+            echo self::FAILURE;
         }
     }
 
@@ -355,12 +346,8 @@ class Ajax extends CI_Controller
 
     public function addEmprunt(string $bookId, string $userId)
     {
-        $result = 'false';
-
-        if ($this->emprunt->add(array('id_livre'=>$bookId,'id_eleve'=>$userId,'dateEmprunt'=>date('Y-m-d')))){
-            $result = 'true';
-        }
-        echo $result;
+        echo ($this->emprunt->add(array('id_livre'=>$bookId,'id_eleve'=>$userId,'dateEmprunt'=>date('Y-m-d'))))?
+            self::SUCCESS : self::FAILURE;
     }
 
     public function getEmprunt(string $id, string $isClasse = null)
@@ -439,9 +426,14 @@ class Ajax extends CI_Controller
     public function addTheme()
     {
         if (isset($_POST['nom'])){
-            echo ($this->theme->add($_POST['nom']))? 'success' : 'failure';
+            $result = true;
+            $return = self::FAILURE;
+            if (count(explode('_',$_POST['nom'])) > 1){
+                $return = $this->saveFile(__DIR__.'/../../'.THEME_PATH);
+            }
+            echo ($this->theme->add($_POST['nom']) && $result)? self::SUCCESS : $return;
         }else{
-            echo 'failure';
+            echo self::FAILURE;
         }
     }
 
@@ -511,6 +503,73 @@ class Ajax extends CI_Controller
 
         $i = array_rand($availablePastilles,1);
         return explode('.',$availablePastilles[$i])[0];
+    }
+
+    private function saveFile($pathToSave = '/assets/img/'): string
+    {
+        // FROM PHP DOCS
+        try {
+            // Undefined | Multiple Files | $_FILES Corruption Attack
+            // If this request falls under any of them, treat it invalid.
+            if (
+                !isset($_FILES['upfile']['error']) ||
+                is_array($_FILES['upfile']['error'])
+            ) {
+                throw new RuntimeException(self::PARAMS);
+            }
+
+            // Check $_FILES['upfile']['error'] value.
+            switch ($_FILES['upfile']['error']) {
+                case UPLOAD_ERR_OK:
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    throw new RuntimeException(self::EMPTY);
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    throw new RuntimeException(self::SIZE);
+                default:
+                    throw new RuntimeException(self::UNKNOWN);
+            }
+
+            // You should also check filesize here.
+            if ($_FILES['upfile']['size'] > 1000000) {
+                throw new RuntimeException(self::SIZE);
+            }
+
+            // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+            // Check MIME Type by yourself.
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            if (false === $ext = array_search(
+                    $finfo->file($_FILES['upfile']['tmp_name']),
+                    array(
+                        'jpg' => 'image/jpeg',
+                        'jpeg' => 'image/jpeg',
+                        'png' => 'image/png',
+                        'gif' => 'image/gif',
+                    ),
+                    true
+                )) {
+                throw new RuntimeException(self::FORMAT);
+            }
+
+            // You should name it uniquely.
+            // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+            // On this example, obtain safe unique name from its binary data.
+            if (!move_uploaded_file(
+                $_FILES['upfile']['tmp_name'],
+                sprintf($pathToSave.'%s.%s',
+                    sha1_file($_FILES['upfile']['tmp_name']),
+                    $ext
+                )
+            )) {
+                throw new RuntimeException(self::UPLOAD);
+            }
+
+            return self::SUCCESS;
+
+        } catch (RuntimeException $e) {
+            return $e->getMessage();
+        }
     }
 
 }

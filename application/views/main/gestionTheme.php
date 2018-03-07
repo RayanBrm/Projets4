@@ -30,6 +30,7 @@ $this->load->view('utilities/page_nav',$data);
                                 <option value="main_">Theme principal</option>
                                 <option value="" selected>Theme secondaire</option>
                             </select>
+                            <label for="themeType">Type de theme</label>
                         </div>
                     </div>
                     <!--        Save button-->

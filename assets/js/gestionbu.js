@@ -78,7 +78,7 @@ function addBook() {
         contentType: false,
         success: function (responseText) {
             console.log(responseText.length);
-            if (responseText === "true") {
+            if (responseText === SUCCESS) {
                 document.getElementById('book_form').reset();
                 Materialize.toast('Le livre a été ajouté', 4000);
 
@@ -112,7 +112,7 @@ function agree() {
         url: '/ajax/deleteBook',
         data: 'book=' + bookToDelete,
         success: function (responseText) {
-            if (responseText === "true") {
+            if (responseText === SUCCESS) {
                 document.getElementById('book_container').innerHTML = "";
                 Materialize.toast('Le livre a été supprimé', 4000);
             }

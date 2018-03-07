@@ -18,6 +18,7 @@
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/materialize.min.css">';
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/main.css">';
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/nestable.css">';
+            echo '<script src="../../../assets/js/constants.js" async></script>';
         }
     ?>
 </head>

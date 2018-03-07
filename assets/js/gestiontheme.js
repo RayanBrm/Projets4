@@ -10,9 +10,9 @@ function addTheme() {
     data['nom'] = $('#themeType').val() + $('#theme').val();
 
     $.post('ajax/addTheme', data,function (responseText) {
-        if (responseText === "success"){
+        if (responseText === SUCCESS){
             Materialize.toast('Le theme a été ajouté avec succès', 5000);
-        }else if(responseText === "failure"){
+        }else if(responseText === FAILURE){
             Materialize.toast('Une erreur s\'est produite, réessayez plus tard ou contactez un administrateur', 5000);
         }
     })
