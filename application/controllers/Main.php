@@ -110,6 +110,33 @@ class Main extends CI_Controller
         }
     }
 
+    public function administration()
+    {
+        if ($this->isLogged()){
+            $data['classList'] = "";
+            $data['classeLiList'] = '';
+            $data['childCardList'] = '';
+
+            $listeClasses = $this->classe->getAll();
+            foreach ($listeClasses as $uneClasse){
+                $data['classList'].=$this->format->class->toOption($uneClasse);
+            }
+
+            $classes = $this->classe->getAll();
+            foreach ($classes as $class){
+                $data['classeLiList'].=$this->format->class->toLi($class);
+            }
+
+            $eleves = $this->user->getAllChild();
+            foreach ($eleves as $eleve){
+                $data['childCardList'].=$this->format->child->toCard($eleve);
+            }
+
+            $this->load->view('main/administration',$data);
+        }else
+            redirect('catalogue');
+    }
+
     public function historique()
     {
         if ($this->isLogged()){
@@ -188,7 +215,6 @@ class Main extends CI_Controller
     {
         if ($this->isLogged()){
             $this->load->view('main/gestionTheme');
-            //$_POST[''];
         }else{
             redirect('utilisateur');
         }

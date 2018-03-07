@@ -1,39 +1,18 @@
-var bookToDelete = -1;
-var chips = $('.chips');
-var themeAutocomplete = {};
-var bookTheme = [];
+// var bookToDelete = -1;
+// var chips = $('.chips');
+// var themeAutocomplete = {};
+// var bookTheme = [];
 
-$(document).ready(function () {
-    initChipsThemeAutocomplete();
-    initEditorAutocomplete();
-    initAuthorAutocomplete();
-    initThemeAutocomplete();
-    $('input#input_text, textarea#textarea1').characterCounter();
-    $('.modal').modal();
-});
+// $(document).ready(function () {
+//     initChipsThemeAutocomplete();
+//     initEditorAutocomplete();
+//     initAuthorAutocomplete();
+//     initThemeAutocomplete();
+//     $('input#input_text, textarea#textarea1').characterCounter();
+//     $('.modal').modal();
+// });
 
-chips.on('chip.add', function (e, chip) {
-    let data = chip.tag;
-    if (this.id !== 'autocomplete') {
-        rechercher(data);
-    } else {
-        bookTheme.push(data);
-    }
-});
 
-chips.on('chip.delete', function (a,chip) {
-    if (this.id !== 'autocomplete'){
-        document.getElementById('book_container').innerHTML = "";
-    }
-    else {
-        for(let i = 0; i < bookTheme.length; i++){
-            if (bookTheme[i] === chip.tag){
-                bookTheme.splice(i, 1);
-                break;
-            }
-        }
-    }
-});
 
 $('.datepicker').pickadate({
     selectMonths: false, // Creates a dropdown to control month
@@ -45,7 +24,7 @@ $('.datepicker').pickadate({
 });
 
 // Search bar
-function rechercher(search) {
+function rechercherLivre(search) {
     var xhr = getXHR();
 
     xhr.onreadystatechange = function () {
@@ -101,11 +80,12 @@ function addBook() {
 // Called on click of delete icon
 function deleteBook(bookid) {
     bookToDelete = bookid;
+    $('#modal_container_1').text('La suppression d\'un livre est définitive. Etes vous sur de vouloir continuer ?');
     $('#modal1').modal('open');
 }
 
 // Called when validation button clicked on book deleting
-function agree() {
+function agreeLivre() {
     console.log('Book : ' + bookToDelete + ' will be deleted');
     $.ajax({
         type: 'POST',
@@ -134,6 +114,7 @@ function getByIsbn() // API Google working
 
     // ISBN value testing, can be ISBN 10 or 13
     if (isbn !== "" && isbn !== undefined && isbn !== null && isbn.length >= 10 && isbn.length <= 13) {
+        $('#spinner').addClass('spin');
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
                 // Getting response as JSON
@@ -149,6 +130,7 @@ function getByIsbn() // API Google working
                     Materialize.toast('L\'isbn est invalide ou le livre n\'est pas référencer chez Google.', 4000);
                     Materialize.toast('Vous devriez entrez le livre à la main.', 4000);
                 }
+                $('#spinner').removeClass('spin')
             }
         };
 
@@ -161,8 +143,9 @@ function getByIsbn() // API Google working
 
 // Fill in the needed fields about the books and set it active for materialize compatibility
 function fill(bookInfo) {
+    console.log(bookInfo);
     $('#titre').val(bookInfo['title']);
-    $('#auteur').val(bookInfo['authors'].join(', '));
+    $('#auteur').val((bookInfo['authors'] !== undefined)?bookInfo['authors'].join(', '): '');
     $('#edition').val(bookInfo['publisher']);
     $('#parution').val(bookInfo['publishedDate']);
     $('#description').val(bookInfo['description']);

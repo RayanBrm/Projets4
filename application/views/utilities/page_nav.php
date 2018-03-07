@@ -11,9 +11,8 @@
                 else if (isset($env) && $env == 'log'){
                     echo '<li><a href="main/disconnect"><i class="material-icons left">highlight_off</i>Déconnexion</a></li>';
                     echo '<li><a href="connexionEleve"><i class="material-icons left">child_care</i>Connexion élève</a></li>';
-                    echo '<li><a href="bibliotheque"><i class="material-icons left">library_books</i>Bibliothèque</a></li>';
-                    echo '<li><a href="utilisateur"><i class="material-icons left">person</i>Utilisateur</a></li>';
                     echo '<li><a href="historique"><i class="material-icons left">history</i>Historique</a></li>';
+                    echo '<li><a href="administration"><i class="material-icons left">settings</i>Administration</a></li>';
                 }
                 else if(isset($env) && $env == 'child'){
 

@@ -1,18 +1,4 @@
-var ERROR_MESSAGE = 'Une erreur s\'est produite durant l\'opération. Réessayer plus tard ou contactez l\'administrateur.';
-var toDelete = -1;
-const modalRmc = '#modal_container_1';
-const modalRm = '#modal1';
-
-$(document).ready(function () {
-        $('#changeClasses').on('click', modifyClasses);
-        $('#newClasse').on('click', addClass);
-        $('.modal').modal();
-        $('.chips')
-            .on('chip.add',search)
-            .on('chip.delete',function () {
-                $('#classe_container').html('')
-            });
-});
+var classeToDelete = -1;
 
 // Affectations
 function modifyClasses() {
@@ -49,7 +35,7 @@ function modifyClasses() {
 }
 
 function addClass() {
-    let libelle = $('#classe');
+    let libelle = $('#classe_add');
 
     if (libelle.val().length > 0){
         $.ajax({
@@ -107,23 +93,23 @@ function editClass(classe) {
 }
 
 function deleteClass(classe) {
-    toDelete = classe;
-    $(modalRmc).html("La suppression d'une classe est définitive! Etes vous sur de vouloir la supprimer?");
-    $(modalRm).modal('open');
+    classeToDelete = classe;
+    $('#modal_container_3').html("La suppression d'une classe est définitive! Etes vous sur de vouloir la supprimer?");
+    $('#modal3').modal('open');
 }
 
-function agree() {
+function agreeClasse() {
     $.ajax({
         type:'POST',
         url:'ajax/deleteClasse',
         data:{
-            classe:toDelete
+            classe:classeToDelete
         },
         success: function (responseText) {
             if (responseText === SUCCESS){
                 Materialize.toast('La classe a été supprimée.', 5000);
-                console.log(toDelete);
-                $('#classe_container').find('input[id=input_'+toDelete+']').parent().parent().parent().remove();
+                console.log(classeToDelete);
+                $('#classe_container').find('input[id=input_'+classeToDelete+']').parent().parent().parent().remove();
             }else if(responseText === FAILURE){
                 Materialize.toast(ERROR_MESSAGE, 5000);
             }
@@ -131,12 +117,12 @@ function agree() {
     });
 }
 
-function search(e,chip) {
+function rechercherClasse(data) {
     $.ajax({
        type:'POST',
        url:'ajax/searchClasse',
        data:{
-           classe:chip.tag
+           classe:data
        },
        success:function (responseText) {
            $('#classe_container').html(responseText);

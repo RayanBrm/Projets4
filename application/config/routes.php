@@ -64,3 +64,4 @@ $route['utilisateur'] = 'main/gestionutil';
 $route['modifier'] = 'main/modifier';
 $route['gestion'] = 'main/gestionglobal';
 $route['theme'] = 'main/gestiontheme';
+$route['administration'] = 'main/administration';

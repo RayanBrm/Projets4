@@ -10,3 +10,5 @@ const EXIST = 'exist';
 
 const FAILURE = 'failure';
 const SUCCESS = 'success';
+
+const ERROR_MESSAGE = 'Une erreur est survenue, réessayez ou contactez un administrateur.';

@@ -264,7 +264,7 @@ class Ajax extends CI_Controller
                 }
                 // Updating book
                 if ($this->livre->set(array('id'=>$id,'couverture'=>$couverture)) && $this->theme->assignThemeToBook($id,$theme)){
-                    $result = "true";
+                    $result = self::SUCCESS;
                 }
             }
         }

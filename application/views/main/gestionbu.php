@@ -37,7 +37,7 @@ $this->load->view('utilities/page_nav', $data);
                             <label class="red-text ligthen-2" for="isbn">ISBN</label>
                         </div>
                         <div class="input-field col">
-                            <a class="waves-effect waves-light btn tooltipped" onclick="getByIsbn()" data-position="right" data-delay="50" data-tooltip="Rechercher cet ISBN pour completer le formulaire"><i class="material-icons">loop</i></a>
+                            <a class="waves-effect waves-light btn tooltipped" onclick="getByIsbn()" data-position="right" data-delay="50" data-tooltip="Rechercher cet ISBN pour completer le formulaire"><i class="material-icons" id="spinner">loop</i></a>
                         </div>
                     </div>
                     <!--        Image path add-->
