@@ -15,7 +15,7 @@ class ThemeFormatter implements FormatterInterface
         $tmp = explode('_',$element['nom']);
         $titre = $tmp[count($tmp)-1];
         if (count($tmp) > 1){
-            return '<option value="'.$element['id'].'" data-icon="/assets/img/pastilles_theme/'.$titre.'.png" class="circle">'.$titre.'</option>';
+            return '<option value="'.$element['id'].'" data-icon="/assets/img/pastilles_theme/'.$titre.'.png" data-source="'.$element['nom'].'"  class="circle">'.$titre.'</option>';
         }else{
             return '<option value="'.$element['id'].'">'.$titre.'</option>';
         }

@@ -1,4 +1,4 @@
-var mainTheme;
+var mainTheme = null;
 var secondaryTheme = [];
 
 $(document).ready(function () {
@@ -24,6 +24,10 @@ $('.chips').on('chip.add',function (e, chip) {
                }
            });
 
+$('#main_theme').on('change',function () {
+    mainTheme = $('option[value='+this.value+']').attr('data-source');
+});
+
 function initBookTheme(bookId) {
     $.ajax({
         type:'GET',
@@ -39,7 +43,15 @@ function initBookTheme(bookId) {
 }
 
 function initMainTheme() {
-    // TODO
+    if (mainTheme !== null){
+        $('#main_default').attr('selected', false);
+        $('option').each(function (elm) {
+            if(this.text === mainTheme){
+                this.setAttribute('selected', true);
+            }
+        })
+        $('#main_theme').material_select();
+    }
 }
 
 // /!\ Use local variable
@@ -84,6 +96,12 @@ function validate() {
     for(let i of secondaryTheme){
         data['themes'].push(i);
     }
+
+    if(mainTheme !== null){
+        data['themes'].push(mainTheme);
+    }
+
+    console.log(data);
 
     $.ajax({
         type:'POST',

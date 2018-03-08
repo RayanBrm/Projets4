@@ -62,14 +62,14 @@
                     '</div>';
     // TODO : chain selector ?
     echo            '<div class="input-field col s10 offset-s2">'.
-                        '<select id="main_theme_selector" class="icons" onchange="mainThemeFilter()">'.
+                        '<select id="main_theme_selector" class="icons" onchange="themeFilter(0)">'.
                             '<option value="" disabled selected>Themes principaux</option>'.
                             $mainThemes.
                         '</select>'.
                         '<label>Themes principaux</label>'.
                     '</div>';
     echo            '<div class="input-field col s10 offset-s2">'.
-                        '<select id="second_theme_selector" class="icons" onchange="secondThemeFilter()">'.
+                        '<select id="second_theme_selector" class="icons" onchange="themeFilter(1)">'.
                             '<option value="" disabled selected>Themes secondaires</option>'.
                             $secondaryThemes.
                         '</select>'.

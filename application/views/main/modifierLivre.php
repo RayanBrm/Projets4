@@ -25,7 +25,7 @@ $this->load->view('utilities/page_nav',$data);
                 <div class="row">
                     <div class="col s6">
                         <label for="main_theme">Themes principaux</label>
-                        <select id="main_theme" class="icons" onchange="themeFilter()">
+                        <select id="main_theme" class="icons">
                             <option id="main_default" value="" selected disabled>Themes</option>
                             <?= $themeList ?>
                         </select>

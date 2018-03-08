@@ -65,3 +65,4 @@ $route['modifier'] = 'main/modifier';
 $route['gestion'] = 'main/gestionglobal';
 $route['theme'] = 'main/gestiontheme';
 $route['administration'] = 'main/administration';
+$route['catalogue-enfant'] = 'child/main';

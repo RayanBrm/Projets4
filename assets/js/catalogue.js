@@ -10,8 +10,6 @@ $('.chips').on('chip.delete',function () {
 $(document).ready(function() {
     $('#modal1').modal();
     $('select').material_select();
-
-    $('#second_theme_selector').on('change','',secondThemeFilter);
 });
 
 function rechercher(search)
@@ -102,13 +100,9 @@ function validateChildLoan(childId) {
     }
 }
 
-// TODO : implements
-function mainThemeFilter() {
-    let theme = $('#main_theme_selector').val()
-}
-
-function secondThemeFilter() {
-    let theme = $('#second_theme_selector').val()
+function themeFilter(nb) {
+    let src = (nb === 0)? '#main_theme_selector' : '#second_theme_selector';
+    let theme = $(src).val();
 
     $.get('ajax/getBookByTheme?themeId='+theme,function (responseText) {
         $('#book_container').html(responseText);

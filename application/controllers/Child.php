@@ -74,7 +74,7 @@ class Child extends CI_Controller
     {
         if (isset($childID)){
             $_SESSION['child'] = $this->user->get(array('id'=>$childID))[0];
-            redirect('child/main');
+            redirect('catalogue-enfant');
         }
         else{
             redirect('connexionEleve');
