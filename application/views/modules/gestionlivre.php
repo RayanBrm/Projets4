@@ -1,28 +1,6 @@
-<?php
-$data['title'] = 'Ajouter un livre';
-$data['env'] = 'log';
-$this->load->view('utilities/page_head', $data);
-$this->load->view('utilities/page_nav', $data);
-
-?>
-
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4>Attention!</h4>
-        <blockquote>La suppression d'un livre est définitive. Etes vous sur de vouloir continuer ?</blockquote>
-    </div>
-    <div class="modal-footer">
-        <a href="#" onclick="agree()" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>
-        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
-    </div>
-</div>
-
-<div class="container">
-    <br>
-    <br>
-    <br>
-    <br>
-    <ul class="collapsible" data-collapsible="accordion">
+<div id="livre_menu" class="col s12">
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <!--                Ajout Livre-->
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">add</i>
@@ -103,13 +81,13 @@ $this->load->view('utilities/page_nav', $data);
                             <select id="mainTheme">
                                 <option value="" disabled selected>Theme principal</option>
                             </select>
-                            <label>Theme principal</label>
+                            <label for="mainTheme">Theme principal</label>
                         </div>
                         <div class="input-field col s6">
-                            <div id="autocomplete" class="chips chips-autocomplete">
-                                <input type="text" id="autocomplete">
+                            <div id="add_book_theme_chips" class="chips chips-autocomplete">
+                                <input type="text" id="add_book_theme_chips">
                             </div>
-                            <label class="red-text lighten-2" for="autocomplete">Themes</label>
+                            <label class="red-text lighten-2" for="autocomplete">Themes secondaires</label>
                         </div>
                     </div>
                     <!--        Save button-->
@@ -117,6 +95,7 @@ $this->load->view('utilities/page_nav', $data);
                 </form>
             </div>
         </li>
+        <!--                Modif/Suppr Livre-->
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">library_books</i>
@@ -127,7 +106,7 @@ $this->load->view('utilities/page_nav', $data);
                     <div class="row">
                         <div id="catalogue_container" class="input-field col s12">
                             <i id="search" class="material-icons prefix">search</i>
-                            <div class="chips-placeholder"></div>
+                            <div class="chips chips-placeholder" id="book_search_chips"></div>
                         </div>
                     </div>
                     <ul id="book_container" class="collection with-header">
@@ -137,10 +116,3 @@ $this->load->view('utilities/page_nav', $data);
         </li>
     </ul>
 </div>
-
-
-
-<?php
-
-$data['load'] = array('jquery.min','materialize.min','ajax','chips','datepicker','autocomplete','gestionbu');
-$this->load->view('utilities/page_footer', $data); ?>

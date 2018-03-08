@@ -14,4 +14,3 @@
 
     $data['load'] = array('ajax','jquery.min','materialize.min','chips','catalogue');
     $this->load->view('utilities/page_footer',$data);
-?>

@@ -1,17 +1,5 @@
-<?php
-$data['title'] = 'Gestion des themes de l\'application';
-$data['env'] = 'log';
-
-$this->load->view('utilities/page_head',$data);
-$this->load->view('utilities/page_nav',$data);
-?>
-
-<div class="container">
-    <br>
-    <br>
-    <br>
-    <br>
-    <ul class="collapsible" data-collapsible="accordion">
+<div id="theme_menu" class="col s12">
+    <ul class="collapsible popout" data-collapsible="accordion">
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">add</i>
@@ -59,7 +47,7 @@ $this->load->view('utilities/page_nav',$data);
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">search</i>
-                        <div class="chips" id="filterField"></div>
+                        <div class="chips" id="theme_filter_chips"></div>
                         <label for="filterField">Filtre</label>
                     </div>
                 </div>
@@ -68,73 +56,24 @@ $this->load->view('utilities/page_nav',$data);
                     <div class="col s6">
                         <table class="bordered striped">
                             <thead>
-                                <tr><th>Titre</th><th>Auteur</th><th>Affecter</th></tr>
+                            <tr><th>Titre</th><th>Auteur</th><th>Affecter</th></tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="1"/>
-                                        <label for="1">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="2"/>
-                                        <label for="2">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="3"/>
-                                        <label for="3">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="4"/>
-                                        <label for="4">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="5"/>
-                                        <label for="5">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="5"/>
-                                        <label for="5">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="5"/>
-                                        <label for="5">Red</label>
-                                    </td>
-                                </tr><tr>
-                                    <td>Test</td>
-                                    <td>Test</td>
-                                    <td>
-                                        <input type="checkbox" id="5"/>
-                                        <label for="5">Red</label>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>Test</td>
+                                <td>Test</td>
+                                <td>
+                                    <input type="checkbox" id="1"/>
+                                    <label for="1">Red</label>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col s6">
                         <div class="row input-field col s11 offset-s1">
                             <i class="material-icons prefix">library_books</i>
-                            <div class="chips" id="filterField"></div>
+                            <div class="chips" id="theme_add_chips"></div>
                             <label for="filterField">Ajouter des thèmes</label>
                         </div>
                         <div class="row">
@@ -151,10 +90,3 @@ $this->load->view('utilities/page_nav',$data);
         </li>
     </ul>
 </div>
-
-<?php
-
-$data['load'] = array('ajax','jquery.min','materialize.min', 'gestiontheme');
-$this->load->view('utilities/page_footer',$data);
-
-?>
