@@ -22,6 +22,17 @@
                             <label for="themeType">Type de theme</label>
                         </div>
                     </div>
+                    <div class="row">
+                        <div id="theme_file_container" class="file-field input-field col s6" hidden>
+                            <div class="btn red lighten-3">
+                                <span>Image</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input title="file-path" class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
                     <!--        Save button-->
                     <button class="btn waves-effect waves-light red lighten-3 " type="button" id="themeBtnAdd" name="save">Enregistrer
                         <i class="material-icons rigth ">save</i>

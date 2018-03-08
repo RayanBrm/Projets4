@@ -109,11 +109,13 @@ class Theme_model extends CI_Model
         if (isset($bookId) && $bookId != ''){
             $result = true;
             foreach ($themes as $theme){
-                if (!$this->exist(array('id_livre'=>$bookId, 'id_theme'=>$theme))){
+                if (!key_exists($theme,$this->themeList)){
                     $this->add($theme);
                 }
-                $themeId = $this->themeList[$theme];
-                $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
+                if (!$this->exist(array('id_livre'=>$bookId, 'id_theme'=>$theme))){
+                    $themeId = $this->themeList[$theme];
+                    $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
+                }
             }
             return $result;
         }

@@ -29,11 +29,24 @@ $('#assign_theme').on('click', function () {
     }
 });
 
+$('#themeType').on('change', function () {
+   if (this.value === "main_"){
+       $('#theme_file_container').prop('hidden', false);
+   } else {
+       $('#theme_file_container').prop('hidden', true);
+   }
+});
+
 function addTheme() {
     let data = {};
-    data['nom'] = $('#themeType').val() + $('#theme').val();
+    let themeType = $('#themeType').val();
 
-    $.post('ajax/addTheme', data,function (responseText) {
+    data['nom'] =  themeType + $('#theme').val();
+    if (themeType === "main_"){
+        data['file'] = 'true';
+    }
+
+    $.post('ajax/addTheme', data, function (responseText) {
         if (responseText === SUCCESS){
             Materialize.toast('Le theme a été ajouté avec succès', 5000);
             $('#theme').val('');
