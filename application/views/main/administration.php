@@ -53,7 +53,7 @@ $data['childCardList'] = $childCardList;
                 <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un élève" href="#eleve_menu">Élèves</a></li>
                 <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier une classe" href="#classe_menu">Classes</a></li>
                 <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un livre" href="#livre_menu">Livres</a></li>
-                <li class="tab col">
+                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un thème" href="#theme_menu">Thèmes</a></li>
             </ul>
         </div>
 <?php
