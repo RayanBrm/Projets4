@@ -10,13 +10,13 @@ class Livre_model extends CI_Model
         parent::__construct();
     }
 
-    public function get(array $data): ?array
+    public function get($data): ?array
     {
         return $this->db->select()
                         ->from($this->table)
-                        ->where($data)
-                        ->get()
-                        ->result_array();
+                        ->where($data, null, false)
+                       ->get()
+                       ->result_array();
     }
 
     public function set(array $data): bool

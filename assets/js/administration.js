@@ -3,6 +3,8 @@ var chips = $('.chips');
 var themeAutocomplete = {};
 var bookTheme = [];
 var userToDelete = -1;
+var filter = "";
+var themeToAdd = [];
 
 $(document).ready(function () {
 
@@ -50,6 +52,10 @@ function initChipsAction() {
             rechercherUtil(data,'child')
         } else if(this.id === 'classe_search_chips'){
             rechercherClasse(data);
+        } else if(this.id === 'theme_filter_chips'){
+            filterBook(filter,data)
+        } else if (this.id === 'theme_add_chips'){
+
         }
     });
 

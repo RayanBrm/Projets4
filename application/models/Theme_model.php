@@ -61,8 +61,7 @@ class Theme_model extends CI_Model
 
     public function del(string $themeId): bool
     {
-        return $this->db->where('id',$themeId)
-                        ->delete($this->table);
+        return $this->db->where('id',$themeId)->delete($this->table);
     }
 
     public function delBook(array $data): bool
@@ -87,7 +86,9 @@ class Theme_model extends CI_Model
             $result = true;
             $themeId = $this->themeList[$themeName];
             foreach ($books as $book){
-                $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$book,'id_theme'=>$themeId));
+                if (!$this->exist(array('id_livre'=>$book, 'id_theme'=>$themeId))){
+                    $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$book,'id_theme'=>$themeId));
+                }
             }
             return $result;
         }
@@ -105,7 +106,7 @@ class Theme_model extends CI_Model
         if (isset($bookId) && $bookId != ''){
             $result = true;
             foreach ($themes as $theme){
-                if (!key_exists($theme,$this->themeList)){
+                if (!$this->exist(array('id_livre'=>$bookId, 'id_theme'=>$theme))){
                     $this->add($theme);
                 }
                 $themeId = $this->themeList[$theme];
@@ -156,5 +157,10 @@ class Theme_model extends CI_Model
             }
         }
         return null;
+    }
+
+    public function exist(array $data): bool
+    {
+        return (count($this->db->select()->from('LivreTheme')->where($data)->get()->result_array()) > 0);
     }
 }

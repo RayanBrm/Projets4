@@ -94,4 +94,9 @@ class BookFormatter implements FormatterInterface
         }
         return "";
     }
+
+    public function toTab(array $book): string
+    {
+        return "<tr><td>".$book['titre']."</td><td>".$book['auteur']."</td><td><input type=\"checkbox\" id=\"".$book['id']."\"/><label for=\"".$book['id']."\">Selectionner</label></td></tr>";
+    }
 }

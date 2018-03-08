@@ -1,5 +1,6 @@
 <div id="theme_menu" class="col s12">
     <ul class="collapsible popout" data-collapsible="accordion">
+<!--        Add-->
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">add</i>
@@ -28,6 +29,7 @@
                 </form>
             </div>
         </li>
+<!--        Modify-->
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">library_books</i>
@@ -38,10 +40,10 @@
                     <div class="input-field col s6">
                         <select id="bookSelector">
                             <option value="" selected disabled>Choisissez un filtre</option>
-                            <option value="">Tous les livres</option>
-                            <option value="">Par auteur</option>
-                            <option value="">Par titre</option>
-                            <option value="">Par edition</option>
+                            <option id="all" value="all">Tous les livres</option>
+                            <option value="auteur">Par auteur</option>
+                            <option value="titre">Par titre</option>
+                            <option value="edition">Par edition</option>
                         </select>
                         <label for="bookSelector">Filtre</label>
                     </div>
@@ -58,30 +60,20 @@
                             <thead>
                             <tr><th>Titre</th><th>Auteur</th><th>Affecter</th></tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Test</td>
-                                <td>Test</td>
-                                <td>
-                                    <input type="checkbox" id="1"/>
-                                    <label for="1">Red</label>
-                                </td>
-                            </tr>
+                            <tbody id="filter_book_container">
+
                             </tbody>
                         </table>
                     </div>
                     <div class="col s6">
                         <div class="row input-field col s11 offset-s1">
                             <i class="material-icons prefix">library_books</i>
-                            <div class="chips" id="theme_add_chips"></div>
+                            <div class="chips chips-placeholder" id="theme_add_chips"></div>
                             <label for="filterField">Ajouter des thèmes</label>
                         </div>
                         <div class="row">
                             <div class="col s6 right-align">
-                                <a class="waves-effect waves-light btn"><i class="material-icons left">cancel</i>Annuler</a>
-                            </div>
-                            <div class="col s6">
-                                <a class="waves-effect waves-light btn"><i class="material-icons left">edit</i>Valider</a>
+                                <a class="waves-effect waves-light btn" id="assign_theme"><i class="material-icons left">check</i>Valider</a>
                             </div>
                         </div>
                     </div>

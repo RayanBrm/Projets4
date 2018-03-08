@@ -434,6 +434,28 @@ class Ajax extends CI_Controller
         }
     }
 
+    public function filterBook()
+    {
+        if (isset($_POST['filter']) && isset($_POST['data'])){
+            if ($_POST['filter'] == "all"){
+                $cond = " id IS NOT NULL";
+            }else {
+                $cond = $_POST['filter'].' LIKE \'%'.$_POST['data'].'%\'';
+            }
+
+            $books = $this->livre->get($cond);
+            $result = "";
+
+            foreach ($books as $book){
+                $result.=$this->format->book->toTab($book);
+            }
+            echo (strlen($result) > 0)? $result : self::UNKNOWN;
+            return;
+        }
+        echo self::FAILURE;
+
+    }
+
     // ************ Other functions
 
     public function getEditors()

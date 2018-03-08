@@ -243,7 +243,7 @@ class Main extends CI_Controller
 
         $user = $this->user->get(array('identifiant'=>$login))[0];
 
-        if (isset($user) && ($user['role'] === ADMIN || $user['role'] === PROF) && password_verify($pwd,$user['motdepasse'])){//$pwd == $user['motdepasse']){
+        if (isset($user) && ($user['role'] === ADMIN || $user['role'] === PROF) && password_verify($pwd,$user['motdepasse'])){
             $_SESSION['user'] = $user;
             redirect('accueil');
         }
