@@ -49,11 +49,11 @@ $data['childCardList'] = $childCardList;
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col"><a href="#livre_menu">Gestion des livres</a></li>
-                <li class="tab col"><a href="#util_menu">Gestion utilisateur</a></li>
-                <li class="tab col"><a href="#eleve_menu">Gestion élève</a></li>
-                <li class="tab col"><a href="#classe_menu">Gestion des classes</a></li>
-                <li class="tab col"><a href="#theme_menu">Gestion des thèmes</a></li>
+                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un membre du personnel" href="#util_menu">Personnels</a></li>
+                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un élève" href="#eleve_menu">Élèves</a></li>
+                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier une classe" href="#classe_menu">Classes</a></li>
+                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un livre" href="#livre_menu">Livres</a></li>
+                <li class="tab col">
             </ul>
         </div>
 <?php
