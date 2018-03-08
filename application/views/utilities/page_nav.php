@@ -2,7 +2,7 @@
     <nav>
 
         <div class="nav-wrapper red lighten-3">
-            <a href="accueil" class="brand-logo">Logo</a>
+            <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Retour à l'accueil !" href="accueil" class="brand-logo"><img style="width:55px; margin-top: 5px; margin-left: 5px;"src="<?=base_url()?>assets/img/book.png"></a>
             <ul class="right hide-on-med-and-down">
                 <?php
                 if (isset($env) && $env == 'nonlog'){
