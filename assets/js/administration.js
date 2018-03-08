@@ -9,7 +9,6 @@ var themeToAdd = [];
 $(document).ready(function () {
 
     // Livres
-    initChipsThemeAutocomplete();
     initEditorAutocomplete();
     initAuthorAutocomplete();
     initThemeAutocomplete();
@@ -35,6 +34,7 @@ $(document).ready(function () {
     $('#theme_add_chips').material_chip();
     stylize();
 
+    initChipsThemeAutocomplete();
     initChipsAction();
 });
 
@@ -55,7 +55,7 @@ function initChipsAction() {
         } else if(this.id === 'theme_filter_chips'){
             filterBook(filter,data)
         } else if (this.id === 'theme_add_chips'){
-
+            themeToAdd.push(data);
         }
     });
 
@@ -74,8 +74,15 @@ function initChipsAction() {
             $('#util_container').html('');
         }else if(this.id === 'child_search_chips'){
             $('#child_container').html('');
-        } else if (this.id === 'classe_search_chips'){
+        } else if(this.id === 'classe_search_chips'){
             $('#classe_container').html('')
+        } else if(this.id === 'themeadd_chips'){
+            for(let i = 0; i < themeToAdd.length; i++){
+                if (themeToAdd[i] === chip.tag){
+                    themeToAdd.splice(i, 1);
+                    break;
+                }
+            }
         }
     });
 }

@@ -456,6 +456,19 @@ class Ajax extends CI_Controller
 
     }
 
+    public function assignThemeToBook()
+    {
+        if (isset($_POST['books']) && isset($_POST['themes'])){
+            $res = true;
+            foreach ($_POST['themes'] as $theme){
+                $res = $res && $this->theme->assignBookToTheme($theme, $_POST['books']);
+            }
+            echo $res? self::SUCCESS : self::FAILURE;
+            return;
+        }
+        echo self::FAILURE;
+    }
+
     // ************ Other functions
 
     public function getEditors()

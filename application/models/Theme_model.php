@@ -83,6 +83,9 @@ class Theme_model extends CI_Model
     public function assignBookToTheme(string $themeName, array $books): bool
     {
         if (isset($themeName) && $themeName != ''){
+            if (!isset($this->themeList[$themeName])){
+                return false;
+            }
             $result = true;
             $themeId = $this->themeList[$themeName];
             foreach ($books as $book){
@@ -113,6 +116,19 @@ class Theme_model extends CI_Model
                 $result = $result && $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
             }
             return $result;
+        }
+        return false;
+    }
+
+    public function assignId(string $themeId, array $bookIds): bool
+    {
+        if (isset($bookId) && $bookId != ''){
+            foreach ($bookIds as $bookId){
+                if (!$this->exist(array('id_livre'=>$bookId, 'id_theme'=>$themeId))){
+                    return $this->db->insert('LivreTheme',array('id_livre'=>$bookId,'id_theme'=>$themeId));
+                }
+                return true;
+            }
         }
         return false;
     }

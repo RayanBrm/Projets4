@@ -8,21 +8,25 @@ $('#bookSelector').on('change', function (elm) {
 });
 
 $('#assign_theme').on('click', function () {
-
     let checkbox = $('#filter_book_container').find('input:checked');
-    if ( checkbox.count > 0 && themeToAdd.count > 0){
+    if ( checkbox.length > 0 && themeToAdd.length > 0){
         var bookList = [];
         checkbox.each(function () {
             bookList.push(this.id);
         });
 
-        
+        $.post('ajax/assignThemeToBook',{books:bookList,themes:themeToAdd}, function (responseText) {
+           if (responseText === SUCCESS){
+               Materialize.toast('Les livres ont été affectés avec succès.',5000);
+               $('#theme_add_chips').material_chip();
+               checkbox.prop('checked', false);
+           }else if (responseText === FAILURE){
+               Materialize.toast(ERROR_MESSAGE,5000);
+           }
+        });
     } else {
-        Materialize.toast('Entrez des livres ou des themes a ajouter avant', 5000)
+        Materialize.toast('Entrez des livres ou des thèmes à ajouter avant', 5000)
     }
-
-
-
 });
 
 function addTheme() {
