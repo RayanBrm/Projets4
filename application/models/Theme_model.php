@@ -59,9 +59,10 @@ class Theme_model extends CI_Model
         return false;
     }
 
-    public function del()
+    public function del(string $themeId): bool
     {
-        // TODO : implements
+        return $this->db->where('id',$themeId)
+                        ->delete($this->table);
     }
 
     public function delBook(array $data): bool

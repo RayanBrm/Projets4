@@ -97,3 +97,6 @@ defined('THEME_PATH')          OR define('THEME_PATH','assets/img/pastilles_them
 defined('GB_API_KEY')          OR define('GB_API_KEY','AIzaSyAL_jvVpvMXMvlZYF35egMZ-Jrkoq6lLMY');
 defined('BOOK_PIC_HEIGHT')     OR define('BOOK_PIC_HEIGHT',475);
 defined('BOOK_PIC_WIDTH')      OR define('BOOK_PIC_WIDTH',330);
+defined('ADMIN')               OR define('ADMIN','1');
+defined('PROF')                OR define('PROF','2');
+defined('CHILD')               OR define('CHILD','3');

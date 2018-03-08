@@ -33,7 +33,7 @@ class Ajax extends CI_Controller
         if ($classeID == '0'){
             $classe = $this->user->getAllChild();
         }
-        else{ // TODO : get aditionnal data
+        else{
             $classe = $this->user->getAllChild($classeID);
         }
 
@@ -217,7 +217,6 @@ class Ajax extends CI_Controller
             }
 
             if ($this->livre->add($toInsert)){
-                // TODO : better access => returned by set?
                 $id = $this->db->insert_id();
 
                 // TODO : clean

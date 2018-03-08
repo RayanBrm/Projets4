@@ -66,7 +66,6 @@ $words = array('CISEAUX', 'PAPIER', 'CAILLOUX');
                     <div class="row">
                         <div class="col s6">
                             <div class="row" id="child_container">
-                                <!--                                 TODO : resize-->
                                 <?= $childCardList; ?>
                             </div>
                         </div>

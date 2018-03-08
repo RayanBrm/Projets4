@@ -144,7 +144,7 @@ $this->load->view('utilities/page_nav',$data);
                                     <div id="add_book_theme_chips" class="chips chips-autocomplete">
                                         <input type="text" id="add_book_theme_chips">
                                     </div>
-                                    <label class="red-text lighten-2" for="autocomplete">Themes</label>
+                                    <label class="red-text lighten-2" for="autocomplete">Themes secondaires</label>
                                 </div>
                             </div>
                             <!--        Save button-->
@@ -381,7 +381,7 @@ $this->load->view('utilities/page_nav',$data);
                 </li>
             </ul>
         </div>
-<!--        Gestion themes TODO-->
+<!--        Gestion themes-->
         <div id="theme_menu" class="col s12">
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>

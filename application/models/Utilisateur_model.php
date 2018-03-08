@@ -34,12 +34,10 @@ class Utilisateur_model extends CI_Model
                 ->result_array();
 
             foreach ($users as $key => $user) { // Adding data
-                // TODO : better access to role value
-
-                if (($user['role'] == '2' || $user['role'] == '1') && $this->person->exist(array('id' => $user['id']))) {
+                if (($user['role'] == PROF || $user['role'] == ADMIN) && $this->person->exist(array('id' => $user['id']))) {
                     $users[$key]['motdepasse'] = $this->person->get(array('id' => $user['id']))[0]['motdepasse'];
 
-                } elseif ($user['role'] === '3' && $this->eleve->exist(array('id' => $user['id']))) {
+                } elseif ($user['role'] === CHILD && $this->eleve->exist(array('id' => $user['id']))) {
                     $tmp = $this->eleve->get(array('id' => $user['id']));
                     $users[$key]['pastille'] = $tmp[0]['pastille'];
                     $users[$key]['classe'] = $tmp[0]['classe'];
@@ -103,7 +101,6 @@ class Utilisateur_model extends CI_Model
             unset($data['pastille'], $data['classe']);
         }
 
-        // TODO : Useless, remove
         $user = array(
             'identifiant'=>$data['identifiant'],
             'prenom'=>$data['prenom'],
@@ -152,16 +149,16 @@ class Utilisateur_model extends CI_Model
         return false;
     }
 
-    /** TODO : move ?
+    /**
      * Getter for the role table
      * @return array|null The list of role defined in table role
      */
     public function getLevels(): ?array
     {
         return $this->db->select()
-            ->from('Role')
-            ->get()
-            ->result_array();
+                        ->from('Role')
+                    ->get()
+                    ->result_array();
     }
 
     /**

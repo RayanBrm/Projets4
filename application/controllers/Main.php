@@ -1,10 +1,7 @@
 <?php
 
-// TODO : lock if child is logged
 class Main extends CI_Controller
 {
-    public $level = array();
-
     public function __construct()
     {
         parent::__construct();
@@ -14,7 +11,6 @@ class Main extends CI_Controller
         }
 
         $this->load->library('Formatter',null,'format');
-        $this->levelInit();
     }
 
     public function index()
@@ -113,6 +109,15 @@ class Main extends CI_Controller
     public function administration()
     {
         if ($this->isLogged()){
+            // TODO
+            if (isset($_SESSION['child'])){
+                $data['lock'] = "all";
+            } elseif ($_SESSION['user']['role'] == "1"){
+                $data['lock'] = "none";
+            } elseif ($_SESSION['user']['role'] == "2"){
+                $data['lock'] = "none";
+            }
+
             $data['classList'] = "";
             $data['classeLiList'] = '';
             $data['childCardList'] = '';
@@ -221,8 +226,7 @@ class Main extends CI_Controller
     }
 
     public function modifier()
-    { // TODO : UI for both page
-
+    {
         if ($this->isLogged()){
             $what = $_GET['what'];
             $who = $_GET['who'];
@@ -311,19 +315,6 @@ class Main extends CI_Controller
     {
         $_SESSION = array();
         redirect('catalogue');
-    }
-
-    /**
-     * Initialize $this->level
-     */
-    // TODO : useless
-    private function levelInit()
-    {
-        $levels = $this->user->getLevels();
-
-        foreach ($levels as $level){
-            $this->level[$level['libelle']] = $level['id'];
-        }
     }
 
     /**

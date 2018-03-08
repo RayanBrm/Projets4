@@ -93,7 +93,6 @@ class Livre_model extends CI_Model
         }
     }
 
-    // TODO : move ?
     public function addAuteur(string $auteur)
     {
         return $this->db->insert('Auteur',array('Nom'=>$auteur));

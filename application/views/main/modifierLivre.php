@@ -3,9 +3,6 @@ $data['title'] = 'Modifier - '.$book['titre'];
 $data['env'] = 'log';
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
-
-// TODO : Theme principale;
-// TODO GLOBALS : ajout autocomplete editeur
 ?>
 
     <div class="container">

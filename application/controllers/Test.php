@@ -44,35 +44,6 @@ class Test extends CI_Controller
         //$this->db = $this->load->database('default', TRUE);
     }
 
-    public function ihmTest()
-    {
-        $this->load->view('test/test');
-    }
-
-    /**
-     * Testing about Google Books API
-     */
-    public function gapi()
-    {
-        $this->load->view('test/gapi');
-    }
-
-    /**
-     * Testing about Amazon API
-     */
-    public function aapi()
-    {
-        $this->load->view('test/gapi');
-    }
-
-    /**
-     * Testing about WorldCat API
-     */
-    public function wapi()
-    {
-        $this->load->view('test/gapi');
-    }
-
     public function resize()
     {
         $config['image_library'] = 'gd2';

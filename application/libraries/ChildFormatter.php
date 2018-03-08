@@ -11,7 +11,6 @@ class ChildFormatter implements FormatterInterface
 
     public function toLog(array $child): string
     {
-        // TODO : add name and icon for older child
         $img = "assets/img/pastilles_eleve/".$child['pastille'].".png";
         $alt = $child['pastille'];
         $link = "child/connect/".$child['id'];

@@ -60,7 +60,7 @@
                         '<div class="chips-placeholder" onchange="rechercher()"></div>'.
                         '<label>Rechercher un livre</label>'.
                     '</div>';
-    // TODO : load themes; add secondary theme select; chain ?
+    // TODO : chain selector ?
     echo            '<div class="input-field col s10 offset-s2">'.
                         '<select id="main_theme_selector" class="icons" onchange="mainThemeFilter()">'.
                             '<option value="" disabled selected>Themes principaux</option>'.
