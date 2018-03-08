@@ -1,18 +1,11 @@
 <?php
-
-$data['title'] = 'connexionEleve';
-$data['env'] = 'log';
-$this->load->view('utilities/page_head',$data);
-$this->load->view('utilities/page_nav', $data);
-
-echo includeAJAX();
-echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/connexionEleve.js'."\"></script>";
+    $data['title'] = 'connexionEleve';
+    $data['env'] = 'log';
+    $this->load->view('utilities/page_head',$data);
+    $this->load->view('utilities/page_nav', $data);
 ?>
 
-
 <div class="container">
-
-
     <div class="row">
         <div class="col s3">
             <br>
@@ -32,12 +25,10 @@ echo "<script type=\"text/javascript\" src=\"".base_url().'assets/js/connexionEl
 
         <div id="classe_container" class="col s9">
         <?= $childs ?>
+        </div>
     </div>
 </div>
 
 <?php
-    $data['load'] = array('jquery.min','materialize.min','select','connexionEleve');
+    $data['load'] = array('jquery.min','materialize.min','ajax','select','connexionEleve');
     $this->load->view('utilities/page_footer',$data);
-?>
-
-

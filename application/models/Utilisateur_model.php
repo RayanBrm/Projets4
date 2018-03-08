@@ -168,12 +168,14 @@ class Utilisateur_model extends CI_Model
      * Getter for the whole list of child
      * @return array|null format as array([.]=>array('id'=>?,'identifiant'=>?,'nom'=>?,...))
      */
-    public function getAllChild(): ?array
+    public function getAllChild(string $classe = null): ?array
     {
+        $where = 'Role = "3"'.((isset($classe))? ' AND classe = '.$classe : '' );
+
         return $this->db->select()
                         ->from($this->table)
                         ->join('Eleve', 'Eleve.id=Utilisateur.id')
-                        ->where('Role = "3"')
+                        ->where($where)
                     ->get()
                     ->result_array();
     }

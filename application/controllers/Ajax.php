@@ -15,8 +15,6 @@ class Ajax extends CI_Controller
    private const FAILURE = 'failure';
    private const SUCCESS = 'success';
 
-
-
     public function __construct()
     {
         parent::__construct();
@@ -33,10 +31,10 @@ class Ajax extends CI_Controller
     {
         $result = "";
         if ($classeID == '0'){
-            $classe = $this->eleve->getAll();
+            $classe = $this->user->getAllChild();
         }
-        else{
-            $classe = $this->eleve->getClasse($classeID);
+        else{ // TODO : get aditionnal data
+            $classe = $this->user->getAllChild($classeID);
         }
 
         foreach ($classe as $eleve){

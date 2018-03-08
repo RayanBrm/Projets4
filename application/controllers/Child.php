@@ -53,7 +53,7 @@ class Child extends CI_Controller
             $data['childs'] = "";
             $data['classes'] = "";
 
-            $childs = $this->eleve->getAll();
+            $childs = $this->user->getAllChild();
             foreach ($childs as $child){
                 $data['childs'].= $this->format->child->toLog($child);
             }

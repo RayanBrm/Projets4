@@ -5,19 +5,6 @@ $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 ?>
 
-<!--FROM gestionbu-->
-<!--    <div id="modal1" class="modal">-->
-<!--        <div class="modal-content">-->
-<!--            <h4>Attention!</h4>-->
-<!--            <blockquote>La suppression d'un livre est définitive. Etes vous sur de vouloir continuer ?</blockquote>-->
-<!--        </div>-->
-<!--        <div class="modal-footer">-->
-<!--            <a href="#" onclick="agree()" class="modal-action modal-close waves-effect waves-green btn-flat">Continuer</a>-->
-<!--            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--FROM gestionGlobal-->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Attention!</h4>
@@ -54,6 +41,7 @@ $this->load->view('utilities/page_nav',$data);
         </div>
     </div>
 
+<!-- TODO : refactor, use $this->load->view for each module-->
 <div class="container">
     <h2>Administration globale de la bibliothèque</h2>
     <div class="row">

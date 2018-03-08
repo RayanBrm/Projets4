@@ -8,6 +8,7 @@ function updateChild() {
             // callback
             console.log("Classe : "+classe);
             document.getElementById('classe_container').innerHTML = xhr.responseText;
+            $('.tooltipped').tooltip({delay: 50});
         }
     };
 
