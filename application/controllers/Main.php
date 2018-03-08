@@ -170,61 +170,6 @@ class Main extends CI_Controller
 
     }
 
-    public function gestionbu()
-    {
-        if ($this->isLogged()){
-            $this->load->view('main/gestionbu');
-        }
-        else
-            redirect('catalogue');
-
-    }
-
-    public function gestionutil(){
-        if ($this->isLogged()){
-            $data['classList'] = "";
-            $listeClasses = $this->classe->getAll();
-            foreach ($listeClasses as $uneClasse){
-                $data['classList'].=$this->format->class->toOption($uneClasse);
-            }
-
-            $this->load->view('main/gestionutil',$data);
-        }
-        else
-            redirect('catalogue');
-    }
-
-    public function gestionglobal()
-    {
-        if ($this->isLogged()){
-            $data['classeLiList'] = '';
-            $data['childCardList'] = '';
-
-            $classes = $this->classe->getAll();
-            foreach ($classes as $class){
-                $data['classeLiList'].=$this->format->class->toLi($class);
-            }
-
-            $eleves = $this->user->getAllChild();
-            foreach ($eleves as $eleve){
-                $data['childCardList'].=$this->format->child->toCard($eleve);
-            }
-
-            $this->load->view('main/gestionGlobal', $data);
-        }else{
-            redirect('utilisateur');
-        }
-    }
-
-    public function gestiontheme()
-    {
-        if ($this->isLogged()){
-            $this->load->view('main/gestionTheme');
-        }else{
-            redirect('utilisateur');
-        }
-    }
-
     public function modifier()
     {
         if ($this->isLogged()){

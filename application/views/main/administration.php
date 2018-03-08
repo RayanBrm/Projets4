@@ -3,8 +3,11 @@ $data['title'] = 'Administration';
 $data['env'] = 'log';
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
-?>
 
+$data['classList'] = $classList;
+$data['classeLiList'] = $classeLiList;
+$data['childCardList'] = $childCardList;
+?>
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Attention!</h4>
@@ -55,15 +58,15 @@ $this->load->view('utilities/page_nav',$data);
         </div>
 <?php
 //  Gestion livres
-    $this->load->view('modules/gestionlivre');
+    $this->load->view('modules/gestionlivre',$data);
 //  Gestion utilisateurs
-    $this->load->view('modules/gestionutil');
+    $this->load->view('modules/gestionutil',$data);
 //  Gestion eleves
-    $this->load->view('modules/gestioneleve');
+    $this->load->view('modules/gestioneleve',$data);
 //  Gestion classe
-    $this->load->view('modules/gestionclasse');
+    $this->load->view('modules/gestionclasse',$data);
 //  Gestion theme
-    $this->load->view('modules/gestiontheme');
+    $this->load->view('modules/gestiontheme',$data);
 ?>
     </div>
 </div>
