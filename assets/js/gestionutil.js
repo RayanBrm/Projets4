@@ -35,9 +35,11 @@ function add(form) {
                 emptyForm();
             }
             else if (responseText === FAILURE){
-                Materialize.toast("Un probleme est survenue, réessayer plus tard ou contactez un administrateur.",5000);
+                Materialize.toast(ERROR_MESSAGE,5000);
             } else if (responseText === EXIST){
                 Materialize.toast("L'identifiant que vous avez saisie éxiste déjà, réessayer avec un autre.",5000);
+            } else if (responseText === FORBID){
+                Materialize.toast(FORBID_MESSAGE,5000);
             }
         }
     });
@@ -100,7 +102,9 @@ function agreeUtil()
         success: function (responseText) {
             if (responseText === SUCCESS){
                 Materialize.toast('L\'utilisateur a été supprimé', 5000);
-            }else {
+            }else if (responseText === FORBID){
+                Materialize.toast(FORBID_MESSAGE, 5000);
+            } else {
                 Materialize.toast(ERROR_MESSAGE, 5000);
             }
         }

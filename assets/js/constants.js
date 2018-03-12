@@ -12,3 +12,4 @@ const FAILURE = 'failure';
 const SUCCESS = 'success';
 
 const ERROR_MESSAGE = 'Une erreur est survenue, réessayez ou contactez un administrateur.';
+const FORBID_MESSAGE = 'Vous n\'avez pas l\'autorisation d\'éffectuer cette actions.';

@@ -36,6 +36,8 @@ $(document).ready(function () {
 
     initChipsThemeAutocomplete();
     initChipsAction();
+
+    $('.lock_icon').css({'padding-top':'0.45em', 'padding-left':'2px', position: 'absolute'});
 });
 
 function initChipsAction() {

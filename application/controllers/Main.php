@@ -110,15 +110,15 @@ class Main extends CI_Controller
     {
         if ($this->isLogged()){
             // TODO
-            if (isset($_SESSION['child'])){
-                $data['lock'] = "all";
-            } elseif ($_SESSION['user']['role'] == "1"){
+            if (isset($_SESSION['child'])){ // Eleve connecté ?
+                redirect('catalogue-enfant');
+            } elseif ($_SESSION['user']['role'] == ADMIN){
                 $data['lock'] = "none";
-            } elseif ($_SESSION['user']['role'] == "2"){
-                $data['lock'] = "none";
+            } elseif ($_SESSION['user']['role'] == PROF){
+                $data['lock'] = "prof";
             }
 
-            $data['classList'] = "";
+            $data['classList'] = '';
             $data['classeLiList'] = '';
             $data['childCardList'] = '';
 

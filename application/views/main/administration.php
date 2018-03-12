@@ -7,7 +7,12 @@ $this->load->view('utilities/page_nav',$data);
 $data['classList'] = $classList;
 $data['classeLiList'] = $classeLiList;
 $data['childCardList'] = $childCardList;
+
+echo '<script>const ACCESS = "'.$lock.'"</script>';
+$access = ($lock == "all")? '' : 'disabled';
+$lock_icon = ($lock == "all")? '' : '<i class="material-icons lock_icon">lock</i>';
 ?>
+<!-- Materialize modal for important dialog : before deleting datas,... -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Attention!</h4>
@@ -19,7 +24,6 @@ $data['childCardList'] = $childCardList;
             <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
         </div>
     </div>
-
     <div id="modal2" class="modal">
         <div class="modal-content">
             <h4>Attention!</h4>
@@ -31,7 +35,6 @@ $data['childCardList'] = $childCardList;
             <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
         </div>
     </div>
-
     <div id="modal3" class="modal">
         <div class="modal-content">
             <h4>Attention!</h4>
@@ -51,9 +54,9 @@ $data['childCardList'] = $childCardList;
             <ul class="tabs">
                 <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un membre du personnel" href="#util_menu">Personnels</a></li>
                 <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un élève" href="#eleve_menu">Élèves</a></li>
-                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier une classe" href="#classe_menu">Classes</a></li>
+                <li class="tab col <?= $access ?>"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier une classe" href="#classe_menu">Classes<?= $lock_icon ?></a></li>
                 <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un livre" href="#livre_menu">Livres</a></li>
-                <li class="tab col"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un thème" href="#theme_menu">Thèmes</a></li>
+                <li class="tab col <?= $access ?>"><a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ajouter/ Modifier un thème" href="#theme_menu">Thèmes<?= $lock_icon ?></a></li>
             </ul>
         </div>
 <?php

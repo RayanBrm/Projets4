@@ -21,11 +21,11 @@ function validate() {
 
     $.post('ajax/editUser',data,function (responseText) {
         if (responseText === SUCCESS){
-            Materialize.toast('L\'utilisateur a été modifier avec succès', 5000);
+            Materialize.toast('L\'utilisateur a été modifié avec succès', 5000);
         }else if (responseText === FAILURE){
-            Materialize.toast('Une erreur est survenue, réessayer plus tard ou contactez un administrateur', 5000);
+            Materialize.toast(ERROR_MESSAGE, 5000);
         }else if(responseText === FORBID){
-            Materialize.toast('Vous essayez de modifier un administrateur, opération non-autorisé.', 5000);
+            Materialize.toast(FORBID_MESSAGE, 5000);
         }
     })
 }

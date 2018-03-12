@@ -65,6 +65,13 @@ class Ajax extends CI_Controller
 
     public function adduser()
     {
+        // Filtering users :
+        // NC => forbidden , Prof => forbidden , Child connected => forbidden
+        if (!isset($_SESSION) || (isset($_SESSION) && $_SESSION['user']['role'] != ADMIN) || !isset($_SESSION['child'])){
+            echo self::FORBID;
+            exit();
+        }
+
         if (isset($_POST['identifiant']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['role']) && isset($_POST['motdepasse'])) {
             if (!$this->user->userExist($_POST['identifiant'])){
                 $user = array(
@@ -84,7 +91,7 @@ class Ajax extends CI_Controller
                 'identifiant'=>'eleve'.uniqid(),
                 'nom'=>$_POST['nom'],
                 'prenom'=>$_POST['prenom'],
-                'role'=>'3',
+                'role'=>CHILD,
                 'classe'=>$_POST['classe'],
                 'pastille'=>$this->getAleaPastille($_POST['classe'])
             );
@@ -114,12 +121,16 @@ class Ajax extends CI_Controller
 
     public function delUser()
     {
-        if (isset($_SESSION) && $_SESSION['user']['role'] === '1' && isset($_POST['userId'])) {
+        if (!isset($_POST['userId'])){
+            echo self::FAILURE;
+            exit();
+        }
+//        TODO : check if $POST:userId is not the last admin
+        if (isset($_SESSION) && $_SESSION['user']['role'] === ADMIN && !($_SESSION['user']['id'] == $_POST['userId'])){
             echo ($this->user->del(array('id' => $_POST['userId'])))? self::SUCCESS : self::FAILURE;
         }else{
-            echo self::FAILURE;
+            echo self::FORBID;
         }
-
     }
 
     public function changeChildClass(){
@@ -140,8 +151,9 @@ class Ajax extends CI_Controller
 
     public function editUser()
     {
-        if (isset($_POST['id'])){
-            if (!($_SESSION['user']['role'] == "2" && $_POST['role'] == "1")){
+        // id exist and user is conneced and child is not connected
+        if (isset($_POST['id']) && isset($_SESSION['user']) && !isset($_SESSION['child'])){
+            if (($_SESSION['user']['id'] == $_POST['id']) || ($_SESSION['user']['role'] == ADMIN)){ // self or admin
                 if (isset($_POST['motdepasse']) && strlen($_POST['motdepasse']) == 0){
                     unset($_POST['motdepasse']);
                 }
@@ -194,7 +206,7 @@ class Ajax extends CI_Controller
     }
 
     // ************ Book functions
-
+//    TODO : finish access implementation for books
     public function addBook()
     {
         $result = "false";
@@ -315,7 +327,10 @@ class Ajax extends CI_Controller
     public function deleteBook()
     {
         $bookId = $_POST['book'];
-        echo ($this->emprunt->del(array('id_livre'=>$bookId)) && $this->theme->delBook(array('id_livre'=>$bookId)) && $this->livre->del(array('id'=>$bookId)))?
+        echo ($this->emprunt->del(array('id_livre'=>$bookId))
+            && $this->theme->delBook(array('id_livre'=>$bookId))
+            && $this->livre->del(array('id'=>$bookId))
+        )?
             self::SUCCESS : self::FAILURE ;
     }
 

@@ -10,17 +10,16 @@
 
     <!-- Media -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--Import Google Icon Font-->
+    <!--Import Materialize Icon Font-->
     <link rel="stylesheet" href="<?= base_url().'assets/css/materialIcon.css' ?>" >
     <!-- Stylesheet -->
     <?php
         if(isset($env) && $env !== 'test'){
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/materialize.min.css">';
             echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/main.css">';
-            echo '<link rel="stylesheet" type="text/css" href="'.base_url().'assets/css/nestable.css">';
             echo '<script src="../../../assets/js/constants.js" async></script>';
         }
     ?>
 </head>
   <main>
-<body>
+    <body>
