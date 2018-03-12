@@ -9,8 +9,8 @@ $data['classeLiList'] = $classeLiList;
 $data['childCardList'] = $childCardList;
 
 echo '<script>const ACCESS = "'.$lock.'"</script>';
-$access = ($lock == "all")? '' : 'disabled';
-$lock_icon = ($lock == "all")? '' : '<i class="material-icons lock_icon">lock</i>';
+$access = ($lock == "none")? '' : 'disabled';
+$lock_icon = ($lock == "none")? '' : '<i class="material-icons lock_icon">lock</i>';
 ?>
 <!-- Materialize modal for important dialog : before deleting datas,... -->
     <div id="modal1" class="modal">
