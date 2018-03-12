@@ -14,7 +14,7 @@ class BookFormatter implements FormatterInterface
     {
         $result = "<div class='card col s3 '>".
                     "<div class='card-image waves-effect waves-block waves-light'>".
-                        "<img class='activator' src='".base_url().$data['couverture']."'>".
+                        "<img class='activator' src='".base_url().$data['couverture']."' onerror=\"this.onerror=null;this.src='/assets/img/livres/nf.gif'\">".
                     "</div>".
                     "<div class='card-content'>".
                         "<span class='title activator grey-text text-darken-4'>".$data['titre']."</span>".
