@@ -21,6 +21,7 @@ class Child extends CI_Controller
         $page = isset($_GET['page'])? $_GET['page'] : 1 ;
 
         if ($this->isLogged()){
+            $data['outdated'] = $this->isOutdatedLoan();
             $data['maxPage'] = $this->livre->maxPage();
             if ($page > $data['maxPage'] || $page <= 0){
                 $page = $data['maxPage'];
@@ -50,6 +51,7 @@ class Child extends CI_Controller
     public function connexionEleve()
     {
         if (!$this->isLogged()){
+            $data['outdated'] = $this->isOutdatedLoan();
             $data['childs'] = "";
             $data['classes'] = "";
 
@@ -105,4 +107,8 @@ class Child extends CI_Controller
         return $data;
     }
 
+    private function isOutdatedLoan() : bool
+    {
+        return count($this->emprunt->getOutdated()) > 0;
+    }
 }

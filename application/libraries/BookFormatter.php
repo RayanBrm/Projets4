@@ -43,9 +43,16 @@ class BookFormatter implements FormatterInterface
         return $this->toCatalog($data);
     }
 
-    public function toLi(?array $emprunt): string //$emprunt est un livre
+    public function toLi(?array $emprunt, bool $outaded = false): string //$emprunt est un livre
     {
         if (isset($emprunt)){
+            if ($outaded){
+                $user = $this->CI->user->get(array('id'=>$emprunt['id_eleve']))[0];
+                $uName = '<span class="right-align">Emprunteur : '.$user['prenom'].' '.$user['nom'].'</span>';
+            } else{
+                $uName = "";
+            }
+
             $uid = uniqid();
 
             $bookTitle = $this->CI->livre->get(array('id'=>$emprunt['id_livre']))[0]['titre'];
@@ -57,7 +64,7 @@ class BookFormatter implements FormatterInterface
 
             return "<li>".
                         "<div class='collapsible-header ".$color."'>".
-                                "<i class='material-icons'>book</i>".$bookTitle.
+                                "<i class='material-icons'>book</i>".$bookTitle.' '.$uName.
                         "</div>".
                         "<div class='collapsible-body'><span>Date d'emprunt : ".$emprunt['dateEmprunt'].", Date de rendu : ".$emprunt['dateRendu']."</span>".
                         "</div>".

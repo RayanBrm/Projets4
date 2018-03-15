@@ -1,5 +1,25 @@
 let bookToReturn = [];
 
+$(document).ready(function () {
+   var ret = $('#retard');
+
+   if (!outdated)
+       ret.hide();
+   ret.on('click', function () {
+        $.ajax({
+            type:'GET',
+            url:'ajax/getOutdated',
+            success: function (responseText) {
+                if (responseText === EMPTY){
+                  responseText = "<li class='collection-header center'><blockquote>Aucun emprunt en retard</blockquote></li>"
+                }
+                let prev = "<li class='collection-header center'><h4>Emprunt en retards</h4></li>";
+                $('#emprunt_container').html(prev+responseText);
+            }
+        })
+   });
+});
+
 function multiLoad() {
     loadClasse();
     loadClasseEmrunt();

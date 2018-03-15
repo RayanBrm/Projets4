@@ -392,6 +392,21 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    public function getOutdated()
+    {
+        $loans = $this->emprunt->getOutdated();
+        $res = '';
+        if (count($loans) == 0){
+            echo self::EMPTY;
+            exit();
+        }
+
+        foreach ($loans as $loan){
+            $res.=$this->format->book->toLi($loan, true);
+        }
+        echo $res;
+    }
+
     // ************ Themes functions
 
     public function getThemeList()

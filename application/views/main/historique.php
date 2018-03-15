@@ -5,6 +5,11 @@ $data['outdated'] = $outdated;
 $this->load->view('utilities/page_head', $data);
 $this->load->view('utilities/page_nav', $data);
 
+if ($outdated){
+    echo '<script>var outdated = true</script>';
+} else{
+    echo '<script>var outdated = false</script>';
+}
 ?>
 
 <div class="row">
@@ -17,6 +22,7 @@ $this->load->view('utilities/page_nav', $data);
         <br>
         <br>
         <a class="waves-effect waves-light btn-large tooltipped" href="historique" data-position="bottom" data-delay="50" data-tooltip="Acceder a mon historique">Mon historique</a>
+        <a id="retard" class="waves-effect waves-light btn-large tooltipped" href="#" data-position="bottom" data-delay="50" data-tooltip="Voir les emprunts en retard">Emprunt en retard</a>
         <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
                 <select id="classe_select" onchange="multiLoad()">
