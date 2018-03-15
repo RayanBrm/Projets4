@@ -92,6 +92,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 // Number of books per page
 defined('BOOK_PER_PAGE')       OR define('BOOK_PER_PAGE',8);
+defined('TIME_OUTDATED')       OR define('TIME_OUTDATED',15);
 defined('BOOK_PATH')           OR define('BOOK_PATH','assets/img/livres/');
 defined('THEME_PATH')          OR define('THEME_PATH','assets/img/pastilles_theme/');
 defined('GB_API_KEY')          OR define('GB_API_KEY','AIzaSyAL_jvVpvMXMvlZYF35egMZ-Jrkoq6lLMY');

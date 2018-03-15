@@ -1,6 +1,7 @@
 <?php
     $data["title"] = "Catalogue";
     $data['env'] = 'nonlog';
+    $data['outdated'] = $outdated;
     $this->load->view('utilities/page_head', $data);
     $this->load->view('utilities/page_nav');
 

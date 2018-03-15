@@ -1,6 +1,7 @@
 <?php
 $data['title'] = 'Modifier - '.$book['titre'];
 $data['env'] = 'log';
+$data['outdated'] = $outdated;
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
 ?>

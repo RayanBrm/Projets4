@@ -7,6 +7,7 @@ class Emprunt_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('date');
     }
 
     public function get(array $data = null): ?array
@@ -25,7 +26,7 @@ class Emprunt_model extends CI_Model
             ->result_array();
     }
 
-    public function getRunning(array $data): ?array
+    public function getRunning($data): ?array
     {
         $result =  $this->db->select()
             ->from($this->table)
@@ -38,6 +39,34 @@ class Emprunt_model extends CI_Model
             return $result[0];
         }
         return null;
+    }
+
+    /**
+     * Return the list of oudated running loan
+     * @return array|null
+     */
+    public function getOutdated(): ?array
+    {
+        $result = null;
+
+        $loans = $this->db->select()
+                          ->from($this->table)
+                          ->where('dateRendu IS NULL')
+                        ->get()
+                        ->result_array();
+
+        if (count($loans) == 0)
+            return $result;
+
+        $glue = explode(' ',unix_to_human(now()))[1];
+
+        foreach ($loans as $loan){
+            $tmp = date_range(human_to_unix($loan['dateEmprunt'].' '.$glue),unix_to_human(now()));
+            if (count($tmp) > TIME_OUTDATED)
+                $result[] = $loan;
+        }
+
+        return $result;
     }
 
     //emprunter un livre

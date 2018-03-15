@@ -27,6 +27,7 @@ class Main extends CI_Controller
         $page = isset($_GET['page'])? $_GET['page'] : 1 ;
 
         if (!$this->isLogged()){
+            $data['outdated'] = $this->isOutdatedLoan();
 
             $data['maxPage'] = $this->livre->maxPage();
             if ($page > $data['maxPage'] || $page <= 0){
@@ -55,23 +56,6 @@ class Main extends CI_Controller
     }
 
     /**
-     * Load the given page of the catalog
-     * @param int $page
-     * @return string
-     */
-    private function loadBooks(int $page = 1): string
-    {
-        $data = "";
-        $books = $this->livre->getPage($page);
-
-        foreach ($books as $book){
-            $data.= $this->format->book->toCatalog($book);
-        }
-
-        return $data;
-    }
-
-    /**
      * Main page, routed with accueil
      * The default number of book per page is defined in config/constants.php
      */
@@ -79,6 +63,7 @@ class Main extends CI_Controller
     {
         $page = isset($_GET['page'])? $_GET['page'] : 1 ;
         if ($this->isLogged()){
+            $data['outdated'] = $this->isOutdatedLoan();
 
             $data['maxPage'] = $this->livre->maxPage();
             if ($page > $data['maxPage'] || $page <= 0){
@@ -106,10 +91,14 @@ class Main extends CI_Controller
         }
     }
 
+    /**
+     * Administration page, grouping every : create, edit, delete, ... functionality
+     */
     public function administration()
     {
         if ($this->isLogged()){
-            // TODO
+            $data['outdated'] = $this->isOutdatedLoan();
+
             if (isset($_SESSION['child'])){ // Eleve connecté ?
                 redirect('catalogue-enfant');
             } elseif ($_SESSION['user']['role'] == ADMIN){
@@ -142,9 +131,14 @@ class Main extends CI_Controller
             redirect('catalogue');
     }
 
+    /**
+     * Page containing the history of each book loan for each user
+     */
     public function historique()
     {
         if ($this->isLogged()){
+            $data['outdated'] = $this->isOutdatedLoan();
+
             $data['classes'] = "";
             $listeClasses = $this->classe->getAll();
             foreach ($listeClasses as $uneClasse){
@@ -170,9 +164,15 @@ class Main extends CI_Controller
 
     }
 
+    /**
+     * Load data to modify book or use which have more data to edit than other field
+     * Need 2 argument, $who : id of what to edit, $what : the type of what to edit, book or user
+     */
     public function modifier()
     {
         if ($this->isLogged()){
+            $data['outdated'] = $this->isOutdatedLoan();
+
             $what = $_GET['what'];
             $who = $_GET['who'];
 
@@ -271,6 +271,28 @@ class Main extends CI_Controller
         return isset($_SESSION['user']['id']);
     }
 
+    /**
+     * Load the given page of the catalog
+     * @param int $page
+     * @return string
+     */
+    private function loadBooks(int $page = 1): string
+    {
+        $data = "";
+        $books = $this->livre->getPage($page);
+
+        foreach ($books as $book){
+            $data.= $this->format->book->toCatalog($book);
+        }
+
+        return $data;
+    }
+
+
+    private function isOutdatedLoan() : bool
+    {
+        return count($this->emprunt->getOutdated()) > 0;
+    }
 }
 
 

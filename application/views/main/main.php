@@ -2,6 +2,7 @@
 
 $data['env'] = 'log';
 $data['title'] = 'Accueil';
+$data['outdated'] = $outdated;
 
 $this->load->view('utilities/page_head',$data);
 $this->load->view('utilities/page_nav',$data);
