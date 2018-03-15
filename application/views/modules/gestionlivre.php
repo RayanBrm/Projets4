@@ -21,7 +21,7 @@
                     <!--        Image path add-->
                     <div class="row">
                         <div class="col s3">
-                            <input type="checkbox" name="add-path" id="add-path" onchange="toggleFile()">
+                            <input type="checkbox" name="add-path" id="add-path" onchange="toggleFile(this)">
                             <label for="add-path">Ajouter un fichier local comme couverture</label>
                         </div>
                     </div>

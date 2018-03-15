@@ -1,18 +1,3 @@
-// var bookToDelete = -1;
-// var chips = $('.chips');
-// var themeAutocomplete = {};
-// var bookTheme = [];
-
-// $(document).ready(function () {
-//     initChipsThemeAutocomplete();
-//     initEditorAutocomplete();
-//     initAuthorAutocomplete();
-//     initThemeAutocomplete();
-//     $('input#input_text, textarea#textarea1').characterCounter();
-//     $('.modal').modal();
-// });
-
-
 
 $('.datepicker').pickadate({
     selectMonths: false, // Creates a dropdown to control month
@@ -61,20 +46,15 @@ function addBook() {
                 document.getElementById('book_form').reset();
                 Materialize.toast('Le livre a été ajouté', 4000);
 
-                let addpath = $('#add-path');
-                if (addpath.get(0).checked === true) {
-                    addpath.attr('checked', false);
-                    toggleFile();
-                }
+                $('#file-input').hide();
+                $('[id^=local-couverture]').val('');
+                form.reset();
             }
             else {
                 Materialize.toast('Une erreur s\'est produite ' + responseText, 4000);
             }
         }
     });
-
-    form.reset();
-
 }
 
 // Called on click of delete icon
@@ -152,8 +132,9 @@ function fill(bookInfo) {
     // Even fill hidden fields for book cover
 
     if (bookInfo['imageLinks'] === undefined || bookInfo['imageLinks'] === null) {
-        $('#add-path').attr('checked', true);
-        toggleFile();
+        $('#add-path').prop('checked', true);
+        $('#file-input').show();
+        $('[id^=local-couverture]').val('');
         Materialize.toast('Attention, la couverture pour ce livre n\'est pas disponible!', 10000);
     } else {
         $('#couverture').val(bookInfo['imageLinks']['thumbnail']);
@@ -164,9 +145,12 @@ function fill(bookInfo) {
 }
 
 // Display or not the file input field, clear it at each click
-function toggleFile() {
-    $('#file-input').toggle();
-    $('[id^=local-couverture]').val('');
+function toggleFile(elm) {
+    if(elm.checked === true){
+        $('#file-input').show();
+    } else {
+        $('#file-input').hide();
+    }
 }
 
 function initThemeAutocomplete() {
