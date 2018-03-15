@@ -68,7 +68,7 @@ class Child extends CI_Controller
             $this->load->view('main/connexionEleve', $data);
         }
         else{
-            redirect('child/main');
+            redirect('catalogue-enfant');
         }
     }
 

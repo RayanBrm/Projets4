@@ -21,7 +21,7 @@
 
                     echo "<span class='icon'>".'Bébé connecté : '.$_SESSION['child']['prenom']."</span>";
                     echo '<img class=\'icon\' src=\''.base_url().'assets/img/pastilles_eleve/'.$_SESSION["child"]["pastille"].'.png\' >';
-                    echo '<li><a class="icon" href="disconnect"><i class="material-icons right">highlight_off</i>Déconnexion</a></li>';
+                    echo '<li><a class="icon" href="child/disconnect"><i class="material-icons right">highlight_off</i>Déconnexion</a></li>';
                 }else if(isset($env) && $env == 'test'){
 
                 }else{

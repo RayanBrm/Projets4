@@ -137,6 +137,10 @@ class Main extends CI_Controller
     public function historique()
     {
         if ($this->isLogged()){
+            if (isset($_SESSION['child'])){ // Eleve connecté ?
+                redirect('catalogue-enfant');
+            }
+
             $data['outdated'] = $this->isOutdatedLoan();
 
             $data['classes'] = "";
