@@ -14,20 +14,16 @@ $(document).ready(function() {
 
 function rechercher(search)
 {
-    var xhr = getXHR();
-    console.log(search);
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            // callback
-            console.log("Recherché : "+search);
-            document.getElementById('book_container').innerHTML = xhr.responseText;
+    $.ajax({
+        url:'ajax/getBook',
+        type:'POST',
+        data:{
+            search:search
+        },
+        success:function (response) {
+            $('#book_container').html(response)
         }
-    };
-
-    xhr.open("POST", "/ajax/getBook", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("search="+search);
+    })
 }
 
 function loan(bookId){

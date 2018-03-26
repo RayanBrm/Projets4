@@ -10,19 +10,17 @@ $('.datepicker').pickadate({
 
 // Search bar
 function rechercherLivre(search) {
-    var xhr = getXHR();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            // callback
-            console.log("Recherché : " + search);
-            document.getElementById('book_container').innerHTML = xhr.responseText;
+    $.ajax({
+        url:'ajax/getBook',
+        type:'POST',
+        data:{
+            search:search,
+            display:'toModify'
+        },
+        success: function(response){
+            $('#book_container').html(response);
         }
-    };
-
-    xhr.open("POST", "/ajax/getBook", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("search=" + search + "&display=toModify");
+    });
 }
 
 // Add book button
@@ -90,15 +88,20 @@ function getByIsbn() // API Google working
 {
     // Get isbn number from form
     let isbn = document.getElementById('isbn').value;
-    let xhr = getXHR();
 
     // ISBN value testing, can be ISBN 10 or 13
     if (isbn !== "" && isbn !== undefined && isbn !== null && isbn.length >= 10 && isbn.length <= 13) {
         $('#spinner').addClass('spin');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+
+        $.ajax({
+            url:'https://www.googleapis.com/books/v1/volumes/?q=isbn:'+isbn,
+            type:'GET',
+            beforeSend:function (xhr) {
+                xhr.setRequestHeader('Access-Control-Allow-Origin', 'AIzaSyAL_jvVpvMXMvlZYF35egMZ-Jrkoq6lLMY');
+            },
+            success: function(response){
                 // Getting response as JSON
-                let book = JSON.parse(xhr.responseText);
+                let book = JSON.parse(response);
                 console.log(book); // Debug display
                 // Response checking
                 if (book['totalItems'] > 0 && book['items'][0]['volumeInfo'] !== undefined) {
@@ -112,12 +115,7 @@ function getByIsbn() // API Google working
                 }
                 $('#spinner').removeClass('spin')
             }
-        };
-
-        xhr.open("GET", "https://www.googleapis.com/books/v1/volumes/?q=isbn:" + isbn, true);
-        // Google api key, not required for simple get
-        xhr.setRequestHeader('Access-Control-Allow-Origin', 'AIzaSyAL_jvVpvMXMvlZYF35egMZ-Jrkoq6lLMY');
-        xhr.send();
+        });
     }
 }
 
