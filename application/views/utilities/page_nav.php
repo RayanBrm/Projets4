@@ -1,9 +1,9 @@
 <?php
  $bagde = ($outdated)? '<i class="material-icons right">info</i>' : '';
+ $pulse = ($outdated)? 'pulsar' : '';
 ?>
 <div class="navbar-fixed ">
     <nav>
-
         <div class="nav-wrapper red lighten-3">
             <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Retour à l'accueil !" href="accueil" class="brand-logo"><img style="width:55px; margin-top: 5px; margin-left: 5px;"src="<?=base_url()?>assets/img/book.png"></a>
             <ul class="right hide-on-med-and-down">
@@ -14,7 +14,7 @@
                 else if (isset($env) && $env == 'log'){
                     echo '<li><a href="main/disconnect"><i class="material-icons left">highlight_off</i>Déconnexion</a></li>';
                     echo '<li><a href="connexionEleve"><i class="material-icons left">child_care</i>Connexion élève</a></li>';
-                    echo '<li><a href="historique"><i class="material-icons left">history</i>Historique'.$bagde.'</a></li>';
+                    echo '<li><a href="historique" class="'.$pulse.'"><i class="material-icons left">history</i>Historique'.$bagde.'</a></li>';
                     echo '<li><a href="administration"><i class="material-icons left">settings</i>Administration</a></li>';
                 }
                 else if(isset($env) && $env == 'childlog'){

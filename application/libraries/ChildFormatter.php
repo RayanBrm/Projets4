@@ -16,9 +16,12 @@ class ChildFormatter implements FormatterInterface
         $link = "child/connect/".$child['id'];
 
         return "<div class='col i'>".
-                    "<a href='". base_url($link) ."' class=\"tooltipped\" data-position=\"bottom\" data-delay=\"50\" data-tooltip=\"Se connecter : ".$child['prenom']." ".$child['nom']."\">".
-                    "<img src='". base_url($img) ."' alt='".$alt."'>".
-                    "</a>".
+                    "<div class='row'>".
+                        "<a href='". base_url($link) ."' class=\"tooltipped\" data-position=\"bottom\" data-delay=\"50\" data-tooltip=\"Se connecter\">".
+                            "<img src='". base_url($img) ."' alt='".$alt."'>".
+                        "</a>".
+                    "</div>".
+                    "<span class='row etiquette-enfant'>".$child['prenom']." ".$child['prenom']."</span>".
                "</div>";
     }
 

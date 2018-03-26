@@ -26,32 +26,38 @@ function multiLoad() {
 }
 
 function loadClasseEmrunt(){
-    var xhr = getXHR();
     var classe = document.getElementById('classe_select').value;
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            // callback
-            document.getElementById('emprunt_container').innerHTML = xhr.responseText;
+    $.ajax({
+        url:'ajax/getEmprunt/'+classe+'/1',
+        type:'GET',
+        success: function (response) {
+            $('#emprunt_container').html(response);
         }
-    };
-
-    xhr.open("GET", "/ajax/getEmprunt/"+classe+"/1", true);
-    xhr.send();
+    });
 }
 
 function loadClasse() {
     var xhr = getXHR();
     var classe = document.getElementById('classe_select').value;
 
+    $.ajax({
+       url:'ajax/getClasse/'+classe+'/option',
+       type:'GET',
+       success:function (response) {
+           $('#child_select').html(response);
+           $(document).ready(function() {
+               $('select').material_select();
+           });
+       }
+    });
+
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
             // callback
             console.log("Classe : "+classe);
             document.getElementById('child_select').innerHTML = xhr.responseText;
-            $(document).ready(function() {
-                $('select').material_select();
-            });
+
         }
     };
 

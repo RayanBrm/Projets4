@@ -230,7 +230,8 @@ class Main extends CI_Controller
      */
     public function connexion(){
         if (!$this->isLogged()){
-            $this->load->view('main/connexion');
+            $data['outdated'] = false;
+            $this->load->view('main/connexion', $data);
         }
         else{
             redirect('accueil');
