@@ -13,7 +13,7 @@ $this->load->view('utilities/page_nav', $data);
 
         <form method="post" action="connect">
 
-            <div class="col s12 center red-text"><h2>Connectez vous !</h2></div>
+            <div class="col s12 center red-text"><h2 class="titleA">Connectez vous !</h2></div>
             <div class="col s6"><input class="red-text lighten-2" type="text" name="login" placeholder="Identifiant" required></div>
             <div class="col s6"><input class="red-text lighten-2" type="password" name="pwd" placeholder="Mot de passe" required></div>
     </div>

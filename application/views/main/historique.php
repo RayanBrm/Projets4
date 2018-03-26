@@ -46,7 +46,7 @@ if ($outdated){
     <div class="col s9">
         <div class="container">
             <div class="row">
-                <h1 class="center red-text">Historique</h1>
+                <h2 class="center titleA">Historique</h2>
                 <br>
                 <ul id="emprunt_container" class="collapsible" data-collapsible="accordion">
                    <?= $emprunts ?>

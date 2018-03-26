@@ -158,7 +158,7 @@ class Main extends CI_Controller
             }
 
             if ($baselen == strlen($data['emprunts'])){
-                $data['emprunts'].= "<li class=\"collection-header center\"><h5><blockquote>Vous n'avez encore jamais emprunter de livre!</blockquote></h5></li>";
+                $data['emprunts'].= "<li class=\"collection-header center\"><h5><blockquote>Vous n'avez encore jamais emprunté de livre!</blockquote></h5></li>";
             }
 
             $this->load->view('main/historique', $data);

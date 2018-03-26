@@ -11,6 +11,10 @@
     src: url('/assets/fonts/Amaranth-Regular.ttf');
 }
 
+@font-face {
+    font-family: "PT";
+    src: url('/assets/fonts/PT-Regular.ttf');
+}
 
 
 .row .col.i{
@@ -77,6 +81,17 @@ span.title {
 h1#identifiant{
     font-family: 'lobster', sans-serif;
     margin-left: 2%;
+}
+
+h1.titleA,h2.titleA{
+    font-family: 'lobster', sans-serif;
+    margin-left: 2%;
+}
+
+h4,h5,h6{
+    font-family: 'PT', sans-serif;
+    margin-top: 1%;
+    margin-bottom: 3%;
 }
 
 
