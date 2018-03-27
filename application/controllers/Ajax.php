@@ -224,6 +224,7 @@ class Ajax extends CI_Controller
             $bpath = ($_POST['add-path'] === 'true')? $_FILES['couverture-local']['tmp_name'] : $_POST['couverture'];
             $theme = explode(';', $_POST['theme']);
 
+            // Using livre model to check if author exist or not, create it if not
             if (!$this->livre->exist(array('auteur'=>$_POST['auteur']))){
                 $this->livre->addAuteur($_POST['auteur']);
             }
