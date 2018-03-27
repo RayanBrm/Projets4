@@ -7,6 +7,7 @@
 ?>
 
 <div class="container">
+    <h2 class="center titleA">Connexion des élèves</h2>
     <div class="row">
         <div class="col s3">
             <br>
