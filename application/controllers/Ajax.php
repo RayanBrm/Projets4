@@ -11,6 +11,7 @@ class Ajax extends CI_Controller
    private const FORBID = 'forbidden';
    private const INCOMPLETE = 'incomplete';
    private const EXIST = 'exist';
+   private const RESIZE = 'resize';
 
    private const FAILURE = 'failure';
    private const SUCCESS = 'success';
@@ -266,7 +267,7 @@ class Ajax extends CI_Controller
 
                 // Changing access and resizing
                 chmod($old,0777);
-                $this->resize($bookext);
+                $this->resize(__DIR__.'/../../'.BOOK_PATH.'lastdownload'.$bookext);
                 // Renaming to the book id and moving it to correct path
                 if (!rename($old,__DIR__.'/../../'.$couverture)){
                     echo $result." 3";
@@ -345,10 +346,14 @@ class Ajax extends CI_Controller
                 'auteur'=>$_POST['auteur'],
                 'edition'=>$_POST['edition'],
                 'description'=>$_POST['description']
-                //'themes' => json_decode($_POST['themes'])
             );
 
-            echo ($this->livre->set($toEdit) && $this->theme->delBook(array('id_livre'=>$_POST['id'])) && $this->theme->assignThemeToBook($_POST['id'],$_POST['themes']))?
+            if ($_FILES['upfile']['tmp_name'] !== ''){
+                $toEdit['couverture'] = 'assets/img/livres/'.$_POST['id'].'.'.$this->getExt($_FILES['upfile']['type']);
+            }
+
+            echo ($this->livre->set($toEdit) && $this->theme->delBook(array('id_livre'=>$_POST['id'])) && $this->theme->assignThemeToBook($_POST['id'],explode(';',$_POST['themes'])) &&
+            ($_FILES['upfile']['tmp_name'] !== '')? ($this->saveFile('assets/img/livres/', $_POST['id'], true) === self::SUCCESS)? true : false : true)?
                 self::SUCCESS : self::FAILURE;
         }else{
             echo self::FAILURE;
@@ -457,7 +462,7 @@ class Ajax extends CI_Controller
             $result = true;
             $return = self::FAILURE;
             if (count(explode('_',$_POST['nom'])) > 1){
-                $return = $this->saveFile(__DIR__.'/../../'.THEME_PATH);
+                $return = $this->saveFile(THEME_PATH, ''.$_POST['nom']);
             }
             echo ($this->theme->add($_POST['nom']) && $result)? self::SUCCESS : $return;
         }else{
@@ -532,10 +537,15 @@ class Ajax extends CI_Controller
         return file_put_contents($img, file_get_contents($url));
     }
 
-    private function resize(string $ext)
+    /**
+     * Resise the book at the given path to the size of 330x475
+     * @param string $book
+     * @return string
+     */
+    private function resize(string $book) : string
     {
         $config['image_library'] = 'gd2';
-        $config['source_image'] = '/home/guillaume/Projets4/assets/img/livres/lastdownload'.$ext;
+        $config['source_image'] = $book;
         $config['create_thumb'] = FALSE;
         $config['maintain_ratio'] = FALSE;
         $config['width']     = BOOK_PIC_WIDTH;
@@ -547,8 +557,9 @@ class Ajax extends CI_Controller
 
         if(!$this->image_lib->resize()){
             //dump($this->image_lib);
-            $this->image_lib->display_errors('<p>', '</p>');
+            return $this->image_lib->display_errors('<p>', '</p>');
         }
+        return 'success';
     }
 
     public function getAleaPastille(string $classId): string
@@ -568,9 +579,19 @@ class Ajax extends CI_Controller
         return explode('.',$availablePastilles[$i])[0];
     }
 
-    private function saveFile($pathToSave = '/assets/img/'): string
+    /**
+     * Save the file uploaded in $_FILE['upfile'] to the given
+     * @param string $pathToSave Take his origin from __DIR__/../../ which is at the root of the website,
+     *                           by default the file is saved at __DIR__/../../assets/img/
+     * @param string $filename The name to give to the file, if not given $_FILE[upfile][tmp_name] passed in sha1 is given
+     * @param bool $resize If the file has to be resized, see $this->resize() for more info
+     * @return string 'success' if all step passed or the string describing the error source in other case
+     */
+    private function saveFile(string $pathToSave = 'assets/img/', string $filename = 'none', bool $resize = false): string
     {
-        // FROM PHP DOCS
+        if (!isset($pathToSave))
+            $pathToSave = 'assets/img/';
+
         try {
             // Undefined | Multiple Files | $_FILES Corruption Attack
             // If this request falls under any of them, treat it invalid.
@@ -618,14 +639,22 @@ class Ajax extends CI_Controller
             // You should name it uniquely.
             // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
             // On this example, obtain safe unique name from its binary data.
-            if (!move_uploaded_file(
-                $_FILES['upfile']['tmp_name'],
-                sprintf($pathToSave.'%s.%s',
-                    sha1_file($_FILES['upfile']['tmp_name']),
-                    $ext
-                )
-            )) {
+            $destination = ($filename == 'none')?
+                sprintf($pathToSave.'%s.%s',sha1_file($_FILES['upfile']['tmp_name']),$ext)
+                :
+                $pathToSave.$filename.'.'.$ext
+            ;
+
+            if (!move_uploaded_file($_FILES['upfile']['tmp_name'], __DIR__.'/../../'.$destination)) {
+                echo 'upload';
                 throw new RuntimeException(self::UPLOAD);
+            }
+
+            if ($resize){
+                if ($this->resize(__DIR__.'/../../'.$destination) !== 'success'){
+                    echo 'resize';
+                    throw new RuntimeException(self::RESIZE);
+                }
             }
 
             return self::SUCCESS;
@@ -633,6 +662,22 @@ class Ajax extends CI_Controller
         } catch (RuntimeException $e) {
             return $e->getMessage();
         }
+    }
+
+    private function getExt($type) : string
+    {
+        $mime_image_type = array(
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+        );
+
+        $ext = '';
+        if (false === $ext = array_search($type,$mime_image_type,true)){
+            return '';
+        }
+        return $ext;
     }
 
 }

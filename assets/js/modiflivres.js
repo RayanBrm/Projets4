@@ -84,29 +84,25 @@ function initChipsSecondaryTheme() {
  * Get the data from the form and send it the new ones to the ajax controller to be save
  */
 function validate() {
-    let data = {};
+    let data = new FormData($('#form')[0]);
+    let themes = [];
 
-    data['id'] = $('#id').val();
-    data['titre'] = $('#titre').val();
-    data['auteur'] = $('#auteur').val();
-    data['edition'] = $('#edition').val();
-    data['description'] = $('#description').val();
-    data['themes'] = [];
     // Filling thems list thanks to global array which is up to date from secondary theme
     for(let i of secondaryTheme){
-        data['themes'].push(i);
+        themes.push(i);
     }
 
     if(mainTheme !== null){
-        data['themes'].push(mainTheme);
+        themes.push(mainTheme);
     }
-
-    console.log(data);
+    data.append('themes',themes.join(';'));
 
     $.ajax({
         type:'POST',
         url:'ajax/editBook',
         data:data,
+        processData: false,
+        contentType: false,
         success: function (responseText) {
             if (responseText === SUCCESS){
                 Materialize.toast('Le livre a été modifié.', 5000);
