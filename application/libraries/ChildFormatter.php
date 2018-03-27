@@ -47,4 +47,17 @@ class ChildFormatter implements FormatterInterface
                 '</div>';
     }
 
+    public function toTable(array $child) : string
+    {
+        return '<tr>'.
+                    '<td>'.$child['nom'].'</td>'.
+                    '<td>'.$child['prenom'].'</td>'.
+                    '<td>'.$child['classe'].'</td>'.
+                    '<td>'.
+                        '<input type="checkbox" id="'.$child['id'].'"/>'.
+                        '<label for="'.$child['id'].'">Ajouter</label>'.
+                    '</td>'.
+               '</tr>';
+    }
+
 }

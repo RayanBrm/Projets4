@@ -123,7 +123,7 @@ class Main extends CI_Controller
 
             $eleves = $this->user->getAllChild();
             foreach ($eleves as $eleve){
-                $data['childCardList'].=$this->format->child->toCard($eleve);
+                $data['childCardList'].=$this->format->child->toTable($eleve);
             }
 
             $this->load->view('main/administration',$data);

@@ -46,10 +46,19 @@
             <div class="collapsible-body">
                 <div class="row">
                     <div class="col s6">
-                        <div class="row" id="child_container">
-                            <!--                                 TODO : resize-->
-                            <?= $childCardList; ?>
-                        </div>
+                        <table class="row" id="child_container">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Classe</th>
+                                    <th>Selectionner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?= $childCardList; ?>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="col s6">
                         <h5>Classe à affecter :</h5>
