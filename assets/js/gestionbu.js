@@ -100,13 +100,10 @@ function getByIsbn() // API Google working
                 xhr.setRequestHeader('Access-Control-Allow-Origin', 'AIzaSyAL_jvVpvMXMvlZYF35egMZ-Jrkoq6lLMY');
             },
             success: function(response){
-                // Getting response as JSON
-                let book = JSON.parse(response);
-                console.log(book); // Debug display
                 // Response checking
-                if (book['totalItems'] > 0 && book['items'][0]['volumeInfo'] !== undefined) {
+                if (response['totalItems'] > 0 && response['items'][0]['volumeInfo'] !== undefined) {
                     // Fill the form
-                    fill(book['items'][0]['volumeInfo'])
+                    fill(response['items'][0]['volumeInfo'])
                 }
                 else {
                     // Displaying erro message
