@@ -52,7 +52,7 @@ class ChildFormatter implements FormatterInterface
         return '<tr>'.
                     '<td>'.$child['nom'].'</td>'.
                     '<td>'.$child['prenom'].'</td>'.
-                    '<td>'.$child['classe'].'</td>'.
+                    '<td>'.$child['libelle'].'</td>'.
                     '<td>'.
                         '<input type="checkbox" id="'.$child['id'].'"/>'.
                         '<label for="'.$child['id'].'">Ajouter</label>'.

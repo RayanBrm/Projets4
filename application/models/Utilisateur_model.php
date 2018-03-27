@@ -172,7 +172,9 @@ class Utilisateur_model extends CI_Model
         return $this->db->select()
                         ->from($this->table)
                         ->join('Eleve', 'Eleve.id=Utilisateur.id')
+                        ->join('Classe', 'Eleve.classe=Classe.id')
                         ->where($where)
+                        ->order_by('nom ASC')
                     ->get()
                     ->result_array();
     }
