@@ -3,7 +3,7 @@ var classeToDelete = -1;
 // Affectations
 function modifyClasses() {
     let classe = $(`input[name=classes]:checked`);
-    let checkbox = $('input[type=checkbox]:checked');
+    let checkbox = $('#child_container tbody input[type=checkbox]:checked');
 
     if(classe.length === 0 || checkbox.length === 0){
         Materialize.toast('Veuillez selectionnez des éléments a modifier.',5000);
@@ -11,7 +11,7 @@ function modifyClasses() {
         let newClass = classe.attr('id').split('_')[1];
         let childs = [];
 
-        for (elm of checkbox){
+        for (let elm of checkbox){
             childs.push(elm.id);
         }
 

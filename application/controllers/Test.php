@@ -2,8 +2,8 @@
 
 class Test extends CI_Controller
 {
-    private $testNB;
-    private $testPassed;
+    private $testNB = 0;
+    private $testPassed = 0;
     private static $tables = array(
         'Auteur',
         'Classe',
@@ -37,7 +37,6 @@ class Test extends CI_Controller
 
         $data['PassedTest'] = $this->testPassed;
         $data['NumberOfTest'] = $this->testNB;
-
 
         $this->load->view('test/display',$data);
         // Reset to prod db

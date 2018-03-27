@@ -163,13 +163,14 @@ class Utilisateur_model extends CI_Model
 
     /**
      * Getter for the whole list of child
+     * @param string|null $classe Optional parameter specify a specific classe id where child need to be
      * @return array|null format as array([.]=>array('id'=>?,'identifiant'=>?,'nom'=>?,...))
      */
     public function getAllChild(string $classe = null): ?array
     {
         $where = 'Role = "3"'.((isset($classe))? ' AND classe = '.$classe : '' );
 
-        return $this->db->select()
+        return $this->db->select('Eleve.id as id, identifiant, nom, prenom, role, classe, libelle, pastille')
                         ->from($this->table)
                         ->join('Eleve', 'Eleve.id=Utilisateur.id')
                         ->join('Classe', 'Eleve.classe=Classe.id')
@@ -208,6 +209,7 @@ class Utilisateur_model extends CI_Model
      * @param int $mode Mode on how to search user,
      *                   -> HARD : every field is searched (identifiant,nom,prenom)
      *                   -> LIGHT : only identifiant is searched
+     *                  ! Static variable from this classe
      * @return bool True if some with given data exist
      */
     public function userExist(string $data, int $mode = -1): bool
