@@ -20,7 +20,7 @@ class BookFormatter implements FormatterInterface
                         "<span class='title activator grey-text text-darken-4'>".$data['titre']."</span>".
                     "</div>".
                     "<div class='card-reveal'>".
-                        "<span class='card-title grey-text text-darken-4'>".$data['titre']."</span>".
+                        "<span class='card-title grey-text text-darken-4 title'>".$data['titre']."</span>".
                         "<span><i class='material-icons right card-title'>close</i></span>".
                         "<p>".
                             "<ul class='pink-text'>".

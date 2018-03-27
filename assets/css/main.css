@@ -63,9 +63,9 @@ span.icon{
 }
 
 span.title {
-    font-size: 1.0em;
+    font-size: 1.1em !important;
     font-weight: normal;
-    text-align: justify !important;
+    /*text-align: justify !important;*/
     font-family: 'ama';
 
 }
