@@ -7,7 +7,7 @@
                 Ajouter un thème
             </div>
             <div class="collapsible-body">
-                <form id="book_form">
+                <form id="theme_form">
                     <!--        Theme-->
                     <div class="row">
                         <div class="input-field col s6">
@@ -26,7 +26,7 @@
                         <div id="theme_file_container" class="file-field input-field col s6" hidden>
                             <div class="btn red lighten-3">
                                 <span>Image</span>
-                                <input type="file">
+                                <input type="file" name="upfile">
                             </div>
                             <div class="file-path-wrapper">
                                 <input title="file-path" class="file-path validate" type="text">

@@ -38,22 +38,30 @@ $('#themeType').on('change', function () {
 });
 
 function addTheme() {
-    let data = {};
+    let form = $('#theme_form')[0];
+    let data = new FormData(form);
     let themeType = $('#themeType').val();
 
-    data['nom'] =  themeType + $('#theme').val();
+    data.append('nom', themeType + $('#theme').val());
     if (themeType === "main_"){
-        data['file'] = 'true';
+        data.append('file', 'true');
     }
 
-    $.post('ajax/addTheme', data, function (responseText) {
-        if (responseText === SUCCESS){
-            Materialize.toast('Le theme a été ajouté avec succès', 5000);
-            $('#theme').val('');
-        }else if(responseText === FAILURE){
-            Materialize.toast('Une erreur s\'est produite, réessayez plus tard ou contactez un administrateur', 5000);
+    $.ajax({
+        url:'ajax/addTheme',
+        type:'POST',
+        data:data,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            if (response === SUCCESS){
+                Materialize.toast('Le theme a été ajouté avec succès', 5000);
+                $('#theme').val('');
+            }else if(response === FAILURE){
+                Materialize.toast('Une erreur s\'est produite, réessayez plus tard ou contactez un administrateur', 5000);
+            }
         }
-    })
+    });
 }
 
 function stylize() {
