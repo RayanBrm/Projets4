@@ -36,7 +36,7 @@ $this->load->view('utilities/page_nav',$data);
                         <div id="secondary_theme" class="chips chips-placeholder chips-initial chips-autocomplete"></div>
                     </div>
                 </div>
-                <div class="row col s6">
+                <div class="row col s9">
                     <div class="col s6">
                         <a class="waves-effect waves-light btn tooltipped" href="javascript:history.back()" data-position="bottom" data-delay="50" data-tooltip="Annuler les changements et revenir."><i class="material-icons left">cancel</i>annuler</a>
                     </div>

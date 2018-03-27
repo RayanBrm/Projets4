@@ -48,7 +48,7 @@ $lock_icon = ($lock == "none")? '' : '<i class="material-icons lock_icon">lock</
         </div>
     </div>
 
-<div class="container">
+<div class="">
     <h2 class="center titleA">Administration globale de la bibliothèque</h2>
     <div class="row">
         <div class="col s12">
