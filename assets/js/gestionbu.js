@@ -28,7 +28,9 @@ function addBook() {
     // Check non empty form before
     let form = $('form')[0];
     let data = new FormData(form);
-    bookTheme.push($('#mainTheme').val());
+    if ($('#mainTheme').val() !== ''){
+        bookTheme.push('main_'+$('#mainTheme').find('option:selected').text());
+    }
     data.append('add-path', document.getElementById('add-path').checked);
     data.append('theme', bookTheme.join(';'));
 
@@ -47,12 +49,14 @@ function addBook() {
                 $('#file-input').hide();
                 $('[id^=local-couverture]').val('');
                 form.reset();
+                bookTheme = [];
             }
             else {
                 Materialize.toast('Une erreur s\'est produite ' + responseText, 4000);
             }
         }
     });
+    data = null;
 }
 
 // Called on click of delete icon
