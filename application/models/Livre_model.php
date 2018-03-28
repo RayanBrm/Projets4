@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Livre_model
+ * DB interaction with Livre table, CRUD are present and other useful function
+ */
 class Livre_model extends CI_Model
 {
     private $table = 'Livre';

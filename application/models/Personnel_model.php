@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Personnel_model
+ * DB interaction with Personnel table, CRUD are present and other useful function
+ */
 class Personnel_model extends Utilisateur_model
 {
     private $table = 'Personnel';

@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class Classe_model
+ * DB interaction with Classe table, CRUD are present and other useful function
+ */
 class Classe_model extends CI_Model
 {
+    /**
+     * @var string The table name
+     */
     private $table = 'Classe';
 
     public function __construct()
@@ -64,6 +71,11 @@ class Classe_model extends CI_Model
         return $this->db->select()->from($this->table)->where('libelle LIKE "%'.$libelle.'%"')->get()->result_array();
     }
 
+    /**
+     * Return the number of child assigned to the given classe id
+     * @param string $classId The classe where to find belonging childs
+     * @return int
+     */
     public function assignedChild(string $classId): int
     {
         return count($this->db->select()->from('Eleve')->where(array('classe'=>$classId))->get()->result_array());

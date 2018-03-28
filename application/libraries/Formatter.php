@@ -7,6 +7,11 @@ require_once 'BookFormatter.php';
 require_once 'UserFormatter.php';
 require_once 'ThemeFormatter.php';
 
+/**
+ * Class Formatter
+ * General object grouping each implementation of the FormatterInterface
+ * Function name in each object are speaking so they are not documented, they convert the given element to the function html node
+ */
 class Formatter
 {
     /**
@@ -48,10 +53,21 @@ class Formatter
         $this->theme = new ThemeFormatter($this->CI);
     }
 
+    /**
+     * Getter for the field list, so an implementaion can be called as $this->format->child->method
+     * Where format is this object, and child an implementaion of the FormatterInterface
+     * @param $field
+     * @return mixed
+     */
     public function __get($field) {
         return $this->$field;
     }
 
+    /**
+     * Format the date as : year-month-date, mostly for DB insertion
+     * @param $date string The date as : 29 March, 2018 or other format given by JS
+     * @return string The date formatted as said
+     */
     public function date($date): string
     {
         $result = "";
@@ -112,6 +128,11 @@ class Formatter
         return $result;
     }
 
+    /**
+     * Formate a given chip name to an html displayable <option>
+     * @param $pastille
+     * @return string
+     */
     public function pastilleToOption($pastille): string
     {
         return "<option value=\"$pastille\" data-icon=\"/assets/img/pastilles_eleve/$pastille.png\" class=\"circle\">$pastille</option>";

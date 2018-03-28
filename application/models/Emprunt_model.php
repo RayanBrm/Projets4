@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Emprunt_model
+ * DB interaction with Emprunt table, CRUD are present and other useful function
+ */
 class Emprunt_model extends CI_Model
 {
     private $table = 'Emprunt';

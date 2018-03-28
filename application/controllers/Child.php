@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Child
+ * Child controller, which is called when a child is logged
+ */
 class Child extends CI_Controller
 {
     public function __construct()

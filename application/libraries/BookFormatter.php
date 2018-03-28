@@ -37,7 +37,6 @@ class BookFormatter implements FormatterInterface
         return $result;
     }
 
-
     public function toChildCatalog(array $data)
     {
         return $this->toCatalog($data);

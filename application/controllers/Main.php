@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Main
+ * Main controller, each function represent a different page
+ */
 class Main extends CI_Controller
 {
     public function __construct()
@@ -19,7 +23,7 @@ class Main extends CI_Controller
     }
 
     /**
-     * Controller fot catalogue page load the catalog
+     * Controller for catalogue page load the catalog
      * The default number of book per page is defined in config/constants.php
      */
     public function catalogue()

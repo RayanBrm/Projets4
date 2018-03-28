@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Theme_model
+ * DB interaction with Theme table, CRUD are present and other useful function
+ */
 class Theme_model extends CI_Model
 {
     private $table = 'Theme';

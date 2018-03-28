@@ -1,16 +1,26 @@
 <?php
 
+/**
+ * Class Eleve_model
+ * DB interaction with Eleve table, CRUD are present and other useful function
+ */
 class Eleve_model extends Utilisateur_model
 {
-
+    /**
+     * @var string The table name
+     */
     private $table = 'Eleve';
-
 
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Add a child into the Eleve table
+     * @param array $data
+     * @return bool
+     */
     public function add(array $data): bool
     {
         if (isset($data['id']) && isset($data['classe'])){
@@ -20,7 +30,7 @@ class Eleve_model extends Utilisateur_model
     }
 
     /**
-     * Getter for Eleve table
+     * Getter for data in Eleve table
      * @param array $data Contains data about to identify user(s) as an associative array
      * @return array|null
      */
@@ -34,7 +44,7 @@ class Eleve_model extends Utilisateur_model
     }
 
     /**
-     * Delete a child from table Eleve
+     * Delete a child from Eleve table
      * @param array $data Contains only child id as an associative array
      * @return bool True if the child has been deleted false else
      */
@@ -46,6 +56,11 @@ class Eleve_model extends Utilisateur_model
         return false;
     }
 
+    /**
+     * Update a child from Eleve table
+     * @param array $data
+     * @return bool
+     */
     public function set(array $data): bool
     {
         if(isset($data['id']) && (isset($data['pastille']) || isset($data['classe']))){
@@ -57,9 +72,15 @@ class Eleve_model extends Utilisateur_model
         return false;
     }
 
+    /**
+     * Could be replaced with the base set function
+     * @param string $userID
+     * @param string $pastille
+     * @return bool
+     */
     public function setPastille(string $userID, string $pastille): bool
     {
-        
+        // NOT IMPLEMENTED
     }
 
     /**
@@ -82,6 +103,11 @@ class Eleve_model extends Utilisateur_model
         return $result;
     }
 
+    /**
+     * Return all child belonging to the given classe id
+     * @param string $classID
+     * @return array
+     */
     public function getClasse(string $classID): array
     {
         return $this->db->select()
@@ -89,20 +115,6 @@ class Eleve_model extends Utilisateur_model
             ->where(array('classe'=>$classID))
             ->get()
             ->result_array();
-    }
-
-    /**
-     * Return if the childList property has to been updated
-     */
-    private function needUpdate()
-    {
-        if ($this->lastModified === false){
-            return false;
-        }
-        if (isset($this->lastUpdated)){
-            return $this->lastModified > $this->lastUpdated;
-        }
-        return true;
     }
 
     /**
@@ -115,6 +127,11 @@ class Eleve_model extends Utilisateur_model
         return (count($this->db->select()->from($this->table)->where($data)->get()->result_array()) > 0);
     }
 
+    /**
+     * Return the list of chip child already have in the given classe id
+     * @param string $classeId
+     * @return array|null
+     */
     public function getUsedPastilleFromClasse(string $classeId): ?array
     {
         $result=array();

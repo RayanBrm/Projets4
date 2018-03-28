@@ -1,7 +1,13 @@
 <?php
-
+/**
+ * Class Utilisateur_model
+ * DB interaction with Classe table, CRUD are present and other useful function
+ */
 class Utilisateur_model extends CI_Model
 {
+    /**
+     * @var string The table name
+     */
     private $table;
     /**
      * Describe the different available mode for checking user exist or not
