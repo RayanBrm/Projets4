@@ -1,7 +1,7 @@
 #Role
-INSERT INTO `Role` (libelle) VALUES ('Administrateur');
-INSERT INTO `Role` (libelle) VALUES ('Professeur');
-INSERT INTO `Role` (libelle) VALUES ('Eleve');
+# INSERT INTO `Role` (libelle) VALUES ('Administrateur');
+# INSERT INTO `Role` (libelle) VALUES ('Professeur');
+# INSERT INTO `Role` (libelle) VALUES ('Eleve');
 INSERT INTO `Role` (libelle) VALUES ('NC');
 
 #Classe
@@ -13,7 +13,6 @@ INSERT INTO `Classe` (libelle) VALUES ('CM2');
 
 #Utilisateur
 INSERT INTO Utilisateur (identifiant,nom,prenom,role) VALUES
-  ('admin','Jean-Gui','Ladmin',1),
   ('elev1','Eleve','1',3),
   ('elev2','Eleve','2',3),
   ('elev3','Eleve','3',3),

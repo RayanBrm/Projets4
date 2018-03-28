@@ -406,6 +406,13 @@ ALTER TABLE `Utilisateur`
   ADD CONSTRAINT `Utilisateur_ibfk_1` FOREIGN KEY (`role`) REFERENCES `Role` (`id`);
 COMMIT;
 
+
+INSERT INTO `Role` (libelle) VALUES ('Administrateur');
+INSERT INTO `Role` (libelle) VALUES ('Professeur');
+INSERT INTO `Role` (libelle) VALUES ('Eleve');
+INSERT INTO Utilisateur (identifiant,nom,prenom,role) VALUES ('admin','Administrateur','Administrateur',1);
+INSERT INTO `Personnel` (`id`, `motdepasse`) VALUES (1, '$2y$10$6OD77JMyVkX28enTsYjhEeu2J0jlKoUEBwxP6IXh6YM6uzXZ4yF2y');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
