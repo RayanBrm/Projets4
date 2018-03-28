@@ -15,8 +15,8 @@ class Livre_model extends CI_Model
         return $this->db->select()
                         ->from($this->table)
                         ->where($data, null, false)
-                       ->get()
-                       ->result_array();
+            ->get()
+            ->result_array();
     }
 
     public function set(array $data): bool

@@ -21,7 +21,7 @@ if ($outdated){
         <br>
         <br>
         <br>
-        <a class="waves-effect waves-light btn-large tooltipped buttonA " href="historique" data-position="bottom" data-delay="50" data-tooltip="Acceder a mon historique">Mon historique</a>
+        <a class="waves-effect waves-light btn-large tooltipped buttonA " href="historique" data-position="bottom" data-delay="50" data-tooltip="Accèder à mon historique">Mon historique</a>
         <a id="retard" class="waves-effect waves-light btn-large tooltipped buttonA" href="#" data-position="bottom" data-delay="50" data-tooltip="Voir les emprunts en retard">Emprunt en retard</a>
         <div class="input-field col s12">
                 <i class="material-icons prefix red-text">grade</i>
