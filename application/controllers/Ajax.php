@@ -459,6 +459,10 @@ class Ajax extends CI_Controller
     public function addTheme()
     {
         if (isset($_POST['nom'])){
+            if ($this->theme->existTheme($_POST['nom'])){
+                echo self::EXIST;
+                exit();
+            }
             $return = self::SUCCESS;
             if ($_POST['file'] === 'true'){
                 $return = $this->saveFile(THEME_PATH, explode('_',$_POST['nom'])[1]);

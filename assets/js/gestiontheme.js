@@ -45,6 +45,8 @@ function addTheme() {
     data.append('nom', themeType + $('#theme').val());
     if (themeType === "main_"){
         data.append('file', 'true');
+    } else {
+        data.append('file', 'false');
     }
 
     $.ajax({
@@ -59,6 +61,8 @@ function addTheme() {
                 $('#theme').val('');
             }else if(response === FAILURE){
                 Materialize.toast('Une erreur s\'est produite, réessayez plus tard ou contactez un administrateur', 5000);
+            } else if(response === EXIST){
+                Materialize.toast('Le theme éxiste déjà', 5000);
             }
         }
     });

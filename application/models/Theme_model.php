@@ -182,4 +182,13 @@ class Theme_model extends CI_Model
     {
         return (count($this->db->select()->from('LivreTheme')->where($data)->get()->result_array()) > 0);
     }
+
+    /**
+     * @param string $themeName
+     * @return bool
+     */
+    public function existTheme(string $themeName): bool
+    {
+        return (count($this->db->select()->from($this->table)->where('nom',$themeName)->get()->result_array()) > 0);
+    }
 }
