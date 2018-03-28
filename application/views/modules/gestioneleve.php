@@ -17,14 +17,14 @@
                         <div class="row">
                             <div class="input-field col s8">
                                 <input id="child_prenom" type="text" class="validate">
-                                <label class="red-text ligthen-2" for="child_prenom">Prenom</label>
+                                <label class="red-text ligthen-2" for="child_prenom">Prénom</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
                                 <select id="classe">
                                   <option value="" disabled selected>Classe</option>
-                                    <?= $classList ?>q
+                                    <?= $classList ?>
                                 </select>
                                 <label for="classe">Classe</label>
                             </div>
