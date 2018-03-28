@@ -28,6 +28,12 @@ class Ajax extends CI_Controller
 
     // *********** Classes functions
 
+    /**
+     * Return on stdout a formated string containing all child or the child of a specific one.
+     * @param string $classeID '0' for all child, else a class id
+     * @param string $displayMode The mode to format the child, could be 'log' or 'option',
+     *                            Refer to Formatter class for more information
+     */
     public function getClasse(string $classeID, string $displayMode)
     {
         $result = "";
@@ -45,12 +51,17 @@ class Ajax extends CI_Controller
             elseif ($displayMode == 'option'){
                 $tmpEleve = $this->user->get(array('id'=>$eleve['id']))[0];
                 $result.=$this->format->child->toOption($tmpEleve);
+            } else {
+                $result.='';
             }
         }
-
         echo $result;
     }
 
+    /**
+     * Return on stdout the the whole list of classe, each as an html option
+     * Refer to Formatter class for more information
+     */
     public function getClasseList()
     {
         $result = '';
@@ -64,6 +75,17 @@ class Ajax extends CI_Controller
 
     // *********** User functions
 
+    /**
+     * Handler for adding a user, receive POST parameters as :
+     * $_POST = array(
+     *          'identifiant'=>'',
+     *          'nom'=>'',
+     *          'prenom'=>'',
+     *          'role'=>''
+     *          ['motdepasse'=>''] Only if role is prof or admin
+     *          ['classe'=>''] Only if role is eleve, a random child chip is chosen according to his classe
+     *      )
+     */
     public function adduser()
     {
         // Filtering users :
@@ -103,6 +125,13 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Search a user, POST parameter needed as :
+     * $_POST => array(
+     *              'search'=>'', Specify the keyword to search in nom, prenom or identifiant field
+     *              'type'=>''    Specify the user type to search, can be 'child' or 'util'
+     *          )
+     */
     public function getUser()
     {
         $keyWord = $_POST['search'];
@@ -120,6 +149,11 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    /**
+     * Delete a user, POST parameter required as $_POST['userId'], which represent a valid user id
+     * If an admin try to delete his own account or the logged user is not administrator 'forbidden' is throw
+     * Else 'success' or 'failure' is thrown according to the models result
+     */
     public function delUser()
     {
         if (!isset($_POST['userId'])){
@@ -134,6 +168,16 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Change the childs array given to the given classe id
+     * POST parameter required as :
+     *  $_POST = array(
+     *              'childs'=>'', A JSON array containing child id
+     *              'classe'=>'' A valid class id
+     *           )
+     *
+     * Throw 'success' or 'failure' in case of invalid parameters or in case of models failure
+     */
     public function changeChildClass(){
         if (isset($_POST['childs']) && isset($_POST['classe'])){
             $childs = json_decode($_POST['childs']);
@@ -150,6 +194,19 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Edit the user credential, POST parameter required as :
+     * $_POST = array(
+     *          'id'=>'',
+     *          'identifiant'=>'',
+     *          'nom'=>'',
+     *          'prenom'=>'',
+     *          'role'=>''
+     *          ['motdepasse'=>''] Only if role is prof or admin, if this filed is '' the password is not updated
+     *          ['classe'=>'', 'pastille'=>''] Only if role is eleve
+     *      )
+     * If child is connected, the updated is forbidden also if a prof is trying to edit someone else
+     */
     public function editUser()
     {
         // id exist and user is conneced and child is not connected
@@ -565,19 +622,27 @@ class Ajax extends CI_Controller
         return 'success';
     }
 
+    /**
+     * Return a random chip name contained in the /assets/img/pastille_eleve folder accoding to the available chip in the classe
+     * @param string $classId The chip where to compare to the available chip list
+     * @return string A random chip name
+     */
     public function getAleaPastille(string $classId): string
     {
+        // On recupere les pastille utilisé pour la classe donnée
         $usedPastilles = $this->eleve->getUsedPastilleFromClasse($classId);
+        // On recupere la liste de toutes les pastille dans le repertoire
         $availablePastilles = scandir(__DIR__.'/../../assets/img/pastilles_eleve');
         // On supprime les references au dossier courant '.' et au dossier parent '..'
         $availablePastilles = array_diff($availablePastilles, array('.', '..'));
 
         foreach ($availablePastilles as $currentKey => $currentValue) {
+            // Si une pastille est presente dans les pastille de la classe on la supprime des pastilles disponible
             if (in_array(explode('.',$availablePastilles[$currentKey])[0],$usedPastilles)){
                 unset($availablePastilles[$currentKey]);
             }
         }
-
+        // On renvoie une pastille aléatoire dans notre liste des pastilles disponibles
         $i = array_rand($availablePastilles,1);
         return explode('.',$availablePastilles[$i])[0];
     }
@@ -667,6 +732,11 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return the extension corresponding to the given mime type, '' if not corresponding
+     * @param $type string The mime type to search
+     * @return string The extension (jpg, png, ..) corresponding to the type or ''
+     */
     private function getExt($type) : string
     {
         $mime_image_type = array(

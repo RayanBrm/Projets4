@@ -293,7 +293,10 @@ class Main extends CI_Controller
         return $data;
     }
 
-
+    /**
+     * Check if some loan is outdated
+     * @return bool True if some, false else
+     */
     private function isOutdatedLoan() : bool
     {
         return count($this->emprunt->getOutdated()) > 0;

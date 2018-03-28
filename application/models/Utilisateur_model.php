@@ -180,6 +180,12 @@ class Utilisateur_model extends CI_Model
                     ->result_array();
     }
 
+    /**
+     * Search the keyword any field and return the result like a get()
+     * @param string $keyWord The word piece to find in field nom, prenom or identifiant
+     * @param string $where The role of where to search could be 'child' or 'util'
+     * @return array Formatted as get() in case of result, array() in other case (invalid $where or $keyWord not set or nothing found)
+     */
     public function search(string $keyWord, string $where): array
     {
         if (($where == "util" || $where == "child" )&& isset($keyWord)) {

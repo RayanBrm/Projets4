@@ -13,3 +13,5 @@
 [Tue Mar 27 23:07:38.278981 2018] [php7:notice] [pid 28256] [client 127.0.0.1:41208] PHP Notice:  Unknown: file created in the system's temporary directory in Unknown on line 0, referer: http://sitebu.local/modifier?what=book&who=5005
 [Tue Mar 27 23:33:56.104451 2018] [php7:notice] [pid 27991] [client 127.0.0.1:52688] PHP Notice:  Unknown: file created in the system's temporary directory in Unknown on line 0, referer: http://sitebu.local/administration
 [Tue Mar 27 23:35:48.531471 2018] [php7:notice] [pid 30069] [client 127.0.0.1:53618] PHP Notice:  Unknown: file created in the system's temporary directory in Unknown on line 0, referer: http://sitebu.local/administration
+[Wed Mar 28 14:17:46.100589 2018] [php7:notice] [pid 5891] [client 127.0.0.1:41562] PHP Notice:  Unknown: file created in the system's temporary directory in Unknown on line 0, referer: http://sitebu.local/administration
+[Wed Mar 28 14:18:17.768428 2018] [php7:notice] [pid 9365] [client 127.0.0.1:41846] PHP Notice:  Unknown: file created in the system's temporary directory in Unknown on line 0, referer: http://sitebu.local/modifier?what=book&who=10067
