@@ -1,21 +1,69 @@
 <?php
 
+/**
+ * Class Ajax
+ * This class is called on every ajax request to handle it
+ * Function return 'success' or 'failure' if action is needed, the result else
+ * In some case it can return other error descriptor listed below
+ * Parameter can be passed to a ajax handler with code igniter as /AjaxController/MethodAsHandler/Parameter1/Parameter2/...
+ */
 class Ajax extends CI_Controller
 {
-   private const PARAMS = 'params';
-   private const EMPTY = 'empty';
-   private const SIZE = 'size';
-   private const UNKNOWN = 'unknown';
-   private const FORMAT = 'format';
-   private const UPLOAD = 'upload';
-   private const FORBID = 'forbidden';
-   private const INCOMPLETE = 'incomplete';
-   private const EXIST = 'exist';
-   private const RESIZE = 'resize';
+    /**
+     * Throw if the given parameter is incorrect
+     */
+    private const PARAMS = 'params';
+    /**
+     * Throw if the something is empty and require a value
+     */
+    private const EMPTY = 'empty';
+    /**
+     * Throw if the given size isn't correct
+     */
+    private const SIZE = 'size';
+    /**
+     * Throw if an unknown error appear
+     */
+    private const UNKNOWN = 'unknown';
+    /**
+     * Thrown if the given format is incorrect
+     */
+    private const FORMAT = 'format';
+    /**
+     * Throw if a preblem has appeared during file upload
+     */
+    private const UPLOAD = 'upload';
+    /**
+     * Throw if a something is tried to be accessed with incorrect authorization
+     */
+    private const FORBID = 'forbidden';
+    /**
+     * Throw if some parameter is missing
+     */
+    private const INCOMPLETE = 'incomplete';
+    /**
+     * Throw if the given value already exist somewhere
+     */
+    private const EXIST = 'exist';
+    /**
+     * Throw if an error is detected during image resizing
+     */
+    private const RESIZE = 'resize';
 
-   private const FAILURE = 'failure';
-   private const SUCCESS = 'success';
+    /**
+     * General constant if something bad append during function execution
+     */
+    private const FAILURE = 'failure';
+    /**
+     * Genarel constant to notify success of execution
+     */
+    private const SUCCESS = 'success';
 
+    /**
+     * Constructor
+     * Load the Formatter class, see it for more information
+     * Instantiate php session if currently not running
+     */
     public function __construct()
     {
         parent::__construct();
@@ -224,8 +272,40 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return a random chip name contained in the /assets/img/pastille_eleve folder accoding to the available chip in the classe
+     * @param string $classId The chip where to compare to the available chip list
+     * @return string A random chip name
+     */
+    public function getAleaPastille(string $classId): string
+    {
+        // On recupere les pastille utilisé pour la classe donnée
+        $usedPastilles = $this->eleve->getUsedPastilleFromClasse($classId);
+        // On recupere la liste de toutes les pastille dans le repertoire
+        $availablePastilles = scandir(__DIR__.'/../../assets/img/pastilles_eleve');
+        // On supprime les references au dossier courant '.' et au dossier parent '..'
+        $availablePastilles = array_diff($availablePastilles, array('.', '..'));
+
+        foreach ($availablePastilles as $currentKey => $currentValue) {
+            // Si une pastille est presente dans les pastille de la classe on la supprime des pastilles disponible
+            if (in_array(explode('.',$availablePastilles[$currentKey])[0],$usedPastilles)){
+                unset($availablePastilles[$currentKey]);
+            }
+        }
+        // On renvoie une pastille aléatoire dans notre liste des pastilles disponibles
+        $i = array_rand($availablePastilles,1);
+        return explode('.',$availablePastilles[$i])[0];
+    }
+
     // ************ Classes functions
 
+    /**
+     * Return on stdout if the given classe has been added or not
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'classe'=>'' The classe name to add, correspond to 'libelle' in DB
+     *      )
+     */
     public function addClasse()
     {
         if (isset($_POST['classe'])){
@@ -235,6 +315,14 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return on stdout if the given classe has been updated
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'id'=>'' The classe id to update, this value isn't updated
+     *          'libelle'=>'' The new classe name to set
+     *      )
+     */
     public function editClasse(){ // TODO : other error message in case of existing libelle
         if (isset($_POST['id']) && isset($_POST['libelle']) && !$this->classe->exist($_POST['libelle'])){
             echo ($this->classe->set(array('id'=>$_POST['id'],'libelle'=>$_POST['libelle'])))? self::SUCCESS : self::FAILURE;
@@ -243,6 +331,14 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return on stdout if the given classe has been deleted
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'classe'=>'' The classe id to delete
+     *      )
+     * If child belong to this classe 'failure' is thrown, 'success' else
+     */
     public function deleteClasse(){ // TODO : other error message in case of existing child id classe
         if (isset($_POST['classe']) && $this->classe->assignedChild($_POST['classe']) == 0){
             echo ($this->classe->del($_POST['classe']))? self::SUCCESS : self::FAILURE;
@@ -251,6 +347,14 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return on stdout all classes formatted as li with input field corresponding to the given keyword
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'classe'=>'' The keyword to search in libelle filed in DB
+     *      )
+     * If notinh found '' is returned
+     */
     public function searchClasse(){
         $result = '';
         if (isset($_POST['classe'])){
@@ -264,7 +368,24 @@ class Ajax extends CI_Controller
     }
 
     // ************ Book functions
-//    TODO : finish access implementation for books
+
+    /**
+     * Return on stdout if the given book has been added
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'isbn'=>'',
+     *          'titre'=>'',
+     *          'auteur'=>'',
+     *          'edition'=>'',
+     *          'parution'=>'',
+     *          'description'=>''
+     *      )
+     * $_POST['add-path'] ['true'|'false'] say if a file has been uploaded or has to be downloaded
+     * If needed an author is added and the book added in DB
+     * If needed, a file is downloaded, else it is moved from $_FILE to the correct path
+     * Each image is resized to the correct format, see resize function for more information
+     * Finally the image access right is updated and the corrcect path is set for the image in DB
+     */
     public function addBook()
     {
         $result = "false";
@@ -339,6 +460,15 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    /**
+     * Return on stdout the books corresponding to the given keyword as two format :
+     * Require POST parameters
+     * $_POST = array(
+     *          'search'=>'' The keyword to be searched in fields : 'titre','auteur','edition','parution'
+     *          'display'=>'' The format where to export result can be [''|'toModify'] if nothing given toCatalog is applied, toModify in the other case
+     *      )
+     * See Formatter class for more information about html formatting
+     */
     public function getBook()
     {
         $keyWord = $this->input->post('search');
@@ -356,6 +486,14 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return on stdout the book list belonging to the theme given in parameter, formatted with toCatalog
+     * Require GET parameters as :
+     * $_GET = array(
+     *          'themeId'=>'' The theme id to filter the book with
+     *      )
+     * If no book is found return ''
+     */
     public function getBookByTheme()
     {
         $id = isset($_GET['themeId'])? $_GET['themeId'] : null;
@@ -370,6 +508,19 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    /**
+     * Return on stdout if the given book array has been loan returned
+     * Require POST parameters as :
+     * $_POST = array(
+     *          [0]=>array(
+     *                  'id_livre'=>'', Those field is used to identify a loan
+     *                  'id_eleve'=>'',
+     *                  'dateEmprunt'=>''
+     *              )
+     *          ...
+     *      )
+     * Return 'success' or 'failure'
+     */
     public function returnBook()
     {
         $bookList = $_POST['bookList'];
@@ -383,6 +534,15 @@ class Ajax extends CI_Controller
         echo self::SUCCESS;
     }
 
+    /**
+     * Return on stdout if the given book id has been deleted
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'id_livre'=>'', The book id to delete
+     *      )
+     * This function delete the book from, Emprunt, ThemeLivre, and Livre table in DB
+     * Return 'success' or 'failure'
+     */
     public function deleteBook()
     {
         $bookId = $_POST['book'];
@@ -393,9 +553,21 @@ class Ajax extends CI_Controller
             self::SUCCESS : self::FAILURE ;
     }
 
+    /**
+     * Return on stdout if the given book has been updated
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'id'=>'', This field is just used to identify precisely a book, it is not updated
+     *          'titre'=>'', Those other fields can be modified
+     *          'auteur'=>'',
+     *          'edition'=>'',
+     *          'description'=>''
+     *      )
+     * If a file has been uploaded, then a new image is set for the book cover so the 'couverture' field can be updated too
+     * A couverture is updated if the file extension has changed (png, jpeg, ...), the file is resized too
+     */
     public function editBook()
     {
-        // TODO : edit book cover
         if (isset($_POST)){
             $toEdit = array(
                 'id'=> $_POST['id'],
@@ -419,12 +591,23 @@ class Ajax extends CI_Controller
 
     // ************ Loan functions
 
+    /**
+     * Return on stdout if the loan has been added
+     * @param string $bookId The book id to add a loan
+     * @param string $userId The user id which has borrowed the book
+     * If the book is already borrowed 'failure' is returned 'success' else
+     */
     public function addEmprunt(string $bookId, string $userId)
     {
         echo ($this->emprunt->add(array('id_livre'=>$bookId,'id_eleve'=>$userId,'dateEmprunt'=>date('Y-m-d'))))?
             self::SUCCESS : self::FAILURE;
     }
 
+    /**
+     * Return the list of loan for the given id, can be user id or classe is if specified in second parameter
+     * @param string $id The id to get the loan
+     * @param string|null $isClasse The search will be made on classe if this value is != null
+     */
     public function getEmprunt(string $id, string $isClasse = null)
     {
         $result="";
@@ -455,6 +638,11 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    /**
+     * Return on stdout the list of outdated loan, formatted as html <li>
+     * See Formatter class for more information
+     * The time when a book is outdated is defined in /application/config/constants.php file as TIME_OUTDATED in day
+     */
     public function getOutdated()
     {
         $loans = $this->emprunt->getOutdated();
@@ -472,6 +660,9 @@ class Ajax extends CI_Controller
 
     // ************ Themes functions
 
+    /**
+     * Return on stdout as a JSON array the list of theme in DB
+     */
     public function getThemeList()
     {
         $themes = $this->theme->getAll();
@@ -483,6 +674,10 @@ class Ajax extends CI_Controller
         echo json_encode($tmp);
     }
 
+    /**
+     * Return on stdout the list of main theme in db formatted as an html <option>
+     * See Formatter class for more information
+     */
     public function getMainThemes()
     {
         $themes = $this->theme->getAll();
@@ -496,6 +691,15 @@ class Ajax extends CI_Controller
         echo $result;
     }
 
+    /**
+     * Return on stdout the theme list that the given book id belong to
+     * @param string $bookid The book to search
+     * the result is formatted as :
+     * array(
+     *    'main'=>'', Representing the main theme
+     *    'secondary'=>array(...), Representing the secondary theme
+     * )
+     */
     public function getBookThemes(string $bookid)
     {
         $result = array('main'=>null,'secondary'=>array());
@@ -513,6 +717,15 @@ class Ajax extends CI_Controller
         echo json_encode($result);
     }
 
+    /**
+     * Return on stdout if the given theme has been added
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'nom'=>'', The theme name
+     *          'file'=>['true'|'false'] Representing if a theme cover has to be saved or not
+     *      )
+     * The file is save at /assets/img/pastille_theme
+     */
     public function addTheme()
     {
         if (isset($_POST['nom'])){
@@ -530,6 +743,16 @@ class Ajax extends CI_Controller
         }
     }
 
+    /**
+     * Return on stdout every book corresponding to the given filter
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'filter'=>'', ['all'|'titre'|'auteur'|'edition'] If 'all' all the books are returned else the second field is used
+     *          'data'=>'' The keyword to search if filter is != 'all'
+     *      )
+     * Book are formated as an html <tr> with checkbox
+     * See Formatter class for more information
+     */
     public function filterBook()
     {
         if (isset($_POST['filter']) && isset($_POST['data'])){
@@ -552,6 +775,15 @@ class Ajax extends CI_Controller
 
     }
 
+    /**
+     * Return on stdout if the given if the given theme list has been has been added to the given book list
+     * Require POST parameters as :
+     * $_POST = array(
+     *          'themes'=>array(...) Some valid them ids
+     *          'books'=>array(...) Some valid book ids
+     *      )
+     * Each book is associated to each theme
+     */
     public function assignThemeToBook()
     {
         if (isset($_POST['books']) && isset($_POST['themes'])){
@@ -567,6 +799,10 @@ class Ajax extends CI_Controller
 
     // ************ Other functions
 
+    /**
+     * Return on stdout the whole list of editor as a JSON array as :
+     * ['editorName1','editorName2'...]
+     */
     public function getEditors()
     {
         $result = [];
@@ -578,6 +814,10 @@ class Ajax extends CI_Controller
         echo json_encode($result);
     }
 
+    /**
+     * Return on stdout the whole list of author as a JSON array as :
+     * ['auhtorName1','authorName2'...]
+     */
     public function getAuthors()
     {
         $result = [];
@@ -591,6 +831,12 @@ class Ajax extends CI_Controller
 
     // ************ Private methods only used here
 
+    /**
+     * Get the file from the given url and put it at BOOK_PATH/lastdownload.?
+     * @param string $url
+     * @param $ext
+     * @return bool
+     */
     private function getBookCoverFromUrl(string $url, $ext): bool
     {
         $img = __DIR__.'/../../'.BOOK_PATH.'lastdownload'.$ext;
@@ -599,8 +845,8 @@ class Ajax extends CI_Controller
 
     /**
      * Resise the book at the given path to the size of 330x475
-     * @param string $book
-     * @return string
+     * @param string $book The path to the book to resize
+     * @return string Error log or 'success'
      */
     private function resize(string $book) : string
     {
@@ -612,39 +858,10 @@ class Ajax extends CI_Controller
         $config['height']   = BOOK_PIC_HEIGHT;
         $this->load->library('image_lib',$config);
 
-//        $this->image_lib->clear();
-//        $this->image_lib->initialize($config);
-
         if(!$this->image_lib->resize()){
-            //dump($this->image_lib);
             return $this->image_lib->display_errors('<p>', '</p>');
         }
-        return 'success';
-    }
-
-    /**
-     * Return a random chip name contained in the /assets/img/pastille_eleve folder accoding to the available chip in the classe
-     * @param string $classId The chip where to compare to the available chip list
-     * @return string A random chip name
-     */
-    public function getAleaPastille(string $classId): string
-    {
-        // On recupere les pastille utilisé pour la classe donnée
-        $usedPastilles = $this->eleve->getUsedPastilleFromClasse($classId);
-        // On recupere la liste de toutes les pastille dans le repertoire
-        $availablePastilles = scandir(__DIR__.'/../../assets/img/pastilles_eleve');
-        // On supprime les references au dossier courant '.' et au dossier parent '..'
-        $availablePastilles = array_diff($availablePastilles, array('.', '..'));
-
-        foreach ($availablePastilles as $currentKey => $currentValue) {
-            // Si une pastille est presente dans les pastille de la classe on la supprime des pastilles disponible
-            if (in_array(explode('.',$availablePastilles[$currentKey])[0],$usedPastilles)){
-                unset($availablePastilles[$currentKey]);
-            }
-        }
-        // On renvoie une pastille aléatoire dans notre liste des pastilles disponibles
-        $i = array_rand($availablePastilles,1);
-        return explode('.',$availablePastilles[$i])[0];
+        return self::SUCCESS;
     }
 
     /**

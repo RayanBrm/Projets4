@@ -71,7 +71,7 @@ class Livre_model extends CI_Model
 
     public function getTheme($id_theme) : ?array
     {
-        return $this->bd->select()
+        return $this->db->select()
                         ->from('LivreTheme')
                         ->like('id_theme',$id_theme)
                         ->get()
