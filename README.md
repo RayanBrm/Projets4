@@ -10,6 +10,8 @@ Pour une installation sur Windows, utilisez [WAMP](http://www.wampserver.com), l
 
 Configuration d'un vhost pour CodeIgniter : 
 
+__Attention sur Windows a modifier TOUS les path avec "${INSTALL_DIR}/www"__
+
 ```apacheconfig
 <VirtualHost *:80>
         # Votre fqdn ou pour des addresse plus propre
@@ -18,6 +20,8 @@ Configuration d'un vhost pour CodeIgniter :
         ServerAdmin guillaume@localhost
         # Mettez votre path vers le projet
         DocumentRoot /var/www/html/Projets4/
+        # Path Windows :
+        # DocumentRoot "${INSTALL_DIR}/www/ProjetS4/"
         # Defini les regle pour le repertoire racine du site, évite un .htaccess
         # Remplacer par votre path vers le projet
         <Directory /var/www/html/Projets4>
@@ -86,3 +90,32 @@ $db['default'] = array(
 ```
 
 Redemarrez votre serveur, et enjoy ;)
+
+###Probleme connu : 
+
+* Erreur CodeIgniter type : 
+
+```
+    A Database Error Occurred
+    
+    Error Number: 42000/1064
+    
+    Erreur de syntaxe près de '-8, 8' à la ligne 4
+    
+    SELECT * FROM `Livre` ORDER BY `titre` ASC LIMIT -8, 8
+    
+    Filename: E:/Serveur/WAMP/wamp64/www/Projets4/system/database/DB_driver.php
+    
+    Line Number: 691
+```
+
+Ajouter un livre en base de donnée et le probleme devrais etre reglé
+
+* Not found type
+
+```
+    Not Found
+    The requested URL /connexion was not found on this server.
+```
+
+Sureement une erreur de path dans la conf apache
